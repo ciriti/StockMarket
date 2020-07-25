@@ -1,13 +1,14 @@
 package com.example.stockmarket.ui.stockprice
 
 import androidx.annotation.StringRes
+import arrow.core.Either
 import arrow.core.Left
 import arrow.core.Right
 import com.example.stockmarket.data.StockInfo
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-fun StockInfo.toUiModel() = check<Throwable, StockInfoUi> {
+fun StockInfo.toUiModel(): Either<Throwable, StockInfoUi> = check {
     StockInfoUi(
         isin = isin,
         price = price.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
@@ -19,8 +20,8 @@ data class StockInfoUi(
     val price: BigDecimal
 )
 
-fun <L, R> check(block: () -> R) = try {
-    Right(block)
+fun <R> check(block: () -> R) = try {
+    Right(block())
 } catch (t: Throwable) {
     Left(t)
 }

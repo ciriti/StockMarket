@@ -1,20 +1,14 @@
 package com.example.stockmarket
 
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
-import com.example.stockmarket.data.*
 import com.example.stockmarket.ui.stockprice.StockPriceViewModel
 import kotlinx.android.synthetic.main.activity_main.*
-import kotlinx.coroutines.MainScope
-import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
 
-    val scope = MainScope()
-
-    private val scarlet by inject<StockService>()
     private val vm by viewModel<StockPriceViewModel>()
 
 

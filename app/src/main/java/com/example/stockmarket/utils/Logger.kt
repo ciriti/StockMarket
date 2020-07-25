@@ -4,7 +4,7 @@ import android.util.Log
 
 interface Logger {
     fun i(tag: String, mess: String)
-    fun e(tag: String, mess: String)
+    fun e(tag: String, mess: String, throwable: Throwable)
     fun v(tag: String, mess: String)
     fun d(tag: String, mess: String)
 
@@ -19,7 +19,7 @@ private class DebugLogger : Logger {
         Log.i(tag, mess)
     }
 
-    override fun e(tag: String, mess: String) {
+    override fun e(tag: String, mess: String, throwable: Throwable) {
         Log.e(tag, mess)
     }
 
@@ -37,7 +37,7 @@ private class ProductionLogger : Logger {
         /** your production logger */
     }
 
-    override fun e(tag: String, mess: String) {
+    override fun e(tag: String, mess: String, throwable: Throwable) {
         /** your production logger */
     }
 

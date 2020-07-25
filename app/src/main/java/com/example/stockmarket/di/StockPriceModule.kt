@@ -23,7 +23,8 @@ val stockPriceModule = module {
     viewModel<StockPriceViewModel> {
         StockPriceViewModel(
             service = get<StockService>(),
-            errorHandler = { throwable -> R.string.error } // in a real situation this function would be different
+            errorHandler = { throwable -> R.string.error }, // in a real situation this function would be different
+            logger = get<Logger>()
         )
     }
 

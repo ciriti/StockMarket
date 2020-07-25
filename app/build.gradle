@@ -37,6 +37,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation Libs.kotlin_stdlib_jdk7
+    implementation Libs.kotlin_reflect
     implementation Libs.appcompat
     implementation Libs.core_ktx
     implementation Libs.constraintlayout
@@ -56,13 +57,11 @@ dependencies {
     implementation Libs.scarlet_message_adapter_moshi
     implementation Libs.scarlet_lifecycle_android
 
-    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-alpha06"
-    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha06"
-
-    implementation Libs.kotlin_reflect
+    implementation Libs.lifecycle_viewmodel
+    implementation Libs.lifecycle_runtime_ktx
 
     testImplementation 'junit:junit:4.13'
-    testImplementation "io.mockk:mockk:$mockk_version"
+    testImplementation "io.mockk:mockk:1.10.0"
     testImplementation 'android.arch.core:core-testing:1.1.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'

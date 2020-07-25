@@ -52,6 +52,10 @@ object Versions {
 
     const val scarlet: String = "0.1.10"
 
+    const val lifecycle_viewmodel: String = "2.3.0-alpha06"
+
+    const val lifecycle_runtime_ktx: String = "2.3.0-alpha06"
+
     /**
      *
      *   To update Gradle, edit the wrapper file at path:

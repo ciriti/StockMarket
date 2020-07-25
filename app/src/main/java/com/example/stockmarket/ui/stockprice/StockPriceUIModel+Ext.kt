@@ -5,19 +5,18 @@ import arrow.core.Either
 import arrow.core.Left
 import arrow.core.Right
 import com.example.stockmarket.data.StockInfo
-import java.math.BigDecimal
 import java.math.RoundingMode
 
 fun StockInfo.toUiModel(): Either<Throwable, StockInfoUi> = check {
     StockInfoUi(
         isin = isin,
-        price = price.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+        price = price.toBigDecimal().setScale(2, RoundingMode.HALF_UP).toString()
     )
 }
 
 data class StockInfoUi(
     val isin: String,
-    val price: BigDecimal
+    var price: String
 )
 
 fun <R> check(block: () -> R) = try {
@@ -27,6 +26,6 @@ fun <R> check(block: () -> R) = try {
 }
 
 sealed class BaseState {
-    data class StateSuccess(val uiStockModel : StockInfoUi) : BaseState()
+    data class StateSuccess(val uiStockModel: StockInfoUi) : BaseState()
     data class StateError(@StringRes val errorMessage: Int) : BaseState()
 }

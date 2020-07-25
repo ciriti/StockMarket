@@ -7,8 +7,8 @@ import androidx.lifecycle.viewModelScope
 import com.example.stockmarket.data.StockService
 import com.example.stockmarket.data.SubscribeCommand
 import com.example.stockmarket.data.UnSubscribeCommand
+import com.example.stockmarket.data.stockList
 import com.example.stockmarket.utils.Logger
-import com.example.stockmarket.utils.stockList
 import com.tinder.scarlet.WebSocket
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

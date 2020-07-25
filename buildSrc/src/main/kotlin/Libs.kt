@@ -134,6 +134,10 @@ object Libs {
 
     const val scarlet_message_adapter_moshi: String = "com.tinder.scarlet:message-adapter-moshi:" + Versions.scarlet
 
+    const val lifecycle_viewmodel: String = "androidx.lifecycle:lifecycle-viewmodel-ktx:" + Versions.lifecycle_viewmodel
+
+    const val lifecycle_runtime_ktx: String = "androidx.lifecycle:lifecycle-runtime-ktx:" + Versions.lifecycle_runtime_ktx
+
 }
 
 

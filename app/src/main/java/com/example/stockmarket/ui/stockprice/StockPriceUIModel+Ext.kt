@@ -7,13 +7,11 @@ import com.example.stockmarket.data.StockInfo
 import java.math.BigDecimal
 import java.math.RoundingMode
 
-fun StockInfo.toUiModel() {
-    check<Throwable, StockInfoUi> {
-        StockInfoUi(
-            isin = isin,
-            price = price.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
-        )
-    }
+fun StockInfo.toUiModel() = check<Throwable, StockInfoUi> {
+    StockInfoUi(
+        isin = isin,
+        price = price.toBigDecimal().setScale(2, RoundingMode.HALF_UP)
+    )
 }
 
 data class StockInfoUi(

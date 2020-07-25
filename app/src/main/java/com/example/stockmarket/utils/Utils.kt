@@ -1,6 +1,6 @@
 package com.example.stockmarket.utils
 
-val stocksList = listOf(
+val stockList = listOf(
     "Apple",
     "Tesla",
     "Xiaomi",

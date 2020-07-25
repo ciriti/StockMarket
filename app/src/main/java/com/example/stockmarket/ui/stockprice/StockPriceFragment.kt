@@ -48,7 +48,6 @@ class StockPriceFragment : Fragment() {
             /** Error handling not specified */
         }
         is BaseState.StateSuccess -> {
-            println("porcodio " + state.uiStockModel)
             adapter.updateStock(state.uiStockModel)
         }
     }

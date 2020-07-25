@@ -21,6 +21,7 @@ import kotlinx.coroutines.reactive.consumeEach
 import kotlinx.coroutines.withContext
 import okhttp3.Dispatcher
 import okhttp3.OkHttpClient
+import org.koin.android.ext.android.inject
 import java.util.concurrent.TimeUnit
 
 class MainActivity : AppCompatActivity() {
@@ -29,26 +30,28 @@ class MainActivity : AppCompatActivity() {
 
     val scope = MainScope()
 
+    private val scarlet by inject<StockService>()
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
 
-        val lifecycle = AndroidLifecycle.ofApplicationForeground(application)
-
-        val okHttpClient = OkHttpClient.Builder()
-            .writeTimeout(500, TimeUnit.MILLISECONDS)
-            .readTimeout(500, TimeUnit.MILLISECONDS)
-            .build()
-
-        val scarlet = Scarlet.Builder()
-            .webSocketFactory(okHttpClient.newWebSocketFactory(SOCKET_URL))
-            .addMessageAdapterFactory(MoshiMessageAdapter.Factory())
-            .addStreamAdapterFactory(CoroutinesStreamAdapterFactory())
-            .backoffStrategy(ExponentialWithJitterBackoffStrategy(5000, 5000))
-            .lifecycle(lifecycle)
-            .build()
-            .create<StockService>()
+//        val lifecycle = AndroidLifecycle.ofApplicationForeground(application)
+//
+//        val okHttpClient = OkHttpClient.Builder()
+//            .writeTimeout(500, TimeUnit.MILLISECONDS)
+//            .readTimeout(500, TimeUnit.MILLISECONDS)
+//            .build()
+//
+//        val scarlet = Scarlet.Builder()
+//            .webSocketFactory(okHttpClient.newWebSocketFactory(SOCKET_URL))
+//            .addMessageAdapterFactory(MoshiMessageAdapter.Factory())
+//            .addStreamAdapterFactory(CoroutinesStreamAdapterFactory())
+//            .backoffStrategy(ExponentialWithJitterBackoffStrategy(5000, 5000))
+//            .lifecycle(lifecycle)
+//            .build()
+//            .create<StockService>()
 
         scope.launch {
             scarlet.observeWebSocketEvent().consumeEach { event ->

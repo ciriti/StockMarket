@@ -32,7 +32,7 @@ class StockPriceViewModelTest {
 
         val eventList = mutableListOf<BaseState>()
 
-        val vm = StockPriceViewModel(
+        val sut = StockPriceViewModel(
             service = StockServiceStub(channel, StockServiceStub.eventList),
             logger = Logger.debugLogger(),
             errorHandler = { R.string.error },
@@ -41,10 +41,10 @@ class StockPriceViewModelTest {
         )
 
         /** collect the events to the ui */
-        vm.liveData.observeForever { eventList.add(it) }
+        sut.liveData.observeForever { eventList.add(it) }
 
         /** trigger the updates */
-        vm.subscribeAll()
+        sut.subscribeAll()
 
         /** send the update */
         channel.send(StockInfo("Apple", 10.001))
@@ -63,7 +63,7 @@ class StockPriceViewModelTest {
 
         val eventList = mutableListOf<BaseState>()
 
-        val vm = StockPriceViewModel(
+        val sut = StockPriceViewModel(
             service = StockServiceStub(channel, StockServiceStub.errorEventList),
             logger = Logger.debugLogger(),
             errorHandler = { R.string.error },
@@ -72,10 +72,10 @@ class StockPriceViewModelTest {
         )
 
         /** collect the events to the ui */
-        vm.liveData.observeForever { eventList.add(it) }
+        sut.liveData.observeForever { eventList.add(it) }
 
         /** trigger the updates */
-        vm.subscribeAll()
+        sut.subscribeAll()
 
         /** send the update */
         channel.send(StockInfo("Apple", 10.001))

@@ -9,7 +9,7 @@ import kotlinx.coroutines.asCoroutineDispatcher
 import java.util.concurrent.Executors
 import kotlin.coroutines.CoroutineContext
 
-class StockAdapter(private val scope: CoroutineScope) : RecyclerView.Adapter<StockAdapter.ViewHolder() {
+class StockAdapter(private val scope: CoroutineScope) : RecyclerView.Adapter<StockAdapter.ViewHolder>() {
 
     private val workerDispatcher: CoroutineContext by lazy {
         Executors.newSingleThreadExecutor().asCoroutineDispatcher()
@@ -29,7 +29,7 @@ class StockAdapter(private val scope: CoroutineScope) : RecyclerView.Adapter<Sto
 
     class ViewHolder(
         val view: View,
-        var item: StockInfoUi,
+        var item: StockInfoUi
     ) : RecyclerView.ViewHolder(view) {
 
     }

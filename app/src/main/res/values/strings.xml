@@ -1,4 +1,5 @@
 <resources>
-    <string name="app_name">StockMarket</string>
+    <string name="app_name">Trade Republic</string>
     <string name="error">Some error occurred</string>
+    <string name="stock_price">%$s €</string>
 </resources>

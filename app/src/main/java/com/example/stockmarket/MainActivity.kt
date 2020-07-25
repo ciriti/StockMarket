@@ -3,8 +3,9 @@ package com.example.stockmarket
 import android.os.Bundle
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
+import com.example.stockmarket.core.init
+import com.example.stockmarket.ui.stockprice.StockPriceFragment
 import com.example.stockmarket.ui.stockprice.StockPriceViewModel
-import kotlinx.android.synthetic.main.activity_main.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class MainActivity : AppCompatActivity() {
@@ -15,6 +16,7 @@ class MainActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_main)
+        savedInstanceState ?: init(R.id.fragmentContainer, StockPriceFragment())
 
 //        scope.launch {
 //            scarlet.observeWebSocketEvent().consumeEach { event ->
@@ -39,14 +41,9 @@ class MainActivity : AppCompatActivity() {
         vm.subscribeAll()
 
 
-        tv.setOnClickListener {
-            vm.unSubscribeAll()
-        }
-
-    }
-
-    override fun onDestroy() {
-        super.onDestroy()
+//        tv.setOnClickListener {
+//            vm.unSubscribeAll()
+//        }
 
     }
 }

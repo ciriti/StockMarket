@@ -8,10 +8,10 @@ import kotlinx.coroutines.channels.ReceiveChannel
 
 interface StockService {
     @Send
-    fun subscribe(command: SubscribeAction)
+    fun subscribe(command: SubscribeCommand)
 
     @Send
-    fun unSubscribe(command: UnSubscribe)
+    fun unSubscribe(command: UnSubscribeCommand)
 
     @Receive
     fun observeStock(): ReceiveChannel<StockInfo>
@@ -20,19 +20,14 @@ interface StockService {
     fun observeWebSocketEvent(): Stream<WebSocket.Event>
 }
 
-
-interface Command{
-    val stockId : String
-}
-
 data class StockInfo(
     val isin: String,
     val price: Double
 )
 
-data class SubscribeAction(
+data class SubscribeCommand(
     val subscribe: String
 )
-data class UnSubscribe(
-    val subscribe: String
+data class UnSubscribeCommand(
+    val unsubscribe: String
 )

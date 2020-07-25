@@ -43,6 +43,8 @@ dependencies {
     implementation Libs.kotlinx_coroutines_android
     implementation Libs.material
 
+    implementation Libs.arrow_core
+
     // di
     implementation Libs.koin_core
     implementation Libs.koin_android_viewmodel
@@ -53,6 +55,9 @@ dependencies {
     implementation Libs.scarlet_stream_adapter_coroutines
     implementation Libs.scarlet_message_adapter_moshi
     implementation Libs.scarlet_lifecycle_android
+
+    implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.3.0-alpha06"
+    implementation "androidx.lifecycle:lifecycle-runtime-ktx:2.3.0-alpha06"
 
     implementation Libs.kotlin_reflect
 

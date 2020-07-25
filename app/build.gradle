@@ -1,15 +1,16 @@
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
+apply plugin: 'kotlin-kapt'
 
 android {
-    compileSdkVersion 30
-    buildToolsVersion "30.0.1"
+    compileSdkVersion 29
+    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.example.stockmarket"
-        minSdkVersion 16
-        targetSdkVersion 30
+        minSdkVersion 23
+        targetSdkVersion 29
         versionCode 1
         versionName "1.0"
 
@@ -17,21 +18,51 @@ android {
     }
 
     buildTypes {
+        debug {
+            buildConfigField "String", "SOCKET_URL", '"ws://159.89.15.214:8080/"'
+        }
         release {
+            buildConfigField "String", "SOCKET_URL", '"ws://159.89.15.214:8080/"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
         }
     }
+
+    kotlinOptions {
+        jvmTarget = "1.8"
+    }
 }
 
 dependencies {
-    implementation fileTree(dir: "libs", include: ["*.jar"])
-    implementation "org.jetbrains.kotlin:kotlin-stdlib:$kotlin_version"
-    implementation 'androidx.core:core-ktx:1.1.0'
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
-    testImplementation 'junit:junit:4.12'
+    implementation fileTree(dir: 'libs', include: ['*.jar'])
+
+    implementation Libs.kotlin_stdlib_jdk7
+    implementation Libs.kotlin_reflect
+    implementation Libs.appcompat
+    implementation Libs.core_ktx
+    implementation Libs.constraintlayout
+    implementation Libs.kotlinx_coroutines_android
+    implementation Libs.material
+
+    implementation Libs.arrow_core
+
+    // di
+    implementation Libs.koin_core
+    implementation Libs.koin_android_viewmodel
+
+    // web socket
+    implementation Libs.scarlet
+    implementation Libs.scarlet_websocket_okhttp
+    implementation Libs.scarlet_stream_adapter_coroutines
+    implementation Libs.scarlet_message_adapter_moshi
+    implementation Libs.scarlet_lifecycle_android
+
+    implementation Libs.lifecycle_viewmodel
+    implementation Libs.lifecycle_runtime_ktx
+
+    testImplementation 'junit:junit:4.13'
+    testImplementation "io.mockk:mockk:1.10.0"
+    testImplementation 'android.arch.core:core-testing:1.1.1'
     androidTestImplementation 'androidx.test.ext:junit:1.1.1'
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.2.0'
-
 }

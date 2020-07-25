@@ -1,0 +1,24 @@
+dependencies {
+    // kotlin
+    implementation Libs.kotlinx_coroutines_android
+
+    implementation Libs.core_ktx
+    implementation Libs.appcompat
+    implementation Libs.constraintlayout
+
+    // retrofit
+    implementation Libs.retrofit
+    implementation Libs.converter_gson
+    implementation Libs.logging_interceptor
+    implementation Libs.okhttp
+
+    // ws client
+    implementation Libs.scarlet
+    implementation Libs.scarlet_websocket_okhttp
+    implementation Libs.scarlet_stream_adapter_coroutines
+    implementation Libs.scarlet_lifecycle_android
+    implementation Libs.scarlet_message_adapter_moshi
+
+    // arrow
+    implementation Libs.arrow_core
+}

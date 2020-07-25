@@ -4,6 +4,7 @@ import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
+import com.example.stockmarket.R
 import com.example.stockmarket.data.StockService
 import com.example.stockmarket.data.SubscribeCommand
 import com.example.stockmarket.data.UnSubscribeCommand
@@ -48,6 +49,8 @@ class StockPriceViewModel(
                                 { ifRight -> mutableLiveData.postValue(BaseState.StateSuccess(ifRight)) }
                             )
                         }
+                        /** TODO find a better default case */
+                        else -> mutableLiveData.postValue(BaseState.StateError(R.string.error))
                     }
                 }
             }

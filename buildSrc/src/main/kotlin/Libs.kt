@@ -126,6 +126,12 @@ object Libs {
 
     const val scarlet: String = "com.tinder.scarlet:scarlet:" + Versions.scarlet
 
+    const val scarlet_test_utils: String = "com.tinder.scarlet:test-utils:" + Versions.scarlet
+
+    const val scarlet_websocket_mockwebserver: String = "com.tinder.scarlet:websocket-mockwebserver:" + Versions.scarlet
+
+    const val scarlet_websocket_scarlet_core_internal: String = "com.tinder.scarlet:scarlet-core-internal:" + Versions.scarlet
+
     const val scarlet_websocket_okhttp: String = "com.tinder.scarlet:websocket-okhttp:" + Versions.scarlet
 
     const val scarlet_stream_adapter_coroutines: String = "com.tinder.scarlet:stream-adapter-coroutines:" + Versions.scarlet

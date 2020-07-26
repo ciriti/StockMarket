@@ -9,7 +9,7 @@ android {
 
     defaultConfig {
         applicationId "com.example.stockmarket"
-        minSdkVersion 26
+        minSdkVersion 23
         targetSdkVersion 29
         versionCode 1
         versionName "1.0"
@@ -60,7 +60,6 @@ dependencies {
     implementation Libs.lifecycle_viewmodel
     implementation Libs.lifecycle_runtime_ktx
 
-    androidTestImplementation Libs.mockk_android
     androidTestImplementation Libs.koin_test
     androidTestImplementation Libs.androidx_test_ext_junit
 
@@ -69,7 +68,6 @@ dependencies {
     androidTestImplementation Libs.espresso_core
     androidTestImplementation Libs.espresso_contrib
     androidTestImplementation Libs.scarlet_websocket_scarlet_core_internal
-    androidTestImplementation Libs.mockk
 
     testImplementation Libs.kotlinx_coroutines_test
     testImplementation Libs.scarlet_websocket_scarlet_core_internal

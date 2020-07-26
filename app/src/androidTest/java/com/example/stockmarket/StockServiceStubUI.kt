@@ -13,7 +13,7 @@ import io.reactivex.Observable
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.channels.ReceiveChannel
 
-class StockServiceStub(
+class StockServiceStubUI(
     private val channel: Channel<StockInfo>,
     private val eventList: List<WebSocket.Event>
 ) : StockService {
@@ -29,6 +29,13 @@ class StockServiceStub(
         """.trimIndent()
         val eventList = listOf<WebSocket.Event>(
             WebSocket.Event.OnConnectionOpened(""),
+            WebSocket.Event.OnMessageReceived(Message.Text(message)),
+            WebSocket.Event.OnMessageReceived(Message.Text(message)),
+            WebSocket.Event.OnMessageReceived(Message.Text(message)),
+            WebSocket.Event.OnMessageReceived(Message.Text(message)),
+            WebSocket.Event.OnMessageReceived(Message.Text(message)),
+            WebSocket.Event.OnMessageReceived(Message.Text(message)),
+            WebSocket.Event.OnMessageReceived(Message.Text(message)),
             WebSocket.Event.OnMessageReceived(Message.Text(message))
         )
         val errorEventList = listOf<WebSocket.Event>(

@@ -17,6 +17,10 @@ object Versions {
 
     const val espresso_core: String = "3.2.0"
 
+    const val androidx_test: String = "1.2.0"
+
+    const val androidx_test_espresso: String = "3.2.0"
+
     const val androidx_test_ext_junit: String = "1.1.0" //available: "1.1.1"
 
     const val material: String = "1.1.0"
@@ -30,7 +34,7 @@ object Versions {
     const val arrow_core: String =
         "0.10.4" // No update information. Is this dependency available on jcenter or mavenCentral?
 
-    const val io_mockk: String = "1.9.2" //available: "1.9.3"
+    const val io_mockk: String = "1.10.0" //available: "1.9.3"
 
     const val jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin: String = "0.2.6"
 

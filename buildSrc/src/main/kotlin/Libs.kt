@@ -12,6 +12,10 @@ object Libs {
     const val core_testing: String = "android.arch.core:core-testing:" + Versions.core_testing
 
     /**
+     * [core-testing website](https://developer.android.com/topic/libraries/architecture/index.html) */
+    const val kotlinx_coroutines_test: String = "org.jetbrains.kotlinx:kotlinx-coroutines-test:" + Versions.kotlinx_coroutines_android
+
+    /**
      * [extensions website](https://developer.android.com/topic/libraries/architecture/index.html) */
     const val android_arch_lifecycle_extensions: String =
             "android.arch.lifecycle:extensions:" + Versions.android_arch_lifecycle_extensions
@@ -33,6 +37,20 @@ object Libs {
      * [espresso-core website](https://developer.android.com/testing) */
     const val espresso_core: String =
             "androidx.test.espresso:espresso-core:" + Versions.espresso_core
+
+    /**
+     * [rules website](https://developer.android.com/testing) */
+    const val androidx_test_rules: String = "androidx.test:rules:" + Versions.androidx_test
+
+    /**
+     * [runner website](https://developer.android.com/testing) */
+    const val androidx_test_runner: String = "androidx.test:runner:" + Versions.androidx_test
+
+
+    /**
+     * [espresso-contrib website](https://developer.android.com/testing) */
+    const val espresso_contrib: String =
+        "androidx.test.espresso:espresso-contrib:" + Versions.androidx_test_espresso
 
     /**
      * [junit website](https://developer.android.com/testing) */

@@ -46,7 +46,10 @@ class StockPriceViewModel(
                                      */
                                     mutableLiveData.postValue(BaseState.StateError(errorHandler(throwable)))
                                 },
-                                { ifRight -> mutableLiveData.postValue(BaseState.StateSuccess(ifRight)) }
+                                { ifRight ->
+                                    println("ViewModel obj $ifRight")
+                                    mutableLiveData.postValue(BaseState.StateSuccess(ifRight))
+                                }
                             )
                         }
                         /** TODO find a better default case */

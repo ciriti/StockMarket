@@ -3,39 +3,56 @@ package com.example.stockmarket
 import android.content.Intent
 import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
+import arrow.core.Either
 import com.example.stockmarket.data.StockInfo
+import com.example.stockmarket.data.WebSocketService
 import com.example.stockmarket.ui.stockprice.StockPriceViewModel
 import com.example.stockmarket.ui.stockprice.StockPriceViewModel2
 import com.example.stockmarket.utils.Logger
 import com.example.stockmarket.utils.debugLogger
+import io.mockk.MockKAnnotations
+import io.mockk.coEvery
+import io.mockk.impl.annotations.MockK
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.runBlocking
+import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 import org.junit.runner.RunWith
 import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
+import org.koin.test.KoinTest
 
 @RunWith(AndroidJUnit4::class)
-class StockPriceFragment2Test {
+class StockPriceFragment2Test : KoinTest {
 
     @get:Rule
     val activityRule = ActivityTestRule(MainActivity::class.java, false, false)
 
     private val channel by lazy { Channel<StockInfo>() }
 
+    @MockK lateinit var mockService : WebSocketService
+
     // Koin mock module, only the StockPriceViewModel
     val mockModule = module(override = true) {
         // viewmodel
         viewModel(override = true) {
             StockPriceViewModel2(
-                service = WebSocketServiceStub(channel.receiveAsFlow()),
+                service = mockService,//WebSocketServiceStub(channel.receiveAsFlow()),
                 logger = Logger.debugLogger(),
                 errorHandler = { R.string.error }
             )
         }
+    }
+
+
+    @Before
+    fun setup() {
+        /** mocked variable */
+        MockKAnnotations.init(this, relaxUnitFun = true)
+        coEvery { mockService.flowFrom() } returns channel.receiveAsFlow()
     }
 
     @Test
@@ -60,6 +77,18 @@ class StockPriceFragment2Test {
             .verifyPrice("15.00 €", 5)
             .also { channel.send(StockInfo("Core Dax", 16.001)) }
             .verifyPrice("16.00 €", 6)
+    }
+
+    @Test(expected = RuntimeException::class)
+    fun apple_price_is_wrong_and_this_test_fails() = runBlocking<Unit> {
+        // 1. replace the module
+        loadKoinModules(mockModule)
+        // 2. start activity
+        activityRule.launchActivity(Intent())
+
+        StockPriceRobot()
+            .also { channel.send(StockInfo("Apple", 10.001)) }
+            .verifyPrice("20.00 €", 0)
     }
 
 }

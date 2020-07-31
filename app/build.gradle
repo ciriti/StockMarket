@@ -75,6 +75,7 @@ dependencies {
     androidTestImplementation Libs.espresso_core
     androidTestImplementation Libs.espresso_contrib
     androidTestImplementation Libs.scarlet_websocket_scarlet_core_internal
+    androidTestImplementation Libs.mockk_android
 
     testImplementation Libs.kotlinx_coroutines_test
     testImplementation Libs.scarlet_websocket_scarlet_core_internal

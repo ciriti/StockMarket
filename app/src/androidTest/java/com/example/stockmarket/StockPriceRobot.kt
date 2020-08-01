@@ -1,5 +1,6 @@
 package com.example.stockmarket
 
+import android.app.Activity
 import androidx.test.espresso.Espresso
 import androidx.test.espresso.action.ViewActions
 import androidx.test.espresso.assertion.ViewAssertions
@@ -42,11 +43,11 @@ class StockPriceRobot {
         }
     }
 
-    suspend fun checkToastContent(text: String, activityTestRule: ActivityTestRule<MainActivity>): StockPriceRobot = apply {
+    suspend fun checkToastContent(text: String, activity : Activity): StockPriceRobot = apply {
             Espresso.onView(
                 ViewMatchers.withText(text)
             )
-                .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.`is`(activityTestRule.activity.window.decorView))))
+                .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.`is`(activity.window.decorView))))
                 .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 

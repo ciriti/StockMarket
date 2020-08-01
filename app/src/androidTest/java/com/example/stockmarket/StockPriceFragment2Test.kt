@@ -31,7 +31,7 @@ import org.koin.test.KoinTest
 class StockPriceFragment2Test : KoinTest {
 
     @get:Rule
-    val activityRule = ActivityTestRule(MainActivity::class.java, false, false)
+    val activityRule = ActivityTestRule(MainActivity2::class.java, false, false)
 
     private val channel by lazy { Channel<StockInfo>() }
 
@@ -105,7 +105,7 @@ class StockPriceFragment2Test : KoinTest {
 
         StockPriceRobot()
             .clickListItem(9)
-            .checkToastContent(StockInfoUi("Alphabet A", "-").toString(), activityRule)
+            .checkToastContent(StockInfoUi("Alphabet A", "-").toString(), activityRule.activity)
     }
 
     @Test(expected = NoMatchingViewException::class)
@@ -117,7 +117,7 @@ class StockPriceFragment2Test : KoinTest {
 
         StockPriceRobot()
             .clickListItem(9)
-            .checkToastContent("hkjgasdfl", activityRule)
+            .checkToastContent("hkjgasdfl", activityRule.activity)
     }
 
 }

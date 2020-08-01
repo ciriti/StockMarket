@@ -14,6 +14,8 @@ import kotlin.coroutines.CoroutineContext
 class StockAdapter(stocks: List<String> = stockList) :
     RecyclerView.Adapter<StockAdapter.ViewHolder>() {
 
+    private var onItemClickListener : ((StockInfoUi) -> Unit)? = null
+
     private val list: List<StockInfoUi> = stocks.map { StockInfoUi(isin = it, price = "-") }
     private val map: Map<String, Int> = list
         .mapIndexed { index, stockInfoUi -> (stockInfoUi.isin to index) }
@@ -26,7 +28,7 @@ class StockAdapter(stocks: List<String> = stockList) :
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): ViewHolder {
         val view = LayoutInflater.from(parent.context)
             .inflate(R.layout.item_list, parent, false)
-        return ViewHolder(view)
+        return ViewHolder(view, onItemClickListener)
     }
 
     override fun getItemCount(): Int = list.size
@@ -57,10 +59,20 @@ class StockAdapter(stocks: List<String> = stockList) :
     }
 
     class ViewHolder(
-        val view: View
+        val view: View,
+        var onItemClickListener : ((StockInfoUi) -> Unit)?
     ) : RecyclerView.ViewHolder(view) {
-        fun bind(item: StockInfoUi) = (view as? StockItem)?.bind(item)
+        fun bind(item: StockInfoUi) {
+            (view as? StockItem)?.apply {
+                bind(item)
+                setOnClickListener { onItemClickListener?.invoke(item) }
+            }
+        }
         fun update(item: StockInfoUi) = (view as? StockItem)?.updatePrice(item)
+    }
+
+    fun onItemClick(listener : ((StockInfoUi) -> Unit)){
+        onItemClickListener = listener
     }
 
 }

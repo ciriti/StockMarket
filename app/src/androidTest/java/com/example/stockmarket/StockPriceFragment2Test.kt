@@ -7,7 +7,7 @@ import androidx.test.rule.ActivityTestRule
 import com.example.stockmarket.data.StockInfo
 import com.example.stockmarket.data.WebSocketService
 import com.example.stockmarket.ui.stockprice.StockInfoUi
-import com.example.stockmarket.ui.stockprice.StockPriceViewModel2
+import com.example.stockmarket.ui.stockprice.StockPriceViewModelOkHttp
 import com.example.stockmarket.utils.Logger
 import com.example.stockmarket.utils.debugLogger
 import io.mockk.MockKAnnotations
@@ -42,7 +42,7 @@ class StockPriceFragment2Test : KoinTest {
     val mockModule = module(override = true) {
         // viewmodel
         viewModel(override = true) {
-            StockPriceViewModel2(
+            StockPriceViewModelOkHttp(
                 service = mockService,//WebSocketServiceStub(channel.receiveAsFlow()),
                 logger = Logger.debugLogger(),
                 errorHandler = { R.string.error }

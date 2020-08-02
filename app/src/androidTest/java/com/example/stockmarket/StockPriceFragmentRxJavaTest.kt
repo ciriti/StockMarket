@@ -6,23 +6,16 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.example.stockmarket.data.RxSocketService
 import com.example.stockmarket.data.StockInfo
-import com.example.stockmarket.data.WebSocketService
 import com.example.stockmarket.ui.stockprice.StockInfoUi
-import com.example.stockmarket.ui.stockprice.StockPriceViewModel2
 import com.example.stockmarket.ui.stockprice.StockPriceViewModelRxJava
 import com.example.stockmarket.utils.Logger
 import com.example.stockmarket.utils.debugLogger
 import com.tinder.scarlet.WebSocket
 import io.mockk.MockKAnnotations
-import io.mockk.coEvery
 import io.mockk.every
 import io.mockk.impl.annotations.MockK
 import io.reactivex.Flowable
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.delay
-import kotlinx.coroutines.flow.receiveAsFlow
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.withTimeout
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -31,7 +24,6 @@ import org.koin.android.viewmodel.dsl.viewModel
 import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 import org.koin.test.KoinTest
-import java.util.concurrent.TimeUnit
 
 
 @RunWith(AndroidJUnit4::class)

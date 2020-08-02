@@ -11,7 +11,7 @@ import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch
 import kotlin.coroutines.CoroutineContext
 
-class StockPriceViewModel2(
+class StockPriceViewModelOkHttp(
     private val service: WebSocketService,
     private val errorHandler: (Throwable) -> Int,
     private val logger: Logger,
@@ -29,7 +29,7 @@ class StockPriceViewModel2(
                     val stockUpdate = it.toUiModel()
                     stockUpdate.fold(
                         { throwable ->
-                            logger.e("${StockPriceViewModel2::class.simpleName}", "", throwable)
+                            logger.e("${StockPriceViewModelOkHttp::class.simpleName}", "", throwable)
                             /**
                              * process the exception type using the errorHandler fun
                              * and return a value to send the UI

@@ -1,7 +1,6 @@
 package com.example.stockmarket.ui.stockprice
 
 import android.os.Bundle
-import android.os.Handler
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -14,9 +13,9 @@ import com.example.stockmarket.ui.stockprice.uicomponent.StockAdapter
 import kotlinx.android.synthetic.main.fragment_stock_price.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class StockPriceFragment2 : Fragment() {
+class StockPriceFragmentOkHttp : Fragment() {
 
-    private val viewModel by viewModel<StockPriceViewModel2>()
+    private val viewModel by viewModel<StockPriceViewModelOkHttp>()
     private val adapter by lazy { StockAdapter().apply {
         onItemClick { Toast.makeText(context!!, "$it", Toast.LENGTH_SHORT).show() }
     } }

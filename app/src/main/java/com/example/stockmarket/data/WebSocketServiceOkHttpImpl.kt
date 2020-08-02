@@ -12,9 +12,9 @@ import okhttp3.*
 import okio.ByteString
 
 fun WebSocketService.Companion.crete(client: OkHttpClient) : WebSocketService =
-    WebSocketServiceImpl(client)
+    WebSocketServiceOkHttpImpl(client)
 
-class WebSocketServiceImpl(private val client: OkHttpClient) :
+class WebSocketServiceOkHttpImpl(private val client: OkHttpClient) :
     WebSocketService {
 
     private val converter by lazy { Gson() }

@@ -6,7 +6,7 @@ import com.example.stockmarket.data.StockService
 import com.example.stockmarket.data.WebSocketService
 import com.example.stockmarket.data.crete
 import com.example.stockmarket.ui.stockprice.StockPriceViewModel
-import com.example.stockmarket.ui.stockprice.StockPriceViewModel2
+import com.example.stockmarket.ui.stockprice.StockPriceViewModelOkHttp
 import com.example.stockmarket.ui.stockprice.StockPriceViewModelRxJava
 import com.example.stockmarket.utils.Logger
 import com.example.stockmarket.utils.debugLogger
@@ -40,8 +40,8 @@ val stockPriceModule = module {
         )
     }
 
-    viewModel<StockPriceViewModel2> {
-        StockPriceViewModel2(
+    viewModel<StockPriceViewModelOkHttp> {
+        StockPriceViewModelOkHttp(
             service = get(qualifier = named(Constants.WEB_SOCKET_SERVICE_IMPL)),
             errorHandler = { throwable -> R.string.error }, // in a real situation this function would be different
             logger = get<Logger>()

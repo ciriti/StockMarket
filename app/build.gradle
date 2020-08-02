@@ -67,8 +67,6 @@ dependencies {
 
     implementation Libs.lifecycle_viewmodel
     implementation Libs.lifecycle_runtime_ktx
-    implementation 'androidx.appcompat:appcompat:1.1.0'
-    implementation 'androidx.constraintlayout:constraintlayout:1.1.3'
 
     androidTestImplementation Libs.koin_test
     androidTestImplementation Libs.androidx_test_ext_junit

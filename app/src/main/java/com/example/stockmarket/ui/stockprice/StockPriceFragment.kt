@@ -31,6 +31,7 @@ class StockPriceFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        toolbar.title = "${getString(R.string.app_name)} - Scarlet"
         stock_list.layoutManager = LinearLayoutManager(context)
         stock_list.adapter = adapter
         viewModel.liveData.observe(viewLifecycleOwner, Observer { handleResponse(it) })

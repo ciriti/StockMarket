@@ -9,27 +9,28 @@ import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers
 import androidx.test.rule.ActivityTestRule
 import com.example.stockmarket.ui.stockprice.uicomponent.StockAdapter
+import org.hamcrest.CoreMatchers
 import org.hamcrest.Matchers
 
 class StockPriceRobot {
 
-//    suspend fun verifyPrice(price: String, position: Int): StockPriceRobot = apply {
-//        waitAndRetry("check $price at pos $position") {
-//            Espresso.onView(ViewMatchers.withId(R.id.stock_list))
-//                .check(
-//                    ViewAssertions.matches(
-//                        matchAtPositionInRecyclerView(
-//                            position, ViewMatchers.hasDescendant(
-//                                CoreMatchers.allOf(
-//                                    ViewMatchers.withId(R.id.price),
-//                                    ViewMatchers.withText(price)
-//                                )
-//                            )
-//                        )
-//                    )
-//                )
-//        }
-//    }
+    suspend fun verifyPrice2(price: String, position: Int): StockPriceRobot = apply {
+        waitAndRetry{
+            Espresso.onView(ViewMatchers.withId(R.id.stock_list))
+                .check(
+                    ViewAssertions.matches(
+                        matchAtPositionInRecyclerView(
+                            position, ViewMatchers.hasDescendant(
+                                CoreMatchers.allOf(
+                                    ViewMatchers.withId(R.id.price),
+                                    ViewMatchers.withText(price)
+                                )
+                            )
+                        )
+                    )
+                )
+        }
+    }
 
     suspend fun clickListItem(position: Int): StockPriceRobot = apply {
         waitAndRetry {

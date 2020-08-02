@@ -14,9 +14,9 @@ import com.example.stockmarket.ui.stockprice.uicomponent.StockAdapter
 import kotlinx.android.synthetic.main.fragment_stock_price.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
-class StockPriceFragment2 : Fragment() {
+class StockPriceFragmentRxJava : Fragment() {
 
-    private val viewModel by viewModel<StockPriceViewModel2>()
+    private val viewModel by viewModel<StockPriceViewModelRxJava>()
     private val adapter by lazy { StockAdapter().apply {
         onItemClick { Toast.makeText(context!!, "$it", Toast.LENGTH_SHORT).show() }
     } }
@@ -32,7 +32,7 @@ class StockPriceFragment2 : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbar.title = "${getString(R.string.app_name)} - OkHttp"
+        toolbar.title = "${getString(R.string.app_name)} - RxJava"
         stock_list.layoutManager = LinearLayoutManager(context)
         stock_list.adapter = adapter
         viewModel.liveData.observe(viewLifecycleOwner, Observer { handleResponse(it) })

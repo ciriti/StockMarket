@@ -1,17 +1,14 @@
-package com.example.stockmarket
+package com.example.stockmarket.ui.stockprice
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
+import com.example.stockmarket.*
 import com.example.stockmarket.data.StockInfo
-import com.example.stockmarket.ui.stockprice.BaseState
-import com.example.stockmarket.ui.stockprice.StockPriceViewModel
 import com.example.stockmarket.utils.Logger
 import com.example.stockmarket.utils.debugLogger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.runBlocking
-import kotlinx.coroutines.test.setMain
-import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
 
@@ -21,11 +18,11 @@ class StockPriceViewModelTest {
     @JvmField
     val rule = InstantTaskExecutorRule()
 
-    private val channel by lazy { Channel<StockInfo>() }
-
-    @Before
+    @get:Rule
     @ExperimentalCoroutinesApi
-    fun setUp() { Dispatchers.setMain(Dispatchers.Unconfined) }
+    val coroutineTestRule = CoroutineTestRule()
+
+    private val channel by lazy { Channel<StockInfo>() }
 
     @Test
     fun `send one update and receive a correct UI State`() = runBlocking<Unit> {
@@ -33,7 +30,10 @@ class StockPriceViewModelTest {
         val eventList = mutableListOf<BaseState>()
 
         val sut = StockPriceViewModel(
-            service = StockServiceStub(channel, StockServiceStub.eventList),
+            service = StockServiceStub(
+                channel,
+                StockServiceStub.eventList
+            ),
             logger = Logger.debugLogger(),
             errorHandler = { R.string.error },
             pStockList = listOf("Apple"),
@@ -64,7 +64,10 @@ class StockPriceViewModelTest {
         val eventList = mutableListOf<BaseState>()
 
         val sut = StockPriceViewModel(
-            service = StockServiceStub(channel, StockServiceStub.errorEventList),
+            service = StockServiceStub(
+                channel,
+                StockServiceStub.errorEventList
+            ),
             logger = Logger.debugLogger(),
             errorHandler = { R.string.error },
             pStockList = listOf("Apple"),

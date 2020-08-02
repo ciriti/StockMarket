@@ -154,6 +154,8 @@ object Libs {
 
     const val scarlet_stream_adapter_coroutines: String = "com.tinder.scarlet:stream-adapter-coroutines:" + Versions.scarlet
 
+    const val scarlet_stream_adapter_rxjava: String = "com.tinder.scarlet:stream-adapter-rxjava2:" + Versions.scarlet
+
     const val scarlet_lifecycle_android: String = "com.tinder.scarlet:lifecycle-android:" + Versions.scarlet
 
     const val scarlet_message_adapter_moshi: String = "com.tinder.scarlet:message-adapter-moshi:" + Versions.scarlet

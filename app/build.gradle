@@ -59,6 +59,7 @@ dependencies {
     implementation Libs.scarlet
     implementation Libs.scarlet_websocket_okhttp
     implementation Libs.scarlet_stream_adapter_coroutines
+    implementation Libs.scarlet_stream_adapter_rxjava
     implementation Libs.scarlet_message_adapter_moshi
     implementation Libs.scarlet_lifecycle_android
 
@@ -84,4 +85,10 @@ dependencies {
     testImplementation Libs.core_testing
     androidTestImplementation Libs.androidx_test_ext_junit
     androidTestImplementation Libs.espresso_core
+
+    //RXJava2
+    implementation group: 'io.reactivex.rxjava2', name: 'rxkotlin', version: '2.4.0'
+    implementation group: 'io.reactivex.rxjava2', name: 'rxandroid', version: '2.1.1'
+    implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.19'
+
 }

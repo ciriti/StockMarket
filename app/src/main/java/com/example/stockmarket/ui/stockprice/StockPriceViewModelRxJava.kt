@@ -3,20 +3,16 @@ package com.example.stockmarket.ui.stockprice
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import com.example.stockmarket.data.*
-import com.example.stockmarket.printThreadName
-import com.example.stockmarket.printThreadNameThis
+import com.example.stockmarket.data.RxSocketService
+import com.example.stockmarket.data.SubscribeCommand
+import com.example.stockmarket.data.UnSubscribeCommand
+import com.example.stockmarket.data.stockList
 import com.example.stockmarket.utils.Logger
+import com.example.stockmarket.utils.printThreadName
 import com.tinder.scarlet.WebSocket
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
-import io.reactivex.disposables.Disposable
 import io.reactivex.schedulers.Schedulers
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.flow.collect
-import kotlinx.coroutines.launch
-import kotlin.coroutines.CoroutineContext
 
 class StockPriceViewModelRxJava(
     private val service: RxSocketService,
@@ -36,15 +32,19 @@ class StockPriceViewModelRxJava(
             .observeOn(AndroidSchedulers.mainThread())
             .subscribe(
                 { event ->
-                    when(event){
+                    when (event) {
                         is WebSocket.Event.OnConnectionOpened<*> -> {
                             stockList.forEach { service.subscribe(SubscribeCommand(it)) }
                             getUpdate()
                         }
-                        is WebSocket.Event.OnConnectionFailed ->{}
-                        is WebSocket.Event.OnMessageReceived ->{}
-                        is WebSocket.Event.OnConnectionClosed ->{}
-                        is WebSocket.Event.OnConnectionClosing ->{}
+                        is WebSocket.Event.OnConnectionFailed -> {
+                        }
+                        is WebSocket.Event.OnMessageReceived -> {
+                        }
+                        is WebSocket.Event.OnConnectionClosed -> {
+                        }
+                        is WebSocket.Event.OnConnectionClosing -> {
+                        }
                     }
                 },
                 { throwable ->
@@ -53,11 +53,12 @@ class StockPriceViewModelRxJava(
                      * process the exception type using the errorHandler fun
                      * and return a value to send the UI
                      */
-                    mutableLiveData.postValue(BaseState.StateError(errorHandler(throwable))) }
+                    mutableLiveData.postValue(BaseState.StateError(errorHandler(throwable)))
+                }
             )
     }
 
-    private fun getUpdate(){
+    private fun getUpdate() {
         disposable + service
             .observeStock()
             .map { it.toUiModel() }
@@ -67,7 +68,11 @@ class StockPriceViewModelRxJava(
                 { stockInfo ->
                     stockInfo.fold(
                         { throwable ->
-                            logger.e("${StockPriceViewModelRxJava::class.simpleName}", "", throwable)
+                            logger.e(
+                                "${StockPriceViewModelRxJava::class.simpleName}",
+                                "",
+                                throwable
+                            )
                             /**
                              * process the exception type using the errorHandler fun
                              * and return a value to send the UI
@@ -85,7 +90,8 @@ class StockPriceViewModelRxJava(
                      * process the exception type using the errorHandler fun
                      * and return a value to send the UI
                      */
-                    mutableLiveData.postValue(BaseState.StateError(errorHandler(throwable))) }
+                    mutableLiveData.postValue(BaseState.StateError(errorHandler(throwable)))
+                }
             )
     }
 

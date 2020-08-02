@@ -50,5 +50,10 @@ private class ProductionLogger : Logger {
     }
 }
 
-
+fun<T> T.printThreadName(text : String? = null) = apply {
+    println("[Thread: ${Thread.currentThread().name}] $text")
+}
+fun<T> T.printThreadNameThis(text : String? = null) = apply {
+    println("[Thread: ${Thread.currentThread().name}] [$this] $text")
+}
 

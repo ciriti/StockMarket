@@ -9,7 +9,6 @@ import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import okhttp3.*
-import okio.ByteString
 
 fun WebSocketService.Companion.crete(client: OkHttpClient) : WebSocketService =
     WebSocketServiceOkHttpImpl(client)
@@ -27,49 +26,22 @@ class WebSocketServiceOkHttpImpl(private val client: OkHttpClient) :
             .url(BuildConfig.SOCKET_URL)
             .build()
 
-        client.newWebSocket(request, object : WebSocketListener() {
-
-            override fun onOpen(
-                webSocket: WebSocket,
-                response: Response
-            ) {
-                webS = webSocket
-                subscribeAll(webSocket)
-                println("OPEN")
-            }
-
-            override fun onMessage(webSocket: WebSocket, text: String) {
-                val stockInfo: StockInfo = text.toStockInfo()
-                sendBlocking(stockInfo)
-            }
-
-            override fun onMessage(
-                webSocket: WebSocket,
-                bytes: ByteString
-            ) {
-                println("=> MESSAGE: " + bytes.hex())
-            }
-
-            override fun onClosing(
-                webSocket: WebSocket,
-                code: Int,
-                reason: String
-            ) {
+        webS = client.newWebSocket(request){
+            onOpen{ webSocket, response -> subscribeAll(webSocket) }
+            onMessage { webSocket, text -> sendBlocking(text.toStockInfo()) }
+            onMessageByte { webSocket, bytes -> println("=> MESSAGE: " + bytes.hex()) }
+            onClosing { webSocket, code, reason ->
                 unSubscribeAll(webSocket)
 //                webSocket.close(1000, null)
                 println("CLOSE: $code $reason")
                 channel.close()
             }
-
-            override fun onFailure(
-                webSocket: WebSocket,
-                t: Throwable,
-                response: Response?
-            ) {
+            onClosed { webSocket, code, reason ->  }
+            onFailure { webSocket, t, response ->
                 println("Failure: ${t.printStackTrace()}")
                 cancel(CancellationException("API Error", t))
             }
-        })
+        }
 
         /*
          * Suspends until either 'onCompleted'/'onApiError' from the callback is invoked

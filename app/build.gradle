@@ -2,17 +2,18 @@ apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
+apply plugin: 'de.nanogiants.android-versioning'
 
 android {
     compileSdkVersion 29
     buildToolsVersion "29.0.3"
 
     defaultConfig {
-        applicationId "com.example.stockmarket"
+        applicationId "com.ciriti.stockmarket"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode 1
-        versionName "1.0"
+        versionCode versioning.getVersionCode()
+        versionName versionName
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -92,3 +93,9 @@ dependencies {
     implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.19'
 
 }
+
+/**
+ * This task will create a file version.txt that contains
+ * the version name used to create tag and release on github
+ */
+apply from: '../buildfile/version-utils.gradle'

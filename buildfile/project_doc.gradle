@@ -1,0 +1,10 @@
+task createDocs(type : Copy){
+
+    group "documentation"
+    description "Create docs"
+
+    dependsOn = [':app:dokkaHtml']
+
+    from "${rootDir.path}/app/build/dokka/html"
+    into "${rootDir.path}/docs"
+}

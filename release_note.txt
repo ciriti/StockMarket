@@ -1,1 +1,1 @@
-* added automatic release
+* workflow improvements

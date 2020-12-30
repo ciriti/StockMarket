@@ -2,6 +2,9 @@ name: Test
 on:
   push:
     branches: [ develop ]
+    paths:
+      - '!README.md'
+      - '!art/**'
   pull_request:
     branches: [ develop ]
 jobs:

@@ -25,7 +25,7 @@ jobs:
         id: release_note
         uses: juliangruber/read-file-action@v1
         with:
-          path: ./app/release_note.txt
+          path: ./release_note.txt
       - name: Get the version
         id: get_version
         uses: juliangruber/read-file-action@v1

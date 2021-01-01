@@ -5,8 +5,8 @@ on:
     paths:
       - '!README.md'
       - '!art/**'
-  pull_request:
-    branches: [ develop ]
+#  pull_request:
+#    branches: [ develop ]
 jobs:
   ui-and-unit-tests-app:
     runs-on: macos-latest

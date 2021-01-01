@@ -1,4 +1,4 @@
-package com.ciriti.stockmarket.data
+package com.ciriti.okhttpext
 
 import okhttp3.*
 import okio.ByteString

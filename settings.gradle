@@ -1,2 +1,3 @@
 include ':app'
+include ':okhttp-socket-ext'
 rootProject.name = "StockMarket"

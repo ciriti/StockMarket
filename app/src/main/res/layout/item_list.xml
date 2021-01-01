@@ -1,5 +1,5 @@
 <?xml version="1.0" encoding="utf-8"?>
-<com.example.stockmarket.ui.stockprice.uicomponent.StockItem
+<com.ciriti.stockmarket.ui.stockprice.uicomponent.StockItem
     xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
@@ -34,4 +34,4 @@
         tools:text="222.20 €" />
 
 
-</com.example.stockmarket.ui.stockprice.uicomponent.StockItem>
+</com.ciriti.stockmarket.ui.stockprice.uicomponent.StockItem>

@@ -1,5 +1,5 @@
 <resources>
-    <string name="app_name">Trade Republic</string>
+    <string name="app_name">GDAX</string>
     <string name="error">Some error occurred</string>
     <string name="stock_price">%1$s %2$s</string>
 </resources>

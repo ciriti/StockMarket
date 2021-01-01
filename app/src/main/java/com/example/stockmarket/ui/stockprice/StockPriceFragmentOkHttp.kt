@@ -9,6 +9,7 @@ import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.example.stockmarket.R
+import com.example.stockmarket.ui.stockprice.uicomponent.GDAXAdapter
 import com.example.stockmarket.ui.stockprice.uicomponent.StockAdapter
 import kotlinx.android.synthetic.main.fragment_stock_price.*
 import org.koin.android.viewmodel.ext.android.viewModel
@@ -16,7 +17,7 @@ import org.koin.android.viewmodel.ext.android.viewModel
 class StockPriceFragmentOkHttp : Fragment() {
 
     private val viewModel by viewModel<StockPriceViewModelOkHttp>()
-    private val adapter by lazy { StockAdapter().apply {
+    private val adapter by lazy { GDAXAdapter().apply {
         onItemClick { Toast.makeText(context!!, "$it", Toast.LENGTH_SHORT).show() }
     } }
 

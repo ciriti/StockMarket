@@ -10,10 +10,10 @@ import com.example.stockmarket.data.SubscribeCommand
 import com.example.stockmarket.data.UnSubscribeCommand
 import com.example.stockmarket.data.stockList
 import com.example.stockmarket.utils.Logger
-import com.tinder.scarlet.WebSocket
+//import com.tinder.scarlet.WebSocket
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
-import kotlinx.coroutines.reactive.consumeEach
+//import kotlinx.coroutines.reactive.consumeEach
 import kotlin.coroutines.CoroutineContext
 
 class StockPriceViewModel(
@@ -28,41 +28,41 @@ class StockPriceViewModel(
     val liveData: LiveData<BaseState> get() = mutableLiveData
 
     fun subscribeAll() {
-        viewModelScope.launch {
-            launch(workerDispatcher) {
-                service.observeWebSocketEvent().consumeEach { event ->
-                    when(event){
-                        is WebSocket.Event.OnConnectionOpened<*> -> pStockList.forEach {
-                            service.subscribe(SubscribeCommand(it))
-                        }
-                        is WebSocket.Event.OnMessageReceived -> {
-                            val stockUpdate = service.observeStock().receive()
-                            stockUpdate.toUiModel().fold(
-                                { throwable ->
-                                    logger.e("${StockPriceViewModel::class.simpleName}", "", throwable)
-                                    /**
-                                     * process the exception type using the errorHandler fun
-                                     * and return a value to send the UI
-                                     */
-                                    mutableLiveData.postValue(BaseState.StateError(errorHandler(throwable)))
-                                },
-                                { ifRight ->
-                                    println("ViewModel obj $ifRight")
-                                    mutableLiveData.postValue(BaseState.StateSuccess(ifRight))
-                                }
-                            )
-                        }
-                        /** TODO find a better default case */
-                        else -> mutableLiveData.postValue(BaseState.StateError(R.string.error))
-                    }
-                }
-            }
-        }
+//        viewModelScope.launch {
+//            launch(workerDispatcher) {
+//                service.observeWebSocketEvent().consumeEach { event ->
+//                    when(event){
+//                        is WebSocket.Event.OnConnectionOpened<*> -> pStockList.forEach {
+//                            service.subscribe(SubscribeCommand(it))
+//                        }
+//                        is WebSocket.Event.OnMessageReceived -> {
+//                            val stockUpdate = service.observeStock().receive()
+//                            stockUpdate.toUiModel().fold(
+//                                { throwable ->
+//                                    logger.e("${StockPriceViewModel::class.simpleName}", "", throwable)
+//                                    /**
+//                                     * process the exception type using the errorHandler fun
+//                                     * and return a value to send the UI
+//                                     */
+//                                    mutableLiveData.postValue(BaseState.StateError(errorHandler(throwable)))
+//                                },
+//                                { ifRight ->
+//                                    println("ViewModel obj $ifRight")
+//                                    mutableLiveData.postValue(BaseState.StateSuccess(ifRight))
+//                                }
+//                            )
+//                        }
+//                        /** TODO find a better default case */
+//                        else -> mutableLiveData.postValue(BaseState.StateError(R.string.error))
+//                    }
+//                }
+//            }
+//        }
     }
 
     fun unSubscribeAll(){
         pStockList.forEach {
-            service.unSubscribe(UnSubscribeCommand(it))
+//            service.unSubscribe(UnSubscribeCommand(it))
         }
     }
 }

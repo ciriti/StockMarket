@@ -27,9 +27,11 @@ object Versions {
 
     const val retrofit2_kotlin_coroutines_adapter: String = "0.9.2"
 
-    const val com_squareup_okhttp3: String = "4.0.0" //available: "4.3.1"
+    const val com_squareup_okhttp3: String = "4.4.0" //available: "4.3.1"
 
     const val com_squareup_retrofit2: String = "2.7.1"
+
+    const val gson_version: String = "2.8.6"
 
     const val arrow_core: String =
         "0.10.4" // No update information. Is this dependency available on jcenter or mavenCentral?

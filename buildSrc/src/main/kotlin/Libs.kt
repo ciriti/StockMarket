@@ -78,7 +78,7 @@ object Libs {
     /**
      * [converter-gson website](https://github.com/square/retrofit/) */
     const val converter_gson: String =
-            "com.squareup.retrofit2:converter-gson:" + Versions.com_squareup_retrofit2
+            "com.google.code.gson:gson:" + Versions.gson_version
 
     /**
      * [retrofit website](https://github.com/square/retrofit/) */

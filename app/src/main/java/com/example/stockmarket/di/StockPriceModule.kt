@@ -1,10 +1,7 @@
 package com.example.stockmarket.di
 
 import com.example.stockmarket.*
-import com.example.stockmarket.data.RxSocketService
-import com.example.stockmarket.data.StockService
-import com.example.stockmarket.data.WebSocketService
-import com.example.stockmarket.data.crete
+import com.example.stockmarket.data.*
 import com.example.stockmarket.ui.stockprice.StockPriceViewModel
 import com.example.stockmarket.ui.stockprice.StockPriceViewModelOkHttp
 import com.example.stockmarket.ui.stockprice.StockPriceViewModelRxJava
@@ -94,14 +91,14 @@ val stockPriceModule = module {
 
     single<OkHttpClient> {
         OkHttpClient.Builder()
-            .writeTimeout(500, TimeUnit.MILLISECONDS)
-            .readTimeout(500, TimeUnit.MILLISECONDS)
+            .writeTimeout(3000, TimeUnit.MILLISECONDS)
+            .readTimeout(3000, TimeUnit.MILLISECONDS)
             .build()
     }
 
     single(qualifier = named(Constants.WEB_SOCKET_SERVICE_IMPL)) {
         val okHttpClient = get<OkHttpClient>()
-        WebSocketService.crete(okHttpClient)
+        WebSocketService.creteGdax(okHttpClient)
     }
 
     single(qualifier = named(Constants.WEB_SOCKET_SERVICE_SCARLET_IMPL)) {

@@ -10,10 +10,6 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ciriti.stockmarket.R
 import com.ciriti.stockmarket.ui.stockprice.uicomponent.GDAXAdapter
-import com.ciriti.stockmarket.ui.stockprice.uicomponent.StockAdapter
-import com.example.stockmarket.R
-import com.example.stockmarket.ui.stockprice.uicomponent.GDAXAdapter
-import com.example.stockmarket.ui.stockprice.uicomponent.StockAdapter
 import kotlinx.android.synthetic.main.fragment_stock_price.*
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel

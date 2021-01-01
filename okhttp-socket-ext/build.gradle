@@ -5,7 +5,7 @@ apply plugin: 'kotlin'
 //apply plugin: 'io.github.ciriti.ceres'
 //apply plugin: 'org.jlleitschuh.gradle.ktlint'
 
-apply from: rootDir.path + '/buildfile/publishing.gradle'
+apply from: rootDir.path + '/buildfile/publish.gradle'
 
 group = GROUP_ID
 version = versionName

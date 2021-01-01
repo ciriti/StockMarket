@@ -44,6 +44,9 @@ android {
 dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
+//    implementation project(":okhttp-socket-ext")
+    implementation "io.github.ciriti:okhttp-socket-ext:1.0.1"
+
     implementation Libs.kotlin_stdlib_jdk7
     implementation Libs.kotlin_reflect
     implementation Libs.appcompat

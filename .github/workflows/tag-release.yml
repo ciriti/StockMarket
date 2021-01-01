@@ -44,3 +44,9 @@ jobs:
             ${{ steps.release_note.outputs.content }}
           draft: false
           prerelease: false
+      - name: Bintray upload artifact
+        env:
+          BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
+          BINTRAY_APIKEY: ${{ secrets.BINTRAY_APIKEY }}
+        run: |
+          ./gradlew okhttp-socket-ext:bintrayUpload

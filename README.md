@@ -43,3 +43,5 @@ Response:
   "last_size": "0.0083387"
 }
 ```
+
+# OkHttp Socket Ext [ ![Download](https://api.bintray.com/packages/ciriti/gdax/okhttp-socket-ext/images/download.svg) ](https://bintray.com/ciriti/gdax/okhttp-socket-ext/_latestVersion)

@@ -9,6 +9,7 @@ import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import okhttp3.*
+import com.ciriti.okhttpext.newWebSocket
 
 fun WebSocketService.Companion.crete(client: OkHttpClient) : WebSocketService =
     WebSocketServiceOkHttpImpl(client)

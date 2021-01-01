@@ -9,6 +9,7 @@ import com.ciriti.stockmarket.data.UnSubscribeCommand
 import com.ciriti.stockmarket.data.stockList
 import com.ciriti.stockmarket.utils.Logger
 import com.ciriti.stockmarket.utils.printThreadName
+import com.tinder.scarlet.WebSocket
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable
 import io.reactivex.schedulers.Schedulers
@@ -25,78 +26,78 @@ class StockPriceViewModelRxJava(
 
     fun subscribeAll() {
 
-//        disposable + service
-//            .observeWebSocketEvent()
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(
-//                { event ->
-//                    when (event) {
-//                        is WebSocket.Event.OnConnectionOpened<*> -> {
-//                            stockList.forEach { service.subscribe(SubscribeCommand(it)) }
-//                            getUpdate()
-//                        }
-//                        is WebSocket.Event.OnConnectionFailed -> {
-//                        }
-//                        is WebSocket.Event.OnMessageReceived -> {
-//                        }
-//                        is WebSocket.Event.OnConnectionClosed -> {
-//                        }
-//                        is WebSocket.Event.OnConnectionClosing -> {
-//                        }
-//                    }
-//                },
-//                { throwable ->
-//                    logger.e("${StockPriceViewModelRxJava::class.simpleName}", "", throwable)
-//                    /**
-//                     * process the exception type using the errorHandler fun
-//                     * and return a value to send the UI
-//                     */
-//                    mutableLiveData.postValue(BaseState.StateError(errorHandler(throwable)))
-//                }
-//            )
+        disposable + service
+            .observeWebSocketEvent()
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { event ->
+                    when (event) {
+                        is WebSocket.Event.OnConnectionOpened<*> -> {
+                            stockList.forEach { service.subscribe(SubscribeCommand(it)) }
+                            getUpdate()
+                        }
+                        is WebSocket.Event.OnConnectionFailed -> {
+                        }
+                        is WebSocket.Event.OnMessageReceived -> {
+                        }
+                        is WebSocket.Event.OnConnectionClosed -> {
+                        }
+                        is WebSocket.Event.OnConnectionClosing -> {
+                        }
+                    }
+                },
+                { throwable ->
+                    logger.e("${StockPriceViewModelRxJava::class.simpleName}", "", throwable)
+                    /**
+                     * process the exception type using the errorHandler fun
+                     * and return a value to send the UI
+                     */
+                    mutableLiveData.postValue(BaseState.StateError(errorHandler(throwable)))
+                }
+            )
     }
 
     private fun getUpdate() {
-//        disposable + service
-//            .observeStock()
-//            .map { it.toUiModel() }
-//            .subscribeOn(Schedulers.io())
-//            .observeOn(AndroidSchedulers.mainThread())
-//            .subscribe(
-//                { stockInfo ->
-//                    stockInfo.fold(
-//                        { throwable ->
-//                            logger.e(
-//                                "${StockPriceViewModelRxJava::class.simpleName}",
-//                                "",
-//                                throwable
-//                            )
-//                            /**
-//                             * process the exception type using the errorHandler fun
-//                             * and return a value to send the UI
-//                             */
-//                            mutableLiveData.postValue(BaseState.StateError(errorHandler(throwable)))
-//                        },
-//                        { ifRight ->
-//                            printThreadName("ViewModel obj $ifRight")
-//                            mutableLiveData.postValue(BaseState.StateSuccess(ifRight))
-//                        })
-//                },
-//                { throwable ->
-//                    logger.e("${StockPriceViewModelRxJava::class.simpleName}", "", throwable)
-//                    /**
-//                     * process the exception type using the errorHandler fun
-//                     * and return a value to send the UI
-//                     */
-//                    mutableLiveData.postValue(BaseState.StateError(errorHandler(throwable)))
-//                }
-//            )
+        disposable + service
+            .observeStock()
+            .map { it.toUiModel() }
+            .subscribeOn(Schedulers.io())
+            .observeOn(AndroidSchedulers.mainThread())
+            .subscribe(
+                { stockInfo ->
+                    stockInfo.fold(
+                        { throwable ->
+                            logger.e(
+                                "${StockPriceViewModelRxJava::class.simpleName}",
+                                "",
+                                throwable
+                            )
+                            /**
+                             * process the exception type using the errorHandler fun
+                             * and return a value to send the UI
+                             */
+                            mutableLiveData.postValue(BaseState.StateError(errorHandler(throwable)))
+                        },
+                        { ifRight ->
+                            printThreadName("ViewModel obj $ifRight")
+                            mutableLiveData.postValue(BaseState.StateSuccess(ifRight))
+                        })
+                },
+                { throwable ->
+                    logger.e("${StockPriceViewModelRxJava::class.simpleName}", "", throwable)
+                    /**
+                     * process the exception type using the errorHandler fun
+                     * and return a value to send the UI
+                     */
+                    mutableLiveData.postValue(BaseState.StateError(errorHandler(throwable)))
+                }
+            )
     }
 
     fun unSubscribeAll() {
         stockList.forEach {
-//            service.unSubscribe(UnSubscribeCommand(it))
+            service.unSubscribe(UnSubscribeCommand(it))
         }
     }
 

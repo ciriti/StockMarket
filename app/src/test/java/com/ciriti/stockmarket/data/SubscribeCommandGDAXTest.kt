@@ -14,7 +14,7 @@ class SubscribeCommandGDAXTest{
               "channels": [
                 {
                   "name": "ticker",
-                  "product_ids": ["BTC-EUR", "ETH-EUR"]
+                  "product_ids": ["ETH-EUR", "ETH-USD", "ETH-USDC", "ETH-BTC", "BTC-EUR", "BTC-USDC", "ETH-BTC", "BTC-GBP"]
                 }
               ]
             }

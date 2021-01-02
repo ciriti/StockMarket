@@ -1,0 +1,26 @@
+name: App Release
+
+on:
+  push:
+    branches:  [ release/* ]
+
+jobs:
+  build:
+    name: Create Release artifact
+    runs-on: macos-latest
+    steps:
+      - name: Sign app APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.KEYSTORE_RELEASE }}
+          alias: ${{ secrets.STORE_ALIAS }}
+          keyStorePassword: ${{ secrets.STORE_PASSWORD }}
+          keyPassword: ${{ secrets.STORE_PASSWORD }}
+      - name: 'Publish release artifact'
+        if: always()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: 'release-artifact'
+          path: app/build/outputs/apk/release/*

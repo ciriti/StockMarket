@@ -1,0 +1,18 @@
+android {
+
+    signingConfigs {
+
+        def keyStorePassword_ = hasProperty('keyStorePassword') ? keyStorePassword : null
+        def keyStoreAlias_ = hasProperty('keyStoreAlias') ? keyStoreAlias : null
+
+        release {
+            println("========================> " + (keyStoreAlias_ != null ? keyStoreAlias_ : "$System.env.STORE_ALIAS"))
+            println("========================> " + (keyStorePassword_ != null ? keyStorePassword_ : "$System.env.STORE_PASSWORD"))
+            storeFile file("../keystore.jks")
+            storePassword keyStorePassword_ != null ? keyStorePassword_ : "$System.env.STORE_PASSWORD"
+            keyAlias keyStoreAlias_ != null ? keyStoreAlias_ : "$System.env.STORE_ALIAS"
+            keyPassword keyStorePassword_ != null ? keyStorePassword_ : "$System.env.STORE_PASSWORD"
+            v2SigningEnabled true
+        }
+    }
+}

@@ -2,7 +2,7 @@ name: App Release
 
 on:
   push:
-    branches:  [ release/* ]
+    branches:  [ disable ]#[ release/* ]
 
 jobs:
   build:
@@ -23,14 +23,14 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      #      - name: Bump version
-      #        uses: chkfung/android-version-actions@v1.1
-      #        with:
-      #          gradlePath: samples/metaapp/build.gradle
-      #          versionCode: ${{github.run_number}}
+      - name: Bump version
+        uses: chkfung/android-version-actions@v1.1
+        with:
+          gradlePath: app/build.gradle
+          versionCode: ${{github.run_number}}
       - name: Get the version
         id: commits
-        run: echo ::set-output name=NUM::$(git rev-list --count HEAD)
+        run: echo ::set-output name=NUM::$(git rev-list --count HEAD master)
       - name: Assemble release
         run: |
           echo '${{ secrets.SERVICE_ACCOUNT }}' > service_account.json
@@ -39,27 +39,27 @@ jobs:
           echo ======3====== ${{steps.commits.outputs.NUM}} ======3======
           echo ======4====== $COMMITS_NUMBER ======4======
           echo ======4====== COMMITS_NUMBER ======4======
-#          ./gradlew :app:assembleRelease
-#      - name: Sign app APK
-#        uses: r0adkll/sign-android-release@v1
-#        id: sign_app
-#        with:
-#          releaseDirectory: app/build/outputs/apk/release
-#          signingKeyBase64: ${{ secrets.KEYSTORE_RELEASE }}
-#          alias: ${{ secrets.STORE_ALIAS }}
-#          keyStorePassword: ${{ secrets.STORE_PASSWORD }}
-#          keyPassword: ${{ secrets.STORE_PASSWORD }}
-#      - name: 'Publish release artifact'
-#        if: always()
-#        uses: actions/upload-artifact@v2-preview
-#        with:
-#          name: 'release-artifact'
-#          path: app/build/outputs/apk/release/*
-#      - name: Deploy to Play Store
-#        id: deploy
-#        uses: r0adkll/upload-google-play@v1
-#        with:
-#          serviceAccountJson: service_account.json
-#          packageName: com.ciriti.stockmarket
-#          releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
-#          track: production
+          ./gradlew :app:assembleRelease
+      - name: Sign app APK
+        uses: r0adkll/sign-android-release@v1
+        id: sign_app
+        with:
+          releaseDirectory: app/build/outputs/apk/release
+          signingKeyBase64: ${{ secrets.KEYSTORE_RELEASE }}
+          alias: ${{ secrets.STORE_ALIAS }}
+          keyStorePassword: ${{ secrets.STORE_PASSWORD }}
+          keyPassword: ${{ secrets.STORE_PASSWORD }}
+      - name: 'Publish release artifact'
+        if: always()
+        uses: actions/upload-artifact@v2-preview
+        with:
+          name: 'release-artifact'
+          path: app/build/outputs/apk/release/*
+      - name: Deploy to Play Store
+        id: deploy
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: service_account.json
+          packageName: com.ciriti.stockmarket
+          releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
+          track: production

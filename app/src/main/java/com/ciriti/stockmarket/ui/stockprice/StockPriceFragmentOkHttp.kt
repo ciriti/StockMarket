@@ -30,7 +30,7 @@ class StockPriceFragmentOkHttp : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbar.title = "${getString(R.string.app_name)} - OkHttp"
+        toolbar.title = "${getString(R.string.app_name)}"
         stock_list.layoutManager = LinearLayoutManager(context)
         stock_list.adapter = adapter.apply {
             onItemClick { Toast.makeText(context!!, "$it", Toast.LENGTH_SHORT).show() }

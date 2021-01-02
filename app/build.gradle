@@ -13,14 +13,13 @@ apply from: '../buildfile/signing_configs.gradle'
 
 android {
     compileSdkVersion 29
-    buildToolsVersion "29.0.3"
 
     defaultConfig {
         applicationId "com.ciriti.stockmarket"
         minSdkVersion 23
         targetSdkVersion 29
         versionCode versioning.getVersionCode()
-        versionName versionName
+        versionName version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
     }
@@ -35,7 +34,7 @@ android {
             buildConfigField "String", "URL_PRODUCTS", '"https://api.gdax.com/products"'
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            signingConfig signingConfigs.release
+//            signingConfig signingConfigs.release // It is signed using the github action, no need to set it here
         }
     }
 

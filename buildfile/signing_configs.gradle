@@ -1,21 +1,9 @@
 android {
 
-    def keyStorePasswordStaging_ = hasProperty('keyStorePasswordStaging') ? keyStorePassword : "staging"
-    def keyStoreAliasStaging_ = hasProperty('keyStoreAliasStaging') ? keyStoreAlias : "staging"
-
     signingConfigs {
-        staging {
-            println("========================> " + (keyStoreAliasStaging_ != null ? keyStoreAliasStaging_ : "$System.env.STORE_ALIAS_STAGING"))
-            println("========================> " + (keyStorePasswordStaging_ != null ? keyStorePasswordStaging_ : "$System.env.STORE_PASSWORD_STAGING"))
-            storeFile file("../keystore_staging")
-            storePassword keyStorePasswordStaging_ != null ? keyStorePasswordStaging_ : "$System.env.STORE_PASSWORD_STAGING"
-            keyAlias keyStoreAliasStaging_ != null ? keyStoreAliasStaging_ : "$System.env.STORE_ALIAS_STAGING"
-            keyPassword keyStorePasswordStaging_ != null ? keyStorePasswordStaging_ : "$System.env.STORE_PASSWORD_STAGING"
-            v2SigningEnabled true
-        }
 
-        def keyStorePassword_ = hasProperty('keyStorePassword') ? keyStorePassword : "123456"
-        def keyStoreAlias_ = hasProperty('keyStoreAlias') ? keyStoreAlias : "scapp"
+        def keyStorePassword_ = hasProperty('keyStorePassword') ? keyStorePassword : null
+        def keyStoreAlias_ = hasProperty('keyStoreAlias') ? keyStoreAlias : null
 
         release {
             println("========================> " + (keyStoreAlias_ != null ? keyStoreAlias_ : "$System.env.STORE_ALIAS"))

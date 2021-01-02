@@ -8,7 +8,7 @@ apply plugin: 'kotlin'
 apply from: rootDir.path + '/buildfile/publish.gradle'
 
 group = GROUP_ID
-version = versionName
+version = version_name
 
 dependencies {
 

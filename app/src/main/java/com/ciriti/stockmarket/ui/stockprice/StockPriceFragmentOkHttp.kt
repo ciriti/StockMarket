@@ -1,5 +1,6 @@
 package com.ciriti.stockmarket.ui.stockprice
 
+import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,13 +12,18 @@ import androidx.recyclerview.widget.LinearLayoutManager
 import com.ciriti.stockmarket.R
 import com.ciriti.stockmarket.ui.stockprice.uicomponent.GDAXAdapter
 import kotlinx.android.synthetic.main.fragment_stock_price.*
+import org.koin.android.BuildConfig
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class StockPriceFragmentOkHttp : Fragment() {
 
     private val viewModel by viewModel<StockPriceViewModelOkHttp>()
     private val adapter by inject<GDAXAdapter>()
+    private val pm by lazy {
+        context!!.packageManager.getPackageInfo(context!!.packageName, 0)
+    }
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -30,7 +36,7 @@ class StockPriceFragmentOkHttp : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        toolbar.title = "${getString(R.string.app_name)}"
+        toolbar.title = "${getString(R.string.app_name)} [${pm.versionCode}-${pm.versionName}]"
         stock_list.layoutManager = LinearLayoutManager(context)
         stock_list.adapter = adapter.apply {
             onItemClick { Toast.makeText(context!!, "$it", Toast.LENGTH_SHORT).show() }

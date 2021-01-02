@@ -4,6 +4,7 @@ on:
     branches: [ develop ]
     paths:
       - '!README.md'
+      - '!*.yml'
       - '!art/**'
 #  pull_request:
 #    branches: [ develop ]

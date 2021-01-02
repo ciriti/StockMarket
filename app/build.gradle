@@ -9,7 +9,7 @@ apply plugin: 'de.nanogiants.android-versioning'
  * the version name used to create tag and release on github
  */
 apply from: '../buildfile/version-utils.gradle'
-apply from: '../buildfile/signing_configs.gradle'
+//apply from: '../buildfile/signing_configs.gradle'
 
 android {
     compileSdkVersion 29
@@ -108,4 +108,10 @@ dependencies {
     implementation group: 'io.reactivex.rxjava2', name: 'rxandroid', version: '2.1.1'
     implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.19'
 
+}
+
+task printVersionCode(){
+    doLast {
+        println("======2====== "+versioning.getVersionCode()+" =======2=====")
+    }
 }

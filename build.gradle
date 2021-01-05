@@ -22,6 +22,7 @@ buildscript {
 
 plugins {
     id 'de.nanogiants.android-versioning' version '2.4.0'
+//    id 'org.ajoberstar.grgit' version '3.1.1'
 }
 
 allprojects {

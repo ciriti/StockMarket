@@ -2,7 +2,7 @@ name: App Release
 
 on:
   push:
-    branches:  [ disable ]#[ release/* ]
+    branches:  [ release/* ]
 
 jobs:
   build:
@@ -23,14 +23,21 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
+      - name: Get the version
+        id: commits
+        run: |
+          export COMMITS=`git rev-list --count HEAD`
+          echo $COMMITS
+          echo ::set-output name=NUM::$(git rev-list --count HEAD)
+          echo 1 > pd.txt
+          git add .
+          git commit --m "pd"
+          git push
       - name: Bump version
         uses: chkfung/android-version-actions@v1.1
         with:
           gradlePath: app/build.gradle
-          versionCode: ${{github.run_number}}
-      - name: Get the version
-        id: commits
-        run: echo ::set-output name=NUM::$(git rev-list --count HEAD master)
+          versionCode: ${{steps.commits.outputs.NUM}}
       - name: Assemble release
         run: |
           echo '${{ secrets.SERVICE_ACCOUNT }}' > service_account.json
@@ -55,11 +62,11 @@ jobs:
         with:
           name: 'release-artifact'
           path: app/build/outputs/apk/release/*
-      - name: Deploy to Play Store
-        id: deploy
-        uses: r0adkll/upload-google-play@v1
-        with:
-          serviceAccountJson: service_account.json
-          packageName: com.ciriti.stockmarket
-          releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
-          track: production
+#      - name: Deploy to Play Store
+#        id: deploy
+#        uses: r0adkll/upload-google-play@v1
+#        with:
+#          serviceAccountJson: service_account.json
+#          packageName: com.ciriti.stockmarket
+#          releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
+#          track: production

@@ -111,12 +111,48 @@ dependencies {
 
 task bumpVersionCode(){
     doLast {
-        def versionPropsFile = file('gradle.properties')
-        Properties versionProps = new Properties()
-        versionProps.load(new FileInputStream(versionPropsFile))
-        def code = versionProps['VERSION_CODE'].toInteger() + 1
-        versionProps['VERSION_CODE']=code.toString()
-        versionProps.store(versionPropsFile.newWriter(), null)
-        println("===== version code: " + code)
+        Long versionCode = getProperty("VERSION_CODE_TEST").toLong()
+        Long bumpedVersionCode = versionCode + 1
+        saveProperty("VERSION_CODE_TEST", bumpedVersionCode, "gradle.properties")
+        println("==========> " + getProjectProperty("VERSION_CODE_TEST", "gradle.properties"))
+        println("project.rootDir: " + project.rootDir)
+        println("project.projectDir: " + project.projectDir)
     }
+}
+
+private void saveProperty(String propertyKey, Long valueProperty, String propsFileName) {
+    saveProperty(propertyKey, "$valueProperty", propsFileName)
+}
+
+private void saveProperty(String propertyKey, String valueProperty, String propsFileName) {
+    def versionProps = getModuleProperties(propsFileName)
+    versionProps[propertyKey] = valueProperty
+    versionProps.store(file(propsFileName).newWriter(), null)
+}
+
+def getProjectProperty(String propertyKey, String propsFileName) {
+    def propsFile = file(propsFileName)
+    if (!propsFile.exists()) propsFile.createNewFile()
+    def versionProps = new Properties()
+    versionProps.load(new FileInputStream(propsFile))
+    return versionProps[propertyKey]
+}
+
+def getModuleProperties(String propsFileName) {
+    def propsFile = file(propsFileName)
+    if (!propsFile.exists()) propsFile.createNewFile()
+    def versionProps = new Properties()
+    versionProps.load(new FileInputStream(propsFile))
+    return versionProps
+}
+
+private void commit(versionName) {
+    Process addChanges = ['git', 'add', project.projectDir + '/gradle.properties'].execute(null, project.rootDir)
+    addChanges.waitForProcessOutput(System.out, System.err)
+
+    Process createCommit = ['git', 'commit', "-m Release ${versionName}"].execute(null,  project.rootDir)
+    createCommit.waitForProcessOutput(System.out, System.err)
+
+//    Process push = ['git', 'push'].execute(null,  project.rootDir)
+//    push.waitForProcessOutput(System.out, System.err)
 }

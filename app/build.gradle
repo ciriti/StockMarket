@@ -1,12 +1,8 @@
-//import org.ajoberstar.grgit.Grgit
-//import org.ajoberstar.grgit.Credentials
-
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'de.nanogiants.android-versioning'
-//apply plugin: 'org.ajoberstar.grgit'
 
 /**
  * This task will create a file version.txt that contains
@@ -121,21 +117,6 @@ task bumpVersionCode(){
         def code = versionProps['VERSION_CODE'].toInteger() + 1
         versionProps['VERSION_CODE']=code.toString()
         versionProps.store(versionPropsFile.newWriter(), null)
-//        // get a grgit instance
-//        def grgit = Grgit.clone(
-//                dir: 'build/test-repo1',
-//                uri: 'https://github.com/ciriti/StockMarket.git',
-//                credentials: new Credentials("ciriti", "1riticarm1984")
-//        )
-//        println "==================="
-//        versionProps.store(file('../build/test-repo1/app/gradle.properties').newWriter(), null)
-//        println grgit.describe()
-//        grgit.add(patterns: ['app/gradle.properties'])
-//        // make a commit
-//        grgit.commit(message: 'Adding a new file 1')
-//        // push to the remote
-//        grgit.push()
-//        // cleanup after yourself
-//        grgit.close()
+        println("===== version code: " + code)
     }
 }

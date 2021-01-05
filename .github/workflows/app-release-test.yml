@@ -2,7 +2,7 @@ name: App Release
 
 on:
   push:
-    branches:  [ release/* ]
+    branches:  [ disabled ] #[ release/* ]
 
 jobs:
   build:
@@ -38,11 +38,6 @@ jobs:
       - name: Assemble release
         run: |
           echo '${{ secrets.SERVICE_ACCOUNT }}' > service_account.json
-          ./gradlew :app:printVersionCode
-          echo ======1====== ${{github.run_number}} ======1=====
-          echo ======3====== ${{steps.commits.outputs.NUM}} ======3======
-          echo ======4====== $COMMITS_NUMBER ======4======
-          echo ======4====== COMMITS_NUMBER ======4======
           ./gradlew :app:assembleRelease
       - name: Sign app APK
         uses: r0adkll/sign-android-release@v1
@@ -59,11 +54,11 @@ jobs:
         with:
           name: 'release-artifact'
           path: app/build/outputs/apk/release/*
-#      - name: Deploy to Play Store
-#        id: deploy
-#        uses: r0adkll/upload-google-play@v1
-#        with:
-#          serviceAccountJson: service_account.json
-#          packageName: com.ciriti.stockmarket
-#          releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
-#          track: production
+      - name: Deploy to Play Store
+        id: deploy
+        uses: r0adkll/upload-google-play@v1
+        with:
+          serviceAccountJson: service_account.json
+          packageName: com.ciriti.stockmarket
+          releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
+          track: production

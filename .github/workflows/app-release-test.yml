@@ -30,7 +30,7 @@ jobs:
           echo $COMMITS
           echo ::set-output name=NUM::$(git rev-list --count HEAD)
           echo 1 > pd.txt
-          git add .
+          git add pd.txt
           git commit --m "pd"
           git push
       - name: Bump version

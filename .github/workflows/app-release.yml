@@ -23,11 +23,18 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Bump version
-        uses: chkfung/android-version-actions@v1.1
-        with:
-          gradlePath: app/build.gradle
-          versionCode: ${{github.run_number}}
+      - name: Get the version
+        id: commits
+        run: |
+          ./gradlew app:bumpVersionCode
+          git add app/gradle.properties
+          git commit -m "bump verson code"
+          git push
+#      - name: Bump version
+#        uses: chkfung/android-version-actions@v1.1
+#        with:
+#          gradlePath: app/build.gradle
+#          versionCode: ${{github.run_number}}
       - name: Assemble release
         run: |
           echo '${{ secrets.SERVICE_ACCOUNT }}' > service_account.json

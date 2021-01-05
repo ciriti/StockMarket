@@ -2,7 +2,7 @@ name: App Release
 
 on:
   push:
-    branches:  [ disable ]#[ release/* ]
+    branches:  [ disabled ] #[ release/* ]
 
 jobs:
   build:
@@ -23,22 +23,21 @@ jobs:
         uses: actions/setup-java@v1
         with:
           java-version: 1.8
-      - name: Bump version
-        uses: chkfung/android-version-actions@v1.1
-        with:
-          gradlePath: app/build.gradle
-          versionCode: ${{github.run_number}}
       - name: Get the version
         id: commits
-        run: echo ::set-output name=NUM::$(git rev-list --count HEAD master)
+        run: |
+          ./gradlew app:bumpVersionCode
+          git add app/gradle.properties
+          git commit -m "bump verson code"
+          git push
+#      - name: Bump version
+#        uses: chkfung/android-version-actions@v1.1
+#        with:
+#          gradlePath: app/build.gradle
+#          versionCode: ${{steps.commits.outputs.NUM}}
       - name: Assemble release
         run: |
           echo '${{ secrets.SERVICE_ACCOUNT }}' > service_account.json
-          ./gradlew :app:printVersionCode
-          echo ======1====== ${{github.run_number}} ======1=====
-          echo ======3====== ${{steps.commits.outputs.NUM}} ======3======
-          echo ======4====== $COMMITS_NUMBER ======4======
-          echo ======4====== COMMITS_NUMBER ======4======
           ./gradlew :app:assembleRelease
       - name: Sign app APK
         uses: r0adkll/sign-android-release@v1

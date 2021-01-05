@@ -1,1 +1,1 @@
-* CICD completed
+* added task for bumping the version code

@@ -13,12 +13,11 @@ apply from: '../buildfile/version-utils.gradle'
 
 android {
     compileSdkVersion 29
-
     defaultConfig {
         applicationId "com.ciriti.stockmarket"
         minSdkVersion 23
         targetSdkVersion 29
-        versionCode versioning.getVersionCode()
+        versionCode = Long.valueOf(VERSION_CODE)
         versionName version_name
 
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
@@ -110,8 +109,14 @@ dependencies {
 
 }
 
-task printVersionCode(){
+task bumpVersionCode(){
     doLast {
-        println("======2====== "+versioning.getVersionCode()+" =======2=====")
+        def versionPropsFile = file('gradle.properties')
+        Properties versionProps = new Properties()
+        versionProps.load(new FileInputStream(versionPropsFile))
+        def code = versionProps['VERSION_CODE'].toInteger() + 1
+        versionProps['VERSION_CODE']=code.toString()
+        versionProps.store(versionPropsFile.newWriter(), null)
+        println("===== version code: " + code)
     }
 }

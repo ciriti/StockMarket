@@ -9,7 +9,11 @@ apply plugin: 'de.nanogiants.android-versioning'
  * the version name used to create tag and release on github
  */
 apply from: '../buildfile/version-utils.gradle'
-//apply from: '../buildfile/signing_configs.gradle'
+/**
+ * This file will bump the versionCode afterwords
+ * it will add, commit and push the change.
+ */
+apply from: '../buildfile/versioncode_bump.gradle'
 
 android {
     compileSdkVersion 29
@@ -107,16 +111,4 @@ dependencies {
     implementation group: 'io.reactivex.rxjava2', name: 'rxandroid', version: '2.1.1'
     implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.19'
 
-}
-
-task bumpVersionCode(){
-    doLast {
-        def versionPropsFile = file('gradle.properties')
-        Properties versionProps = new Properties()
-        versionProps.load(new FileInputStream(versionPropsFile))
-        def code = versionProps['VERSION_CODE'].toInteger() + 1
-        versionProps['VERSION_CODE']=code.toString()
-        versionProps.store(versionPropsFile.newWriter(), null)
-        println("===== version code: " + code)
-    }
 }

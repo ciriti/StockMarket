@@ -9,7 +9,11 @@ apply plugin: 'de.nanogiants.android-versioning'
  * the version name used to create tag and release on github
  */
 apply from: '../buildfile/version-utils.gradle'
-//apply from: '../buildfile/signing_configs.gradle'
+/**
+ * This file will bump the versionCode afterwords
+ * it will add, commit and push the change.
+ */
+apply from: '../buildfile/versioncode_bump.gradle'
 
 android {
     compileSdkVersion 29
@@ -107,52 +111,4 @@ dependencies {
     implementation group: 'io.reactivex.rxjava2', name: 'rxandroid', version: '2.1.1'
     implementation group: 'io.reactivex.rxjava2', name: 'rxjava', version: '2.2.19'
 
-}
-
-task bumpVersionCode(){
-    doLast {
-        Long versionCode = getProperty("VERSION_CODE_TEST").toLong()
-        Long bumpedVersionCode = versionCode + 1
-        saveProperty("VERSION_CODE_TEST", bumpedVersionCode, "gradle.properties")
-        println("==========> " + getProjectProperty("VERSION_CODE_TEST", "gradle.properties"))
-        println("project.rootDir: " + project.rootDir)
-        println("project.projectDir: " + project.projectDir)
-    }
-}
-
-private void saveProperty(String propertyKey, Long valueProperty, String propsFileName) {
-    saveProperty(propertyKey, "$valueProperty", propsFileName)
-}
-
-private void saveProperty(String propertyKey, String valueProperty, String propsFileName) {
-    def versionProps = getModuleProperties(propsFileName)
-    versionProps[propertyKey] = valueProperty
-    versionProps.store(file(propsFileName).newWriter(), null)
-}
-
-def getProjectProperty(String propertyKey, String propsFileName) {
-    def propsFile = file(propsFileName)
-    if (!propsFile.exists()) propsFile.createNewFile()
-    def versionProps = new Properties()
-    versionProps.load(new FileInputStream(propsFile))
-    return versionProps[propertyKey]
-}
-
-def getModuleProperties(String propsFileName) {
-    def propsFile = file(propsFileName)
-    if (!propsFile.exists()) propsFile.createNewFile()
-    def versionProps = new Properties()
-    versionProps.load(new FileInputStream(propsFile))
-    return versionProps
-}
-
-private void commit(versionName) {
-    Process addChanges = ['git', 'add', project.projectDir + '/gradle.properties'].execute(null, project.rootDir)
-    addChanges.waitForProcessOutput(System.out, System.err)
-
-    Process createCommit = ['git', 'commit', "-m Release ${versionName}"].execute(null,  project.rootDir)
-    createCommit.waitForProcessOutput(System.out, System.err)
-
-//    Process push = ['git', 'push'].execute(null,  project.rootDir)
-//    push.waitForProcessOutput(System.out, System.err)
 }

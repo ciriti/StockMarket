@@ -26,6 +26,8 @@ jobs:
       - name: Bump versionCode
         id: bump
         run: |
+          git config user.email "ciriti@gmail.com"
+          git config user.name "GitHub Action"
           ./gradlew app:bumpVersionCode
       - name: Assemble release
         run: |

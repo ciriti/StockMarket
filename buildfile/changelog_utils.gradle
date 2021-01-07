@@ -12,7 +12,7 @@ task updateChangeLog {
     doLast {
         if (project.hasProperty('changelogUpdate')) {
             String arg = changelogUpdate
-            File changeLogFile = file(project.rootDir.path + "/CHANGELOG.md")
+            File changeLogFile = file("${project.rootDir}/CHANGELOG.md")
             changeLogUpdate(arg, changeLogFile)
             if (project.hasProperty('git_action') && git_action == "push") {
                 String commitMess = "CHANGELOG.md updated"
@@ -33,24 +33,20 @@ def changeLogUpdate(String newContentCL, File changeLog) {
 }
 
 private void commitAndPushSingleFile(String commitMessage, File file) {
-    println("======> " + file.path)
     // git add file.path
     Process addChanges = ['git', 'add', file.path].execute(null, project.rootDir)
     addChanges.waitForProcessOutput(System.out, System.err)
     // git commit -m "$commitMessage"
-    Process createCommit = ['git', 'commit', commitMessage].execute(null, project.rootDir)
+    Process createCommit = ['git', 'commit', '-m', commitMessage].execute(null, project.rootDir)
     createCommit.waitForProcessOutput(System.out, System.err)
-//    // git push
-//    Process push = ['git', 'push'].execute(null, project.rootDir)
-//    push.waitForProcessOutput(System.out, System.err)
+    // git push
+    Process push = ['git', 'push'].execute(null, project.rootDir)
+    push.waitForProcessOutput(System.out, System.err)
 }
 
 task printChangelog{
     doLast {
-        File changeLogFile = file("${project.rootDir}" + "/CHANGELOG.md")
-        if (!changeLogFile.exists()) changeLogFile.createNewFile()
-        println("======> " + changeLogFile.path)
-        String commitMess = "CHANGELOG.md updated"
-        commitAndPushSingleFile(commitMess, changeLogFile)
+        def oldContentCL = file("${project.rootDir}/CHANGELOG.md").getText("UTF-8")
+        println(oldContentCL)
     }
 }

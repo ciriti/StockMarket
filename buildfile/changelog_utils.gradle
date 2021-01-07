@@ -1,13 +1,5 @@
 // ./gradlew app:updateChangeLog "-PchangelogUpdate=$CONTENT"
 // ./gradlew app:updateChangeLog "-PchangelogUpdate=$CONTENT" "-Pgit_action=push"
-
-task doubleprop {
-    doLast {
-        if (project.hasProperty('prop1')) println("======== prop1: " + prop1)
-        if (project.hasProperty('prop2')) println("======== prop2: " + prop2)
-    }
-}
-
 task updateChangeLog {
     doLast {
         if (project.hasProperty('changelogUpdate')) {
@@ -26,9 +18,10 @@ def changeLogUpdate(String newContentCL, File changeLog) {
     // get the file
     def oldContentCL = changeLog.getText("UTF-8")
     println("old: " + oldContentCL)
+    println("new: " + newContentCL)
     String updatedContent = newContentCL + "\n" + oldContentCL
     // push the change to the repo
-    println("new:\n" + updatedContent)
+    println("updated:\n" + updatedContent)
     changeLog.write(updatedContent)
 }
 

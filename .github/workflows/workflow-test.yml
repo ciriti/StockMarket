@@ -44,15 +44,15 @@ jobs:
 #            ${{ steps.release_note.outputs.content }}
 #          draft: false
 #          prerelease: false
-    - name: Create env variables
-      env:
-        CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
-        RELEASE_NOTE: "${{ steps.release_note.outputs.content }}"
-        GET_VERSION: "${{ steps.get_version.outputs.content }}"
-      run: |
-      echo CURRENT_TIME $CURRENT_TIME
-      echo RELEASE_NOTE $RELEASE_NOTE
-      echo GET_VERSION $GET_VERSION
+      - name: Create env variables
+        env:
+          CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+          RELEASE_NOTE: "${{ steps.release_note.outputs.content }}"
+          GET_VERSION: "${{ steps.get_version.outputs.content }}"
+        run: |
+          echo CURRENT_TIME $CURRENT_TIME
+          echo RELEASE_NOTE $RELEASE_NOTE
+          echo GET_VERSION $GET_VERSION
       - name: Update CHANGELOG.md
         id: changelog
         run: |

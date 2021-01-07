@@ -1,0 +1,45 @@
+// ./gradlew app:updateChangeLog "-PchangelogUpdate=$CONTENT"
+// ./gradlew app:updateChangeLog "-PchangelogUpdate=$CONTENT" "-Pgit_action=push"
+task updateChangeLog {
+    doLast {
+        if (project.hasProperty('changelogUpdate')) {
+            String arg = changelogUpdate
+            File changeLogFile = file("${project.rootDir}/CHANGELOG.md")
+            changeLogUpdate(arg, changeLogFile)
+            if (project.hasProperty('git_action') && git_action == "push") {
+                String commitMess = "CHANGELOG.md updated"
+                commitAndPushSingleFile(commitMess, changeLogFile)
+            }
+        }
+    }
+}
+
+def changeLogUpdate(String newContentCL, File changeLog) {
+    // get the file
+    def oldContentCL = changeLog.getText("UTF-8")
+    println("old: " + oldContentCL)
+    println("new: " + newContentCL)
+    String updatedContent = newContentCL + "\n" + oldContentCL
+    // push the change to the repo
+    println("updated:\n" + updatedContent)
+    changeLog.write(updatedContent)
+}
+
+private void commitAndPushSingleFile(String commitMessage, File file) {
+    // git add file.path
+    Process addChanges = ['git', 'add', file.path].execute(null, project.rootDir)
+    addChanges.waitForProcessOutput(System.out, System.err)
+    // git commit -m "$commitMessage"
+    Process createCommit = ['git', 'commit', '-m', commitMessage].execute(null, project.rootDir)
+    createCommit.waitForProcessOutput(System.out, System.err)
+    // git push
+    Process push = ['git', 'push'].execute(null, project.rootDir)
+    push.waitForProcessOutput(System.out, System.err)
+}
+
+task printChangelog{
+    doLast {
+        def oldContentCL = file("${project.rootDir}/CHANGELOG.md").getText("UTF-8")
+        println(oldContentCL)
+    }
+}

@@ -11,8 +11,10 @@ task bumpVersionCode() {
         println("BUMPED VERSION_CODE: " + getProjectProperty(propertyName, propertiesFile))
         String commitMessage = "-m Bumped version code to  ${bumpedVersionCode}"
         String pathEditedFile = "${project.projectDir}/${propertiesFile}"
-        // push the change to the repo
-        commitAndPushSingleFile(commitMessage, pathEditedFile)
+        if (project.hasProperty('git_action') && git_action == "push") {
+            // push the change to the repo
+            commitAndPushSingleFile(commitMessage, pathEditedFile)
+        }
     }
 }
 
@@ -55,7 +57,7 @@ private void commitAndPushSingleFile(String commitMessage, String filePath) {
     Process addChanges = ['git', 'add', filePath].execute(null, project.rootDir)
     addChanges.waitForProcessOutput(System.out, System.err)
     // git commit -m ""
-    Process createCommit = ['git', 'commit', commitMessage].execute(null, project.rootDir)
+    Process createCommit = ['git', 'commit', '-m', commitMessage].execute(null, project.rootDir)
     createCommit.waitForProcessOutput(System.out, System.err)
     // git push
     Process push = ['git', 'push'].execute(null, project.rootDir)

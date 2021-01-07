@@ -26,7 +26,9 @@ jobs:
       - name: Bump versionCode
         id: bump
         run: |
-          ./gradlew app:bumpVersionCode
+          git config user.email "ciriti@gmail.com"
+          git config user.name "GitHub Action"
+          ./gradlew app:bumpVersionCode '-Pgit_action=push'
       - name: Assemble release
         run: |
           echo '${{ secrets.SERVICE_ACCOUNT }}' > service_account.json

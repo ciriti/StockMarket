@@ -1,1 +1,2 @@
-* added task for bumping the version code
+* added updating feature for the CHANGELOG.md
+* upgrade version to 1.2.3

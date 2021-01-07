@@ -59,7 +59,7 @@ jobs:
           echo BODY1 $BODY1
       - name: Create BODY2 env variables
         env:
-          BODY2: "## ${{ $GET_VERSION }} ${{ $CURRENT_TIME }}\n${{ $RELEASE_NOTE }}"
+          BODY2: "## ${{ GET_VERSION }} ${{ CURRENT_TIME }}\n${{ RELEASE_NOTE }}"
         run: |
           echo BODY2 $BODY2
       - name: Update CHANGELOG.md

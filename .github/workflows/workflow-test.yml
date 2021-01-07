@@ -21,7 +21,6 @@ jobs:
           format: (MMMM, DD, YYYY)
       - name: Extracting version lib
         run: |
-          echo "VERSION_NAME=$version_name" >> $GITHUB_ENV
           ./gradlew app:versionTxt
       - name: Read Release Note
         id: release_note
@@ -52,6 +51,7 @@ jobs:
           RELEASE_NOTE: "${{ steps.release_note.outputs.content }}"
           GET_VERSION: "${{ steps.get_version.outputs.content }}"
         run: |
+          echo "VERSION_NAME=$version_name" >> $GITHUB_ENV
           echo VERSION_NAME $VERSION_NAME
           echo CURRENT_TIME $CURRENT_TIME
           echo RELEASE_NOTE $RELEASE_NOTE

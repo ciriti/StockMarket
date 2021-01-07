@@ -1,6 +1,8 @@
 task versionTxt{
     group = "versioning"
     doLast{
+        Process addChanges = ['export', "VERSION_NAME_TEST=$version_name"].execute(null, project.rootDir)
+        addChanges.waitForProcessOutput(System.out, System.err)
         new File(projectDir, "version.txt").text = "$version_name"
     }
 }

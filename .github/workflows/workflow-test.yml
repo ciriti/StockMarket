@@ -53,6 +53,7 @@ jobs:
         run: |
           echo "VERSION_NAME=$version_name" >> $GITHUB_ENV
           echo VERSION_NAME $VERSION_NAME
+          echo VERSION_NAME_TEST $VERSION_NAME_TEST
           echo CURRENT_TIME $CURRENT_TIME
           echo RELEASE_NOTE $RELEASE_NOTE
           echo GET_VERSION $GET_VERSION

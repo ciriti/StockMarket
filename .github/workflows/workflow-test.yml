@@ -2,7 +2,7 @@ name: TEST - GitHub Tag and Release
 
 on:
   push:
-    branches:  [ changelog_update ] #[ release/* ]
+    branches: [ disable ] #[ release/* ]
 
 jobs:
   build:
@@ -51,12 +51,6 @@ jobs:
           RELEASE_NOTE: "${{ steps.release_note.outputs.content }}"
           GET_VERSION: "${{ steps.get_version.outputs.content }}"
         run: |
-          echo "VERSION_NAME=$version_name" >> $GITHUB_ENV
-          echo VERSION_NAME $VERSION_NAME
-          echo VERSION_NAME_TEST $VERSION_NAME_TEST
-          echo CURRENT_TIME $CURRENT_TIME
-          echo RELEASE_NOTE $RELEASE_NOTE
-          echo GET_VERSION $GET_VERSION
           echo "## $GET_VERSION $CURRENT_TIME" >> content.txt
           echo "$RELEASE_NOTE" >> content.txt
       - name: Read content CHANGELOG
@@ -67,7 +61,6 @@ jobs:
       - name: Update CHANGELOG.md
         id: changelog
         run: |
-          echo BODY: $BODY
           ./gradlew app:updateChangeLog "-Pgit_action=push" "-PchangelogUpdate=${{ steps.gl_content.outputs.content }}"
       - name: 'Publish CHANGELOG.md'
         if: always()

@@ -1,3 +1,2 @@
-* feature 1
-* feature 2
-* feature 3
+* added updating feature for the CHANGELOG.md
+* upgrade version to 1.2.3

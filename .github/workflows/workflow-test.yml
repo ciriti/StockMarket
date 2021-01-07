@@ -56,8 +56,8 @@ jobs:
           echo CURRENT_TIME $CURRENT_TIME
           echo RELEASE_NOTE $RELEASE_NOTE
           echo GET_VERSION $GET_VERSION
-          echo "## $GET_VERSION $CURRENT_TIME" > content.txt
-          echo "$RELEASE_NOTE" > content.txt
+          echo "## $GET_VERSION $CURRENT_TIME" >> content.txt
+          echo "$RELEASE_NOTE" >> content.txt
       - name: Read content CHANGELOG
         id: gl_content
         uses: juliangruber/read-file-action@v1

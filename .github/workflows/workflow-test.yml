@@ -54,7 +54,9 @@ jobs:
           echo CURRENT_TIME $CURRENT_TIME
           echo RELEASE_NOTE $RELEASE_NOTE
           echo GET_VERSION $GET_VERSION
+          export BODY1="## $GET_VERSION $CURRENT_TIME\n$RELEASE_NOTE"
           echo BODY $BODY
+          echo BODY1 $BODY1
       - name: Update CHANGELOG.md
         id: changelog
         run: |

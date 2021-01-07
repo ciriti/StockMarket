@@ -53,15 +53,17 @@ jobs:
           echo CURRENT_TIME $CURRENT_TIME
           echo RELEASE_NOTE $RELEASE_NOTE
           echo GET_VERSION $GET_VERSION
-          export BODY_TMP="## $GET_VERSION $CURRENT_TIME \n$RELEASE_NOTE"
-          echo BODY_TMP $BODY_TMP
-          echo "BODY=$BODY_TMP" >> $GITHUB_ENV
-          echo BODY $BODY
+          echo "## $GET_VERSION $CURRENT_TIME \n$RELEASE_NOTE" > content.txt
+      - name: Read content CHANGELOG
+        id: gl_content
+        uses: juliangruber/read-file-action@v1
+        with:
+          path: ./content.txt
       - name: Update CHANGELOG.md
         id: changelog
         run: |
           echo BODY: $BODY
-          ./gradlew app:updateChangeLog "-Pgit_action=push" "-PchangelogUpdate=$BODY"
+          ./gradlew app:updateChangeLog "-Pgit_action=push" "-PchangelogUpdate=${{ steps.gl_content.outputs.content }}"
       - name: 'Publish CHANGELOG.md'
         if: always()
         uses: actions/upload-artifact@v2-preview

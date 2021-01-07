@@ -19,8 +19,6 @@ jobs:
         id: current-time
         with:
           format: (MMMM, DD, YYYY)
-        env:
-          CURRENT_TIME: ${{ steps.current-time.outputs.formattedTime }}
       - name: Extracting version lib
         run: ./gradlew app:versionTxt
       - name: Read Release Note
@@ -28,15 +26,11 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: ./release_note.txt
-        env:
-          RELEASE_NOTE: ${{ steps.release_note.outputs.content }}
       - name: Get the version
         id: get_version
         uses: juliangruber/read-file-action@v1
         with:
           path: ./app/version.txt
-        env:
-          GET_VERSION: ${{ steps.get_version.outputs.content }}
 #      - name: Create Release
 #        id: create_release
 #        uses: actions/create-release@v1
@@ -50,6 +44,15 @@ jobs:
 #            ${{ steps.release_note.outputs.content }}
 #          draft: false
 #          prerelease: false
+    - name: Create env variables
+      env:
+        CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+        RELEASE_NOTE: "${{ steps.release_note.outputs.content }}"
+        GET_VERSION: "${{ steps.get_version.outputs.content }}"
+      run: |
+      echo CURRENT_TIME $CURRENT_TIME
+      echo RELEASE_NOTE $RELEASE_NOTE
+      echo GET_VERSION $GET_VERSION
       - name: Update CHANGELOG.md
         id: changelog
         run: |

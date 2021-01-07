@@ -49,7 +49,7 @@ jobs:
           CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
           RELEASE_NOTE: "${{ steps.release_note.outputs.content }}"
           GET_VERSION: "${{ steps.get_version.outputs.content }}"
-          BODY: "## ${{GET_VERSION}} ${{CURRENT_TIME}}\n${{RELEASE_NOTE}}"
+          BODY: "## ${{ $GET_VERSION }} ${{ $CURRENT_TIME }}\n${{ $RELEASE_NOTE }}"
         run: |
           echo CURRENT_TIME $CURRENT_TIME
           echo RELEASE_NOTE $RELEASE_NOTE

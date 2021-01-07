@@ -26,6 +26,9 @@ def changeLogUpdate(String newContentCL, File changeLog) {
 }
 
 private void commitAndPushSingleFile(String commitMessage, File file) {
+    // git fetch
+    Process fetchChanges = ['git', 'fetch'].execute(null, project.rootDir)
+    fetchChanges.waitForProcessOutput(System.out, System.err)
     // git add file.path
     Process addChanges = ['git', 'add', file.path].execute(null, project.rootDir)
     addChanges.waitForProcessOutput(System.out, System.err)

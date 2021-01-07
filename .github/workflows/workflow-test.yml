@@ -11,9 +11,9 @@ jobs:
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
-      - name: Build and test
-        run: |
-          ./gradlew app:build
+#      - name: Build and test
+#        run: |
+#          ./gradlew app:build
       - name: Get current time
         uses: 1466587594/get-current-time@v2
         id: current-time
@@ -37,19 +37,19 @@ jobs:
           path: ./app/version.txt
         env:
           GET_VERSION: ${{ steps.get_version.outputs.content }}
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: v${{ steps.get_version.outputs.content }}
-          release_name: v${{ steps.get_version.outputs.content }}
-          body: |
-            ## ${{ steps.get_version.outputs.content }} ${{ steps.current-time.outputs.formattedTime }}
-            ${{ steps.release_note.outputs.content }}
-          draft: false
-          prerelease: false
+#      - name: Create Release
+#        id: create_release
+#        uses: actions/create-release@v1
+#        env:
+#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+#        with:
+#          tag_name: v${{ steps.get_version.outputs.content }}
+#          release_name: v${{ steps.get_version.outputs.content }}
+#          body: |
+#            ## ${{ steps.get_version.outputs.content }} ${{ steps.current-time.outputs.formattedTime }}
+#            ${{ steps.release_note.outputs.content }}
+#          draft: false
+#          prerelease: false
       - name: Update CHANGELOG.md
         id: changelog
         run: |

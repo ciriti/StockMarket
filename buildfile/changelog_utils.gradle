@@ -1,0 +1,21 @@
+// ./gradlew app:updateChangeLog "-PchangelogUpdate=$CONTENT"
+
+task updateChangeLog {
+    doLast {
+        if (project.hasProperty('changelogUpdate')) {
+            changeLogUpdate(changelogUpdate)
+        }
+
+    }
+}
+
+def changeLogUpdate(String newContentCL) {
+    // get the file
+    File changeLog = file("../CHANGELOG.md")
+    def oldContentCL = changeLog.getText("UTF-8")
+    println("old: " + newContentCL)
+    String updatedContent = newContentCL + "\n" + oldContentCL
+    // push the change to the repo
+    println("new:\n" + updatedContent)
+    changeLog.write(updatedContent)
+}

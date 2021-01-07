@@ -11,8 +11,10 @@ task bumpVersionCode() {
         println("BUMPED VERSION_CODE: " + getProjectProperty(propertyName, propertiesFile))
         String commitMessage = "-m Bumped version code to  ${bumpedVersionCode}"
         String pathEditedFile = "${project.projectDir}/${propertiesFile}"
-        // push the change to the repo
-        commitAndPushSingleFile(commitMessage, pathEditedFile)
+        if (project.hasProperty('git_action') && git_action == "push") {
+            // push the change to the repo
+            commitAndPushSingleFile(commitMessage, pathEditedFile)
+        }
     }
 }
 
@@ -50,7 +52,7 @@ def getModuleProperties(String propsFileName) {
     return versionProps
 }
 
-private void commitAndPushSingleFile(String commitMessage, String filePath) {
+void commitAndPushSingleFile(String commitMessage, String filePath) {
     // git add .
     Process addChanges = ['git', 'add', filePath].execute(null, project.rootDir)
     addChanges.waitForProcessOutput(System.out, System.err)

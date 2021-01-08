@@ -21,5 +21,4 @@ class StockPriceUIModelExtTest {
             b.price assertEquals "10.01"
         }
     }
-
 }

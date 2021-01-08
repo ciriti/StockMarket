@@ -28,7 +28,6 @@ import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 
-
 @RunWith(AndroidJUnit4::class)
 class StockPriceFragment2Test : KoinTest {
 
@@ -46,13 +45,12 @@ class StockPriceFragment2Test : KoinTest {
         // viewmodel
         viewModel(override = true) {
             StockPriceViewModelOkHttp(
-                service = mockService,//WebSocketServiceStub(channel.receiveAsFlow()),
+                service = mockService, // WebSocketServiceStub(channel.receiveAsFlow()),
                 logger = Logger.debugLogger(),
                 errorHandler = { R.string.error }
             )
         }
     }
-
 
     @Before
     fun setup() {
@@ -122,5 +120,4 @@ class StockPriceFragment2Test : KoinTest {
             .clickListItem(9)
             .checkToastContent("hkjgasdfl", activityRule.activity)
     }
-
 }

@@ -27,7 +27,6 @@ import org.koin.core.context.loadKoinModules
 import org.koin.dsl.module
 import org.koin.test.KoinTest
 
-
 @RunWith(AndroidJUnit4::class)
 class StockPriceFragmentRxJavaTest : KoinTest {
 
@@ -49,7 +48,6 @@ class StockPriceFragmentRxJavaTest : KoinTest {
             )
         }
     }
-
 
     @Before
     fun setup() {
@@ -73,20 +71,19 @@ class StockPriceFragmentRxJavaTest : KoinTest {
 
     @Test
     fun first_element_has_the_smallest_rank_number() = runBlocking<Unit> {
-            // 1. replace the module
-            loadKoinModules(mockModule)
-            // 2. start activity
-            activityRule.launchActivity(Intent())
+        // 1. replace the module
+        loadKoinModules(mockModule)
+        // 2. start activity
+        activityRule.launchActivity(Intent())
 
-            StockPriceRobot()
-                .verifyPrice("10.00 €", 0)
-                .verifyPrice("11.00 €", 1)
-                .verifyPrice("12.00 €", 2)
-                .verifyPrice("13.00 €", 3)
-                .verifyPrice("14.00 €", 4)
-                .verifyPrice("15.00 €", 5)
-                .verifyPrice("16.00 €", 6)
-
+        StockPriceRobot()
+            .verifyPrice("10.00 €", 0)
+            .verifyPrice("11.00 €", 1)
+            .verifyPrice("12.00 €", 2)
+            .verifyPrice("13.00 €", 3)
+            .verifyPrice("14.00 €", 4)
+            .verifyPrice("15.00 €", 5)
+            .verifyPrice("16.00 €", 6)
     }
 
     @Test(expected = RuntimeException::class)
@@ -123,5 +120,4 @@ class StockPriceFragmentRxJavaTest : KoinTest {
             .clickListItem(9)
             .checkToastContent("hkjgasdfl", activityRule.activity)
     }
-
 }

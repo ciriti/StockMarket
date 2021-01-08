@@ -3,12 +3,13 @@ package com.ciriti.stockmarket.data
 import com.ciriti.stockmarket.assertEquals
 import org.junit.Test
 
-class SubscribeCommandGDAXTest{
+class SubscribeCommandGDAXTest {
 
     @Test
-    fun `GIVEN a list of gdax items CREATE the subscription item`(){
+    fun `GIVEN a list of gdax items CREATE the subscription item`() {
         val sut = SubscribeCommandGDAX(gdaxList).toString()
-        sut.assertEquals("""
+        sut.assertEquals(
+            """
             {
               "type": "subscribe",
               "channels": [
@@ -18,13 +19,15 @@ class SubscribeCommandGDAXTest{
                 }
               ]
             }
-        """.trimIndent())
+            """.trimIndent()
+        )
     }
 
     @Test
-    fun `GIVEN an UnSubscribeCommandGDAX VEFIRY the un-subscription item`(){
+    fun `GIVEN an UnSubscribeCommandGDAX VEFIRY the un-subscription item`() {
         val sut = UnSubscribeCommandGDAX().toString()
-        sut.assertEquals("""
+        sut.assertEquals(
+            """
             {
               "type": "subscribe",
               "channels": [
@@ -34,6 +37,7 @@ class SubscribeCommandGDAXTest{
                 }
               ]
             }
-        """.trimIndent())
+            """.trimIndent()
+        )
     }
 }

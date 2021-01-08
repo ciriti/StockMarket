@@ -42,7 +42,7 @@ class StockPriceFragmentTest {
 
     @Test
     fun first_element_has_the_smallest_rank_number() = runBlocking<Unit> {
-        withTimeout(5000){
+        withTimeout(5000) {
             // 1. replace the module
             loadKoinModules(mockModule)
             // 2. start activity
@@ -64,7 +64,5 @@ class StockPriceFragmentTest {
                 .also { channel.send(StockInfo("Core Dax", 16.001)) }
                 .verifyPrice("16.00 €", 6)
         }
-        }
-
-
+    }
 }

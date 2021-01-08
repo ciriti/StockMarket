@@ -1,5 +1,6 @@
-package com.ciriti.stockmarket.data
+package com.ciriti.stockmarket.data // ktlint-disable
 
+import com.ciriti.okhttpext.newWebSocket
 import com.ciriti.stockmarket.BuildConfig
 import com.ciriti.stockmarket.ui.stockprice.check
 import com.google.gson.Gson
@@ -9,8 +10,7 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import okhttp3.*
-import com.ciriti.okhttpext.newWebSocket
+import okhttp3.* // ktlint-disable
 
 fun WebSocketService.Companion.creteGdax(client: OkHttpClient): WebSocketService =
     WebSocketServiceOkHttpGDAXImpl(client)
@@ -31,10 +31,10 @@ class WebSocketServiceOkHttpGDAXImpl(private val client: OkHttpClient) :
             onOpen { webSocket, response -> subscribeAll(webSocket) }
             onMessage { webSocket, text ->
                 check { text.toGDAXInfo().toStockInfo() }
-                .fold(
-                    { e -> e.printStackTrace() },
-                    { stock -> sendBlocking(stock) }
-                )
+                    .fold(
+                        { e -> e.printStackTrace() },
+                        { stock -> sendBlocking(stock) }
+                    )
             }
             onMessageByte { webSocket, bytes -> println("=> MESSAGE: " + bytes.hex()) }
             onClosing { webSocket, code, reason ->
@@ -62,8 +62,6 @@ class WebSocketServiceOkHttpGDAXImpl(private val client: OkHttpClient) :
             webS?.close(1000, "Goodbye, World!")
 //            client.dispatcher().executorService().shutdown()
         }
-
-
     }
 
     private fun unSubscribeAll(webSocket: WebSocket) {
@@ -82,6 +80,4 @@ class WebSocketServiceOkHttpGDAXImpl(private val client: OkHttpClient) :
 
     private fun String.toGDAXInfo() = converter.fromJson<GDAXInfo>(this, GDAXInfo::class.java)
     private fun GDAXInfo.toStockInfo() = StockInfo(isin = product_id, price = price)
-
-
 }

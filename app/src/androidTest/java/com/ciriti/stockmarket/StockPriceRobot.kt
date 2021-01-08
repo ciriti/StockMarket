@@ -7,7 +7,6 @@ import androidx.test.espresso.assertion.ViewAssertions
 import androidx.test.espresso.contrib.RecyclerViewActions
 import androidx.test.espresso.matcher.RootMatchers
 import androidx.test.espresso.matcher.ViewMatchers
-import androidx.test.rule.ActivityTestRule
 import com.ciriti.stockmarket.ui.stockprice.uicomponent.StockAdapter
 import org.hamcrest.CoreMatchers
 import org.hamcrest.Matchers
@@ -15,12 +14,13 @@ import org.hamcrest.Matchers
 class StockPriceRobot {
 
     suspend fun verifyPrice2(price: String, position: Int): StockPriceRobot = apply {
-        waitAndRetry{
+        waitAndRetry {
             Espresso.onView(ViewMatchers.withId(R.id.stock_list))
                 .check(
                     ViewAssertions.matches(
                         matchAtPositionInRecyclerView(
-                            position, ViewMatchers.hasDescendant(
+                            position,
+                            ViewMatchers.hasDescendant(
                                 CoreMatchers.allOf(
                                     ViewMatchers.withId(R.id.price),
                                     ViewMatchers.withText(price)
@@ -44,12 +44,12 @@ class StockPriceRobot {
         }
     }
 
-    suspend fun checkToastContent(text: String, activity : Activity): StockPriceRobot = apply {
-            Espresso.onView(
-                ViewMatchers.withText(text)
-            )
-                .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.`is`(activity.window.decorView))))
-                .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
+    suspend fun checkToastContent(text: String, activity: Activity): StockPriceRobot = apply {
+        Espresso.onView(
+            ViewMatchers.withText(text)
+        )
+            .inRoot(RootMatchers.withDecorView(Matchers.not(Matchers.`is`(activity.window.decorView))))
+            .check(ViewAssertions.matches(ViewMatchers.isDisplayed()))
     }
 
     suspend fun verifyPrice(price: String, position: Int): StockPriceRobot = apply {

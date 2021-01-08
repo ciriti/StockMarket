@@ -1,16 +1,49 @@
-![Test](https://github.com/ciriti/StockMarket/workflows/Test/badge.svg)
-![GitHub Tag and Release](https://github.com/ciriti/StockMarket/workflows/GitHub%20Tag%20and%20Release/badge.svg)
-![App Release](https://github.com/ciriti/StockMarket/workflows/App%20Release/badge.svg)
+![https://github.com/ciriti/StockMarket/workflows/Test/badge.svg](https://github.com/ciriti/StockMarket/workflows/Test/badge.svg)
+![https://github.com/ciriti/StockMarket/workflows/GitHub%20Tag%20and%20Release/badge.svg](https://github.com/ciriti/StockMarket/workflows/GitHub%20Tag%20and%20Release/badge.svg)
+![https://github.com/ciriti/StockMarket/workflows/App%20Release/badge.svg](https://github.com/ciriti/StockMarket/workflows/App%20Release/badge.svg)
+![https://api.bintray.com/packages/ciriti/gdax/okhttp-socket-ext/images/download.svg](https://api.bintray.com/packages/ciriti/gdax/okhttp-socket-ext/images/download.svg)
 
 # StockMarket
 
-```
-https://www.websocket.org/echo.html
+##### Table of Contents  
+- [Intro](#intro)  
+- [Architecture](#architecture)  
+- [Main modules](#main-modules)  
+- [Intro](#intro)  
+- [Intro](#intro)  
+- [Used api](#used-api)  
 
+## Intro
+
+## Architecture
+
+## Main modules
+
+## App module
+
+## Data-layer module
+
+## Utility socket module
+
+## CICD and quality
+
+## Used api
+
+The endpoint used in this example is below 
+
+```
 wss://ws-feed.gdax.com
 ```
-Request
+
+You can test it using the following utility 
+
 ```
+https://www.websocket.org/echo.html
+```
+
+### Request
+
+```json
 {
   "type": "subscribe",
   "channels": [
@@ -24,8 +57,10 @@ Request
   ]
 }
 ```
-Response:
-```
+
+### Response
+
+```json
 {
   "type": "ticker",
   "sequence": 9537693195,
@@ -44,5 +79,3 @@ Response:
   "last_size": "0.0083387"
 }
 ```
-
-# OkHttp Socket Ext [ ![Download](https://api.bintray.com/packages/ciriti/gdax/okhttp-socket-ext/images/download.svg) ](https://bintray.com/ciriti/gdax/okhttp-socket-ext/_latestVersion)

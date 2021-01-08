@@ -14,7 +14,7 @@ import kotlin.coroutines.CoroutineContext
 class StockAdapter(stocks: List<String> = stockList) :
     RecyclerView.Adapter<StockAdapter.ViewHolder>() {
 
-    private var onItemClickListener : ((StockInfoUi) -> Unit)? = null
+    private var onItemClickListener: ((StockInfoUi) -> Unit)? = null
 
     private val list: List<StockInfoUi> = stocks.map { StockInfoUi(isin = it, price = "-") }
     private val map: Map<String, Int> = list
@@ -60,7 +60,7 @@ class StockAdapter(stocks: List<String> = stockList) :
 
     class ViewHolder(
         val view: View,
-        var onItemClickListener : ((StockInfoUi) -> Unit)?
+        var onItemClickListener: ((StockInfoUi) -> Unit)?
     ) : RecyclerView.ViewHolder(view) {
         fun bind(item: StockInfoUi) {
             (view as? StockItem)?.apply {
@@ -71,8 +71,7 @@ class StockAdapter(stocks: List<String> = stockList) :
         fun update(item: StockInfoUi) = (view as? StockItem)?.updatePrice(item)
     }
 
-    fun onItemClick(listener : ((StockInfoUi) -> Unit)){
+    fun onItemClick(listener: ((StockInfoUi) -> Unit)) {
         onItemClickListener = listener
     }
-
 }

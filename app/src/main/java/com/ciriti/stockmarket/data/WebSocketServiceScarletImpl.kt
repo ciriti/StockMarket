@@ -41,7 +41,7 @@ class WebSocketServiceScarletImpl(
                     "${WebSocketServiceScarletImpl::class.simpleName}",
                     "",
                     RuntimeException("Something went wrong")
-                )//mutableLiveData.postValue(BaseState.StateError(R.string.error))
+                ) // mutableLiveData.postValue(BaseState.StateError(R.string.error))
             }
         }
 
@@ -55,8 +55,6 @@ class WebSocketServiceScarletImpl(
             unSubscribeAll()
 //            client.dispatcher().executorService().shutdown()
         }
-
-
     }
 
     override fun unSubscribeAll() {

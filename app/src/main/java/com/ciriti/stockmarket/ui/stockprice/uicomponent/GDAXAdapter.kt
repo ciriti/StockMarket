@@ -14,7 +14,7 @@ import kotlin.coroutines.CoroutineContext
 class GDAXAdapter(stocks: List<String> = gdaxList) :
     RecyclerView.Adapter<GDAXAdapter.ViewHolder>() {
 
-    private var onItemClickListener : ((StockInfoUi) -> Unit)? = null
+    private var onItemClickListener: ((StockInfoUi) -> Unit)? = null
 
     private val list: List<StockInfoUi> = stocks.map { StockInfoUi(isin = it, price = "-") }
     private val map: Map<String, Int> = list
@@ -60,7 +60,7 @@ class GDAXAdapter(stocks: List<String> = gdaxList) :
 
     class ViewHolder(
         val view: View,
-        var onItemClickListener : ((StockInfoUi) -> Unit)?
+        var onItemClickListener: ((StockInfoUi) -> Unit)?
     ) : RecyclerView.ViewHolder(view) {
         fun bind(item: StockInfoUi) {
             (view as? StockItem)?.apply {
@@ -71,8 +71,7 @@ class GDAXAdapter(stocks: List<String> = gdaxList) :
         fun update(item: StockInfoUi) = (view as? StockItem)?.updatePrice(item)
     }
 
-    fun onItemClick(listener : ((StockInfoUi) -> Unit)){
+    fun onItemClick(listener: ((StockInfoUi) -> Unit)) {
         onItemClickListener = listener
     }
-
 }

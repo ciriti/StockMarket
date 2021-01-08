@@ -82,7 +82,8 @@ class StockPriceViewModelRxJava(
                         { ifRight ->
                             printThreadName("ViewModel obj $ifRight")
                             mutableLiveData.postValue(BaseState.StateSuccess(ifRight))
-                        })
+                        }
+                    )
                 },
                 { throwable ->
                     logger.e("${StockPriceViewModelRxJava::class.simpleName}", "", throwable)

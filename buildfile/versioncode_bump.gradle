@@ -9,7 +9,7 @@ task bumpVersionCode() {
         // update the property in the propertiesFile
         saveProperty(propertyName, bumpedVersionCode, propertiesFile)
         println("BUMPED VERSION_CODE: " + getProjectProperty(propertyName, propertiesFile))
-        String commitMessage = "-m Bumped version code to  ${bumpedVersionCode}"
+        String commitMessage = "Bumped version code to ${bumpedVersionCode}"
         String pathEditedFile = "${project.projectDir}/${propertiesFile}"
         if (project.hasProperty('git_action') && git_action == "push") {
             // push the change to the repo

@@ -51,6 +51,8 @@ open class ChangeLogUpdateTask : DefaultTask() {
 
     private fun addCommitPush() {
         if (gitAction == "push") {
+            "git config user.email ciriti@gmail.com".runCommand(workingDir = project.rootDir)
+            "git config user.name GitHub Action".runCommand(workingDir = project.rootDir)
             "git fetch".runCommand(workingDir = project.rootDir)
             "git add $changeLogPath".runCommand(workingDir = project.rootDir)
             "git commit -m \"Version $versionLib - CHANGELOG.md updated\"".runCommand(workingDir = project.rootDir)

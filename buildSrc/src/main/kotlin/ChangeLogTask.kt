@@ -1,3 +1,4 @@
+import org.codehaus.groovy.runtime.ProcessGroovyMethods
 import org.gradle.api.DefaultTask
 import org.gradle.api.Project
 import org.gradle.api.tasks.Input
@@ -42,41 +43,40 @@ open class ChangeLogUpdateTask : DefaultTask() {
         // CHANGELOG.md content updated
         val updatedChangeLog = "## $versionLib ($date) \n$releaseNoteContent \n\n$changeLogContent".trimMargin()
         changeLog.writeText(text = updatedChangeLog, charset = Charsets.UTF_8)
+        addCommitPush()
     }
 
-    private fun addCommitPush(){
-        if(gitAction == "push"){
+    private fun addCommitPush() {
+        if (gitAction == "push") {
             // git fetch
             "git fetch".runCommand(workingDir = project.rootDir)
-//            val fetchChanges : Process = ['git', 'fetch'].execute(null, project.rootDir)
-//            fetchChanges.waitForProcessOutput(System.out, System.err)
-//            // git add changeLogPath
-//            Process addChanges = ['git', 'add', changeLogPath].execute(null, project.rootDir)
-//            addChanges.waitForProcessOutput(System.out, System.err)
-//            // git commit -m "$commitMessage"
-//            Process createCommit = ['git', 'commit', '-m', commitMessage].execute(null, project.rootDir)
-//            createCommit.waitForProcessOutput(System.out, System.err)
-//            // git push
-//            Process push = ['git', 'push'].execute(null, project.rootDir)
-//            push.waitForProcessOutput(System.out, System.err)
+            "git add $changeLogPath".runCommand(workingDir = project.rootDir)
+            "git commit -m \"CHANGELOG.md updated\"".runCommand(workingDir = project.rootDir)
+            "git push".runCommand(workingDir = project.rootDir)
         }
     }
 
-    fun String.runCommand(
-        workingDir: File = File("."),
-        timeoutAmount: Long = 60,
-        timeoutUnit: TimeUnit = TimeUnit.SECONDS
-    ): String = ProcessBuilder(split("\\s(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*$)".toRegex()))
-        .directory(workingDir)
-        .redirectOutput(ProcessBuilder.Redirect.PIPE)
-        .redirectError(ProcessBuilder.Redirect.PIPE)
-        .start()
-        .apply { waitFor(timeoutAmount, timeoutUnit) }
-        .run {
-            val error = errorStream.bufferedReader().readText().trim()
-            if (error.isNotEmpty()) {
-                throw IOException(error)
-            }
-            inputStream.bufferedReader().readText().trim()
-        }
+    private fun String.runCommand(
+        workingDir: File = File(".")
+    ): String {
+        val process: Process = ProcessBuilder(split("\\s(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*$)".toRegex()))
+            .directory(workingDir)
+            .redirectOutput(ProcessBuilder.Redirect.PIPE)
+            .redirectError(ProcessBuilder.Redirect.PIPE)
+            .start()
+        process.waitForProcessOutput(System.out, System.err)
+        return ""
+    }
+
+    private fun Process.waitForProcessOutput(
+        output: Appendable,
+        error: Appendable
+    ) {
+        val tout = ProcessGroovyMethods.consumeProcessOutputStream(this, output)
+        val terr = ProcessGroovyMethods.consumeProcessErrorStream(this, error)
+        tout.join()
+        terr.join()
+        this.waitFor()
+        ProcessGroovyMethods.closeStreams(this)
+    }
 }

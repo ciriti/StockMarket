@@ -29,6 +29,11 @@ open class ChangeLogUpdateTask : DefaultTask() {
 
     @TaskAction
     fun execute() {
+        updateChangelog()
+        addCommitPush()
+    }
+
+    private fun updateChangelog(){
         // CHANGELOG.md
         val changeLog = File(changeLogPath)
         if (!changeLog.exists()) changeLog.createNewFile()
@@ -41,14 +46,12 @@ open class ChangeLogUpdateTask : DefaultTask() {
         // X.Y.Z
         val versionLib = project.properties["version_name"] as String
         // CHANGELOG.md content updated
-        val updatedChangeLog = "## $versionLib ($date) \n$releaseNoteContent \n\n$changeLogContent".trimMargin()
+        val updatedChangeLog = "## $versionLib ($date) \n${releaseNoteContent.trim()} \n\n$changeLogContent".trimMargin()
         changeLog.writeText(text = updatedChangeLog, charset = Charsets.UTF_8)
-        addCommitPush()
     }
 
     private fun addCommitPush() {
         if (gitAction == "push") {
-            // git fetch
             "git fetch".runCommand(workingDir = project.rootDir)
             "git add $changeLogPath".runCommand(workingDir = project.rootDir)
             "git commit -m \"CHANGELOG.md updated\"".runCommand(workingDir = project.rootDir)
@@ -56,16 +59,13 @@ open class ChangeLogUpdateTask : DefaultTask() {
         }
     }
 
-    private fun String.runCommand(
-        workingDir: File = File(".")
-    ): String {
+    private fun String.runCommand( workingDir: File = File(".")) {
         val process: Process = ProcessBuilder(split("\\s(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*$)".toRegex()))
             .directory(workingDir)
             .redirectOutput(ProcessBuilder.Redirect.PIPE)
             .redirectError(ProcessBuilder.Redirect.PIPE)
             .start()
         process.waitForProcessOutput(System.out, System.err)
-        return ""
     }
 
     private fun Process.waitForProcessOutput(

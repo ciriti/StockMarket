@@ -28,9 +28,7 @@ allprojects {
     repositories {
         google()
         jcenter()
-        maven {
-            url  "https://dl.bintray.com/ciriti/gdax"
-        }
+        maven { url  "https://dl.bintray.com/ciriti/gdax" }
     }
 }
 

@@ -2,8 +2,6 @@ import org.codehaus.groovy.runtime.ProcessGroovyMethods
 import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
-import java.text.SimpleDateFormat
-import java.util.Date
 import java.io.File
 
 open class ReadmeUpdateTask : DefaultTask() {
@@ -16,6 +14,7 @@ open class ReadmeUpdateTask : DefaultTask() {
     val readmePath: String by lazy { "${project.rootDir}/README.md" }
 
     private val mavenRegexDep by lazy { """([\w\.]+):([\w\-]+):(\d)+\.(\d)+\.(\d)+""".toRegex() }
+    private val versionLib by lazy { project.properties["version_name"] as String }
 
     @get:Input
     val gitAction: String by lazy {
@@ -26,26 +25,23 @@ open class ReadmeUpdateTask : DefaultTask() {
     fun execute() {
         val readme = File(readmePath)
         updateReadme(readme)
-        addCommitPush(File(""))
+        addCommitPush(readme)
     }
 
-    private fun updateReadme(file : File) {
+    private fun updateReadme(file: File) {
         // README.md
-        val readme = file
-        if (!readme.exists()) return
-        val readmeContent = readme.readText(charset = Charsets.UTF_8)
-        // get versionLib
-        val versionLib = project.properties["version_name"] as String
+        if (!file.exists()) return
+        val readmeContent = file.readText(charset = Charsets.UTF_8)
         val updateReadme = readmeContent.replace(mavenRegexDep, "io.github.ciriti:okhttp-socket-ext:$versionLib")
         // README.md content updated
-        readme.writeText(text = updateReadme, charset = Charsets.UTF_8)
+        file.writeText(text = updateReadme, charset = Charsets.UTF_8)
     }
 
-    private fun addCommitPush(file : File) {
+    private fun addCommitPush(file: File) {
         if (gitAction == "push") {
             "git fetch".runCommand(workingDir = project.rootDir)
             "git add ${file.path}".runCommand(workingDir = project.rootDir)
-            "git commit -m \"CHANGELOG.md updated\"".runCommand(workingDir = project.rootDir)
+            "git commit -m \"README.md updated with version $versionLib\"".runCommand(workingDir = project.rootDir)
             "git push".runCommand(workingDir = project.rootDir)
         }
     }

@@ -1,8 +1,5 @@
-* test task changelog 1
-* test task changelog 2
-* test task changelog 3
-* test task changelog 4
-* test task changelog 5
+* added ReadmeUpdateTask to update the README.md file with the correct version
+* added ChangeLogUpdateTask to add the new changes into the CHANGELOG.md
 
 
 

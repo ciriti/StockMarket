@@ -39,6 +39,8 @@ open class ReadmeUpdateTask : DefaultTask() {
 
     private fun addCommitPush(file: File) {
         if (gitAction == "push") {
+            "git config user.email ciriti@gmail.com".runCommand(workingDir = project.rootDir)
+            "git config user.name GitHub Action".runCommand(workingDir = project.rootDir)
             "git fetch".runCommand(workingDir = project.rootDir)
             "git add ${file.path}".runCommand(workingDir = project.rootDir)
             "git commit -m \"Version $versionLib - README.md updated\"".runCommand(workingDir = project.rootDir)

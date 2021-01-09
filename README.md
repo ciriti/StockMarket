@@ -104,6 +104,6 @@ Pick one of your Koin dependency:
 
 ```gradle
 dependencies {
-    implementation "io.github.ciriti:okhttp-socket-ext:1.0.1"
+    implementation "io.github.ciriti:okhttp-socket-ext:1.2.5"
 }
 ```

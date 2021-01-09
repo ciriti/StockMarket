@@ -105,3 +105,11 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxjava:2.2.19")
 
 }
+
+//  kotlin -> tasks.register<ChangeLogUpdateTask>("changeLogUpdate")
+//  java -> task changeLogUpdate(type: ChangeLogUpdateTask)
+
+
+//tasks.register<AddCommitPushTask>("addCommitPush") {
+//    group = "versioning"
+//}

@@ -12,6 +12,7 @@
 - [Intro](#intro)  
 - [Intro](#intro)  
 - [Used api](#used-api)  
+- [Config](#config)  
 
 ## Intro
 
@@ -28,6 +29,8 @@
 ## CICD and quality
 
 ## Used api
+
+## Config
 
 The endpoint used in this example is below 
 
@@ -77,5 +80,31 @@ https://www.websocket.org/echo.html
   "time": "2020-12-30T16:59:26.344287Z",
   "trade_id": 32667801,
   "last_size": "0.0083387"
+}
+```
+
+## Config 
+
+### Bintray 
+
+Check that you have the `bintray` repository. 
+
+```gradle
+// Add Bintray to your repositories
+repositories {
+    maven { url  "https://dl.bintray.com/ciriti/gdax" }
+}
+```
+
+### Dependencies
+
+Pick one of your Koin dependency:
+
+#### Gradle Plugin
+
+```gradle
+dependencies {
+    implementation "io.github.ciriti:okhttp-socket-ext:1.2.5"
+    implementation "io.github.ciriti:gdax-data:1.2.5"
 }
 ```

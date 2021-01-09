@@ -13,7 +13,7 @@ open class ReadmeUpdateTask : DefaultTask() {
     @get:Input
     val readmePath: String by lazy { "${project.rootDir}/README.md" }
 
-    private val mavenRegexDep by lazy { """([\w\.]+):([\w\-]+):(\d)+\.(\d)+\.(\d)+""".toRegex() }
+    private val mavenRegexDep by lazy { """(\d)+\.(\d)+\.(\d)+""".toRegex() }
     private val versionLib by lazy { project.properties["version_name"] as String }
 
     @get:Input
@@ -32,7 +32,7 @@ open class ReadmeUpdateTask : DefaultTask() {
         // README.md
         if (!file.exists()) return
         val readmeContent = file.readText(charset = Charsets.UTF_8)
-        val updateReadme = readmeContent.replace(mavenRegexDep, "io.github.ciriti:okhttp-socket-ext:$versionLib")
+        val updateReadme = readmeContent.replace(mavenRegexDep, versionLib)
         // README.md content updated
         file.writeText(text = updateReadme, charset = Charsets.UTF_8)
     }
@@ -65,5 +65,12 @@ open class ReadmeUpdateTask : DefaultTask() {
         terr.join()
         this.waitFor()
         ProcessGroovyMethods.closeStreams(this)
+    }
+
+    private fun String.updateMavenDependency(version : String) : String{
+        val list = this.split(":").toMutableList()
+        if(list.size < 3) return this
+        list[2] = version
+        return list.joinToString(separator = ":")
     }
 }

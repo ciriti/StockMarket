@@ -1,6 +1,4 @@
-import org.codehaus.groovy.runtime.ProcessGroovyMethods
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
-import java.lang.Runtime
 
 // first option
 plugins {

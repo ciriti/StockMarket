@@ -2,7 +2,7 @@ name: TEST - GitHub Tag and Release
 
 on:
   push:
-    branches: [ disable ] #[ release/* ]
+    branches: [ changelog-kotlin-task ] #[ release/* ]
 
 jobs:
   build:

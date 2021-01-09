@@ -1,13 +1,10 @@
 import org.codehaus.groovy.runtime.ProcessGroovyMethods
 import org.gradle.api.DefaultTask
-import org.gradle.api.Project
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
-import java.text.SimpleDateFormat
-import java.util.Date
 import java.io.File
-import java.io.IOException
-import java.util.concurrent.TimeUnit
+import java.text.SimpleDateFormat
+import java.util.*
 
 open class ChangeLogUpdateTask : DefaultTask() {
 
@@ -26,6 +23,8 @@ open class ChangeLogUpdateTask : DefaultTask() {
     val gitAction: String by lazy {
         (project.properties["git_action"] as? String) ?: ""
     }
+
+    private val versionLib by lazy { project.properties["version_name"] as String }
 
     @TaskAction
     fun execute() {
@@ -54,7 +53,7 @@ open class ChangeLogUpdateTask : DefaultTask() {
         if (gitAction == "push") {
             "git fetch".runCommand(workingDir = project.rootDir)
             "git add $changeLogPath".runCommand(workingDir = project.rootDir)
-            "git commit -m \"CHANGELOG.md updated\"".runCommand(workingDir = project.rootDir)
+            "git commit -m \"Version $versionLib - CHANGELOG.md updated\"".runCommand(workingDir = project.rootDir)
             "git push".runCommand(workingDir = project.rootDir)
         }
     }

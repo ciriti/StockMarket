@@ -41,7 +41,7 @@ open class ReadmeUpdateTask : DefaultTask() {
         if (gitAction == "push") {
             "git fetch".runCommand(workingDir = project.rootDir)
             "git add ${file.path}".runCommand(workingDir = project.rootDir)
-            "git commit -m \"README.md updated with version $versionLib\"".runCommand(workingDir = project.rootDir)
+            "git commit -m \"Version $versionLib - README.md updated\"".runCommand(workingDir = project.rootDir)
             "git push".runCommand(workingDir = project.rootDir)
         }
     }

@@ -2,7 +2,7 @@ name: TEST - GitHub Tag and Release
 
 on:
   push:
-    branches: [ changelog-kotlin-task ] #[ release/* ]
+    branches: [ disable ] #[ release/* ]
 
 jobs:
   build:
@@ -50,10 +50,7 @@ jobs:
           CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
           RELEASE_NOTE: "${{ steps.release_note.outputs.content }}"
           GET_VERSION: "${{ steps.get_version.outputs.content }}"
-        run: |
-          echo "## $GET_VERSION $CURRENT_TIME" >> content.txt
-          echo "$RELEASE_NOTE" >> content.txt
-      - name: Update CHANGELOG.md
+      - name: Update CHANGELOG.md and README.md
         id: changelog
         run: |
           ./gradlew app:readmeUpdate  -P git_action=push

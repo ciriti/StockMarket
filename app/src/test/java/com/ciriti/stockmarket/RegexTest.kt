@@ -5,7 +5,7 @@ import org.junit.Test
 class RegexTest {
 
     @Test
-    fun `regex`(){
+    fun `regex`() {
         val r = """([\w\.]+):([\w\-]+):(\d)+\.(\d)+\.(\d)+""".toRegex()
         val sut = """
             Ciao
@@ -20,19 +20,20 @@ class RegexTest {
             it.value.assertEquals("io.github.ciriti:okhttp-socket-ext:2.2.2")
         }
 
-        sut.assertEquals("""
+        sut.assertEquals(
+            """
             Ciao
             io.github.ciriti:okhttp-socket-ext:2.2.2
              io.github.ciriti:okhttp-socket-ext:2.2.2
             Test
-        """.trimIndent())
+            """.trimIndent()
+        )
     }
 
-    fun String.updateMavenDependency(version : String) : String{
+    fun String.updateMavenDependency(version: String): String {
         val list = this.split(":").toMutableList()
-        if(list.size < 3) return this
+        if (list.size < 3) return this
         list[2] = version
         return list.joinToString(separator = ":")
     }
-
 }

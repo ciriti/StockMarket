@@ -1,22 +1,16 @@
 package com.ciriti.stockmarket.ui.stockprice
 
-import org.junit.Assert.*
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.ciriti.stockmarket.*
+import com.ciriti.stockmarket.* // ktlint-disable
 import com.ciriti.stockmarket.data.RxSocketService
 import com.ciriti.stockmarket.data.StockInfo
 import com.ciriti.stockmarket.utils.Logger
 import com.ciriti.stockmarket.utils.debugLogger
-import com.tinder.scarlet.WebSocket
 import com.tinder.scarlet.WebSocket.Event.OnConnectionOpened
-import io.mockk.*
+import io.mockk.* // ktlint-disable
 import io.mockk.impl.annotations.MockK
 import io.reactivex.Flowable
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.ExperimentalCoroutinesApi
-import kotlinx.coroutines.channels.Channel
-import kotlinx.coroutines.flow.receiveAsFlow
-import kotlinx.coroutines.runBlocking
+import org.junit.Assert.* // ktlint-disable
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test
@@ -31,7 +25,7 @@ class StockPriceFragmentRxJavaTest {
     val rxTestingSchedulerRule = RxTestingSchedulerRule()
 
     @MockK
-    lateinit var service : RxSocketService
+    lateinit var service: RxSocketService
 
     @Before
     fun setup() {
@@ -80,7 +74,5 @@ class StockPriceFragmentRxJavaTest {
         (eventList[3] as? BaseState.StateSuccess)
             .assertNotNull()
             .uiStockModel.price assertEquals "10.01"
-
     }
-
 }

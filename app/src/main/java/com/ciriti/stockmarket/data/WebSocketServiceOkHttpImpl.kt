@@ -1,5 +1,6 @@
 package com.ciriti.stockmarket.data
 
+import com.ciriti.okhttpext.newWebSocket
 import com.ciriti.stockmarket.BuildConfig
 import com.google.gson.Gson
 import kotlinx.coroutines.CancellationException
@@ -8,10 +9,9 @@ import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
-import okhttp3.*
-import com.ciriti.okhttpext.newWebSocket
+import okhttp3.* // ktlint-disable
 
-fun WebSocketService.Companion.crete(client: OkHttpClient) : WebSocketService =
+fun WebSocketService.Companion.crete(client: OkHttpClient): WebSocketService =
     WebSocketServiceOkHttpImpl(client)
 
 class WebSocketServiceOkHttpImpl(private val client: OkHttpClient) :
@@ -27,8 +27,8 @@ class WebSocketServiceOkHttpImpl(private val client: OkHttpClient) :
             .url(BuildConfig.SOCKET_URL)
             .build()
 
-        webS = client.newWebSocket(request){
-            onOpen{ webSocket, response -> subscribeAll(webSocket) }
+        webS = client.newWebSocket(request) {
+            onOpen { webSocket, response -> subscribeAll(webSocket) }
             onMessage { webSocket, text -> sendBlocking(text.toStockInfo()) }
             onMessageByte { webSocket, bytes -> println("=> MESSAGE: " + bytes.hex()) }
             onClosing { webSocket, code, reason ->
@@ -37,7 +37,7 @@ class WebSocketServiceOkHttpImpl(private val client: OkHttpClient) :
                 println("CLOSE: $code $reason")
                 channel.close()
             }
-            onClosed { webSocket, code, reason ->  }
+            onClosed { webSocket, code, reason -> }
             onFailure { webSocket, t, response ->
                 println("Failure: ${t.printStackTrace()}")
                 cancel(CancellationException("API Error", t))
@@ -55,8 +55,6 @@ class WebSocketServiceOkHttpImpl(private val client: OkHttpClient) :
             webS?.close(1000, "Goodbye, World!")
 //            client.dispatcher().executorService().shutdown()
         }
-
-
     }
 
     private fun unSubscribeAll(webSocket: WebSocket) {
@@ -82,5 +80,4 @@ class WebSocketServiceOkHttpImpl(private val client: OkHttpClient) :
     private fun SubscribeCommand.toJson() = converter.toJson(this)
     private fun UnSubscribeCommand.toJson() = converter.toJson(this)
     private fun String.toStockInfo() = converter.fromJson<StockInfo>(this, StockInfo::class.java)
-
 }

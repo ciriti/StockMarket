@@ -19,5 +19,4 @@ class App : Application() {
             modules(stockPriceModule)
         }
     }
-
 }

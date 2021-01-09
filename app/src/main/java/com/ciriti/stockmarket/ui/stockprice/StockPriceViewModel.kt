@@ -20,7 +20,7 @@ class StockPriceViewModel(
     private val service: StockService,
     private val errorHandler: (Throwable) -> Int,
     private val logger: Logger,
-    private val pStockList : List<String> = stockList,
+    private val pStockList: List<String> = stockList,
     private val workerDispatcher: CoroutineContext = Dispatchers.IO
 ) : ViewModel() {
 
@@ -31,7 +31,7 @@ class StockPriceViewModel(
         viewModelScope.launch {
             launch(workerDispatcher) {
                 service.observeWebSocketEvent().consumeEach { event ->
-                    when(event){
+                    when (event) {
                         is WebSocket.Event.OnConnectionOpened<*> -> pStockList.forEach {
                             service.subscribe(SubscribeCommand(it))
                         }
@@ -60,7 +60,7 @@ class StockPriceViewModel(
         }
     }
 
-    fun unSubscribeAll(){
+    fun unSubscribeAll() {
         pStockList.forEach {
             service.unSubscribe(UnSubscribeCommand(it))
         }

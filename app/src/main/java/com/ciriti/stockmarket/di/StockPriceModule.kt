@@ -1,7 +1,8 @@
 package com.ciriti.stockmarket.di
 
-import com.ciriti.stockmarket.*
-import com.ciriti.stockmarket.data.*
+import com.ciriti.stockmarket.BuildConfig
+import com.ciriti.stockmarket.R
+import com.ciriti.stockmarket.data.* // ktlint-disable
 import com.ciriti.stockmarket.ui.stockprice.StockPriceViewModel
 import com.ciriti.stockmarket.ui.stockprice.StockPriceViewModelOkHttp
 import com.ciriti.stockmarket.ui.stockprice.StockPriceViewModelRxJava
@@ -22,7 +23,7 @@ import org.koin.core.qualifier.named
 import org.koin.dsl.module
 import java.util.concurrent.TimeUnit
 
-object Constants{
+object Constants {
     const val WEB_SOCKET_SERVICE_RXJAVA = "RxSocketService"
     const val WEB_SOCKET_SERVICE_IMPL = "WebSocketServiceImpl"
     const val WEB_SOCKET_SERVICE_SCARLET_IMPL = "WebSocketServiceScarletImpl"
@@ -108,5 +109,4 @@ val stockPriceModule = module {
         val okHttpClient = get<OkHttpClient>()
         WebSocketService.crete(okHttpClient)
     }
-
 }

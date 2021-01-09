@@ -1,6 +1,5 @@
 package com.ciriti.stockmarket.ui.stockprice
 
-import android.content.pm.PackageManager
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -11,11 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import com.ciriti.stockmarket.R
 import com.ciriti.stockmarket.ui.stockprice.uicomponent.GDAXAdapter
-import kotlinx.android.synthetic.main.fragment_stock_price.*
-import org.koin.android.BuildConfig
+import kotlinx.android.synthetic.main.fragment_stock_price.* // ktlint-disable
 import org.koin.android.ext.android.inject
 import org.koin.android.viewmodel.ext.android.viewModel
-
 
 class StockPriceFragmentOkHttp : Fragment() {
 

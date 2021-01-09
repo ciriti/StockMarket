@@ -5,7 +5,7 @@ import android.util.AttributeSet
 import androidx.constraintlayout.widget.ConstraintLayout
 import com.ciriti.stockmarket.R
 import com.ciriti.stockmarket.ui.stockprice.StockInfoUi
-import kotlinx.android.synthetic.main.item_list.view.*
+import kotlinx.android.synthetic.main.item_list.view.* // ktlint-disable
 
 class StockItem : ConstraintLayout {
     constructor(context: Context?) : super(context)

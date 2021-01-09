@@ -1,7 +1,7 @@
 package com.ciriti.stockmarket.ui.stockprice
 
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
-import com.ciriti.stockmarket.*
+import com.ciriti.stockmarket.* // ktlint-disable
 import com.ciriti.stockmarket.data.StockInfo
 import com.ciriti.stockmarket.utils.Logger
 import com.ciriti.stockmarket.utils.debugLogger
@@ -54,9 +54,7 @@ class StockPriceViewModelTest {
         (eventList[0] as? BaseState.StateSuccess)
             .assertNotNull()
             .uiStockModel.price assertEquals "10.00"
-
     }
-
 
     @Test
     fun `receive one connection error`() = runBlocking<Unit> {
@@ -88,8 +86,5 @@ class StockPriceViewModelTest {
         (eventList[0] as? BaseState.StateError)
             .assertNotNull()
             .errorMessage assertEquals R.string.error
-
     }
-
 }
-

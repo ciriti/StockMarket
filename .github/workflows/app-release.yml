@@ -2,7 +2,7 @@ name: App Release
 
 on:
   push:
-    branches: [ master ] #[ release/* ]
+    branches: [ master_disable ] #[ release/* ]
 
 jobs:
   build:

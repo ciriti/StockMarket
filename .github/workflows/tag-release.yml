@@ -49,6 +49,8 @@ jobs:
           CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
           RELEASE_NOTE: "${{ steps.release_note.outputs.content }}"
           GET_VERSION: "${{ steps.get_version.outputs.content }}"
+        run: |
+          echo "## $GET_VERSION $CURRENT_TIME"
       - name: Update CHANGELOG.md and README.md
         id: changelog
         run: |

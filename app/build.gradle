@@ -115,5 +115,5 @@ dependencies {
 
 }
 
-task changeLogUpdate(type: ChangeLogUpdateTask)
 // kotlin -> tasks.register<ChangeLogUpdateTask>("changeLogUpdate")
+// java -> task changeLogUpdate(type: ChangeLogUpdateTask)

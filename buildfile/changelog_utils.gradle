@@ -1,5 +1,18 @@
 // ./gradlew app:updateChangeLog "-PchangelogUpdate=$CONTENT"
 // ./gradlew app:updateChangeLog "-PchangelogUpdate=$CONTENT" "-Pgit_action=push"
+
+
+task changeLogUpdate(type: ChangeLogUpdateTask){
+    doLast {
+        if (project.hasProperty('git_action') && git_action == "push") {
+            String commitMess = "CHANGELOG.md updated"
+            File file = file(changeLogPath)
+            commitAndPushSingleFile(commitMess, file)
+        }
+    }
+}
+
+
 task updateChangeLog {
     doLast {
         if (project.hasProperty('changelogUpdate')) {
@@ -25,7 +38,7 @@ def changeLogUpdate(String newContentCL, File changeLog) {
     changeLog.write(updatedContent)
 }
 
-private void commitAndPushSingleFile(String commitMessage, File file) {
+void commitAndPushSingleFile(String commitMessage, File file) {
     // git fetch
     Process fetchChanges = ['git', 'fetch'].execute(null, project.rootDir)
     fetchChanges.waitForProcessOutput(System.out, System.err)

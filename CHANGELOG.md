@@ -1,4 +1,8 @@
 ## 1.2.5 (January, 09, 2021) 
+* test task changelog 1
+ 
+
+## 1.2.5 (January, 09, 2021) 
 * test task changelog
  
 

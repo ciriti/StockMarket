@@ -117,3 +117,10 @@ dependencies {
 
 // kotlin -> tasks.register<ChangeLogUpdateTask>("changeLogUpdate")
 // java -> task changeLogUpdate(type: ChangeLogUpdateTask)
+
+task pd{
+    doLast {
+        Process fetchChanges = ['git', 'fetch'].execute(null, project.rootDir)
+        fetchChanges.waitForProcessOutput(System.out, System.err)
+    }
+}

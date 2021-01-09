@@ -1,24 +1,15 @@
+import org.codehaus.groovy.runtime.ProcessGroovyMethods
 import org.gradle.api.DefaultTask
-import org.gradle.api.Project
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
-import java.text.SimpleDateFormat
-import java.util.Date
 import java.io.File
 import java.io.IOException
 import java.util.concurrent.TimeUnit
 
-open class ChangeLogUpdateTask : DefaultTask() {
+open class AddCommitPushTask : DefaultTask() {
 
-    init { group = "versioning" }
-
-    @get:Input
-    val releaseNotePath: String by lazy {
-        (project.properties["releaseNotePath"] as? String) ?: "${project.rootDir}/release_note.txt"
-    }
-    @get:Input
-    val changeLogPath: String by lazy {
-        (project.properties["changeLogPath"] as? String) ?: "${project.rootDir}/CHANGELOG.md"
+    init {
+        group = "versioning"
     }
 
     @get:Input
@@ -28,26 +19,17 @@ open class ChangeLogUpdateTask : DefaultTask() {
 
     @TaskAction
     fun execute() {
-        // CHANGELOG.md
-        val changeLog = File(changeLogPath)
-        if (!changeLog.exists()) changeLog.createNewFile()
-        val changeLogContent = changeLog.readText(charset = Charsets.UTF_8)
-        // release_note.txt
-        val releaseNote = File(releaseNotePath)
-        val releaseNoteContent = releaseNote.readText(charset = Charsets.UTF_8)
-        // January, 09, 2021
-        val date: String = SimpleDateFormat("MMMM, DD, YYYY").format(Date())
-        // X.Y.Z
-        val versionLib = project.properties["version_name"] as String
-        // CHANGELOG.md content updated
-        val updatedChangeLog = "## $versionLib ($date) \n$releaseNoteContent \n\n$changeLogContent".trimMargin()
-        changeLog.writeText(text = updatedChangeLog, charset = Charsets.UTF_8)
+        addCommitPush()
     }
 
-    private fun addCommitPush(){
-        if(gitAction == "push"){
+    private fun addCommitPush() {
+        if (gitAction == "push") {
+
             // git fetch
             "git fetch".runCommand(workingDir = project.rootDir)
+            "git add ${project.rootDir}/test.txt".runCommand(workingDir = project.rootDir)
+            "git commit -m \"test.txt done\"".runCommand(workingDir = project.rootDir)
+            "git push".runCommand(workingDir = project.rootDir)
 //            val fetchChanges : Process = ['git', 'fetch'].execute(null, project.rootDir)
 //            fetchChanges.waitForProcessOutput(System.out, System.err)
 //            // git add changeLogPath

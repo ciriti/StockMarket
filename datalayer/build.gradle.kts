@@ -1,4 +1,5 @@
 import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
+import java.io.IOException
 
 // first option
 plugins {
@@ -108,3 +109,37 @@ dependencies {
 
 //  kotlin -> tasks.register<ChangeLogUpdateTask>("changeLogUpdate")
 //  java -> task changeLogUpdate(type: ChangeLogUpdateTask)
+fun String.execute(workingDir : File = project.rootDir) = Runtime.getRuntime().exec(
+    this,
+    null,
+    workingDir
+)
+
+tasks.register("addCommitPush1"){
+    group = "AAA"
+    doLast {
+        "git fetch".runCommand(workingDir = project.rootDir)
+        "git add ${project.rootDir}/test.txt".runCommand(workingDir = project.rootDir)
+        "git commit -m \"test.txt done\"".runCommand(workingDir = project.rootDir)
+        "git push".runCommand(workingDir = project.rootDir)
+    }
+
+}
+
+fun String.runCommand(
+    workingDir: File = File("."),
+    timeoutAmount: Long = 60,
+    timeoutUnit: TimeUnit = TimeUnit.SECONDS
+): String = ProcessBuilder(split("\\s(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*$)".toRegex()))
+    .directory(workingDir)
+    .redirectOutput(ProcessBuilder.Redirect.PIPE)
+    .redirectError(ProcessBuilder.Redirect.PIPE)
+    .start()
+    .apply { waitFor(timeoutAmount, timeoutUnit) }
+    .run {
+        val error = errorStream.bufferedReader().readText().trim()
+        if (error.isNotEmpty()) {
+            throw IOException(error)
+        }
+        inputStream.bufferedReader().readText().trim()
+    }

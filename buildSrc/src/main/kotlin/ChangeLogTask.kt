@@ -5,6 +5,8 @@ import org.gradle.api.tasks.TaskAction
 import java.text.SimpleDateFormat
 import java.util.Date
 import java.io.File
+import java.io.IOException
+import java.util.concurrent.TimeUnit
 
 open class ChangeLogUpdateTask : DefaultTask() {
 
@@ -45,7 +47,7 @@ open class ChangeLogUpdateTask : DefaultTask() {
     private fun addCommitPush(){
         if(gitAction == "push"){
             // git fetch
-//            val process = "git describe --exact-match".execute(null, rootDir)
+            "git fetch".runCommand(workingDir = project.rootDir)
 //            val fetchChanges : Process = ['git', 'fetch'].execute(null, project.rootDir)
 //            fetchChanges.waitForProcessOutput(System.out, System.err)
 //            // git add changeLogPath
@@ -59,4 +61,22 @@ open class ChangeLogUpdateTask : DefaultTask() {
 //            push.waitForProcessOutput(System.out, System.err)
         }
     }
+
+    fun String.runCommand(
+        workingDir: File = File("."),
+        timeoutAmount: Long = 60,
+        timeoutUnit: TimeUnit = TimeUnit.SECONDS
+    ): String = ProcessBuilder(split("\\s(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*$)".toRegex()))
+        .directory(workingDir)
+        .redirectOutput(ProcessBuilder.Redirect.PIPE)
+        .redirectError(ProcessBuilder.Redirect.PIPE)
+        .start()
+        .apply { waitFor(timeoutAmount, timeoutUnit) }
+        .run {
+            val error = errorStream.bufferedReader().readText().trim()
+            if (error.isNotEmpty()) {
+                throw IOException(error)
+            }
+            inputStream.bufferedReader().readText().trim()
+        }
 }

@@ -114,3 +114,15 @@ dependencies {
     implementation("io.reactivex.rxjava2:rxjava:2.2.19")
 
 }
+
+// kotlin -> tasks.register<ChangeLogUpdateTask>("changeLogUpdate")
+task changeLogUpdate(type: ChangeLogUpdateTask)
+task readmeUpdate(type: ReadmeUpdateTask)
+
+//task addCommitPush(type: AddCommitPushTask)
+//task pd{
+//    doLast {
+//        Process fetchChanges = ['git', 'fetch'].execute(null, project.rootDir)
+//        fetchChanges.waitForProcessOutput(System.out, System.err)
+//    }
+//}

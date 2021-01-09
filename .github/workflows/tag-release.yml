@@ -50,23 +50,12 @@ jobs:
           RELEASE_NOTE: "${{ steps.release_note.outputs.content }}"
           GET_VERSION: "${{ steps.get_version.outputs.content }}"
         run: |
-          echo "## $GET_VERSION $CURRENT_TIME" >> content.txt
-          echo "$RELEASE_NOTE" >> content.txt
-      - name: Read content CHANGELOG
-        id: gl_content
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./content.txt
-      - name: Update CHANGELOG.md
+          echo "## $GET_VERSION $CURRENT_TIME"
+      - name: Update CHANGELOG.md and README.md
         id: changelog
         run: |
-          ./gradlew app:updateChangeLog "-Pgit_action=push" "-PchangelogUpdate=${{ steps.gl_content.outputs.content }}"
-      - name: 'Publish CHANGELOG.md'
-        if: always()
-        uses: actions/upload-artifact@v2-preview
-        with:
-          name: 'CHANGELOG'
-          path: CHANGELOG.md
+          ./gradlew app:readmeUpdate  -P git_action=push
+          ./gradlew app:changeLogUpdate -P releaseNotePath=release_note.txt -P changeLogPath=CHANGELOG.md  -P git_action=push
       - name: Bintray upload artifact
         env:
           BINTRAY_USER: ${{ secrets.BINTRAY_USER }}

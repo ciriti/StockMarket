@@ -104,7 +104,7 @@ Pick one of your Koin dependency:
 
 ```gradle
 dependencies {
-    implementation "io.github.ciriti:okhttp-socket-ext:1.2.6"
-    implementation "io.github.ciriti:gdax-data:1.2.6"
+    implementation "io.github.ciriti:okhttp-socket-ext:1.2.7"
+    implementation "io.github.ciriti:gdax-data:1.2.7"
 }
 ```

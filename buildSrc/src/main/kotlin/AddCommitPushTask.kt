@@ -35,7 +35,7 @@ open class AddCommitPushTask : DefaultTask() {
         "git config user.email $userEmail".runCommand(workingDir = project.rootDir)
         "git config user.name $userName".runCommand(workingDir = project.rootDir)
         "git pull".runCommand(workingDir = project.rootDir)
-        val filesList= filesArg.split(":")
+        val filesList= listOf("")
         filesList.forEach {
             "echo ============= > $it".runCommand(workingDir = project.rootDir)
             "git add $it".runCommand(workingDir = project.rootDir)

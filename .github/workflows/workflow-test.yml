@@ -29,6 +29,7 @@ jobs:
         id: changelog
         run: |
           echo VERSION_NAME: $VERSION_NAME
+          echo "::set-env name=flag::false"
           ./gradlew app:readmeUpdate
           ./gradlew app:changeLogUpdate -P releaseNotePath=$RELEASE_NOTE_PATH -P changeLogPath=$CHANGELOG_PATH
           ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH
@@ -63,6 +64,7 @@ jobs:
         run: |
           echo "## $GET_VERSION $CURRENT_TIME"
           echo VERSION_NAME: $VERSION_NAME
+          echo flag: $flag
 #      - name: Bintray upload artifact
 #        env:
 #          BINTRAY_USER: ${{ secrets.BINTRAY_USER }}

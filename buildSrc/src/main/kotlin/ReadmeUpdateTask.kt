@@ -23,6 +23,7 @@ open class ReadmeUpdateTask : DefaultTask() {
 
     @TaskAction
     fun execute() {
+        "export VERSION_NAME=Exp".runCommand(workingDir = project.rootDir)
         "echo \"VERSION_NAME=$versionLib\" >> \$GITHUB_ENV".runCommand(workingDir = project.rootDir)
         val readme = File(readmePath)
         updateReadme(readme)

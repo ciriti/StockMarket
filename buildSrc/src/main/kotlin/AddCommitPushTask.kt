@@ -3,8 +3,6 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import java.io.File
-import java.io.IOException
-import java.util.concurrent.TimeUnit
 
 open class AddCommitPushTask : DefaultTask() {
 
@@ -13,9 +11,11 @@ open class AddCommitPushTask : DefaultTask() {
     }
 
     @get:Input
-    val gitAction: String by lazy {
-        (project.properties["git_action"] as? String) ?: ""
+    val filesArg: String by lazy {
+        (project.properties["files"] as? String) ?: ""
     }
+
+    val filesList: List<String> by lazy { filesArg.split(":") }
 
     @TaskAction
     fun execute() {
@@ -23,28 +23,27 @@ open class AddCommitPushTask : DefaultTask() {
     }
 
     private fun addCommitPush() {
-        if (gitAction == "push") {
-            // git fetch
-            "git fetch".runCommand(workingDir = project.rootDir)
-            "git add ${project.rootDir}/test.txt".runCommand(workingDir = project.rootDir)
-            "git commit -m \"test.txt done\"".runCommand(workingDir = project.rootDir)
-            "git push".runCommand(workingDir = project.rootDir)
+        "echo rootDir[${project.rootDir}]".runCommand(workingDir = project.rootDir)
+        "git config user.email ciriti@gmail.com".runCommand(workingDir = project.rootDir)
+        "git config user.name GitHub Action".runCommand(workingDir = project.rootDir)
+        "git pull".runCommand(workingDir = project.rootDir)
+        filesList.forEach {
+            "git add $it".runCommand(workingDir = project.rootDir)
         }
+        "git commit -m \"committed files $filesList\"".runCommand(workingDir = project.rootDir)
+        "git push".runCommand(workingDir = project.rootDir)
     }
 
-    fun String.runCommand(
-        workingDir: File = File(".")
-    ): String {
+    private fun String.runCommand(workingDir: File = File(".")) {
         val process: Process = ProcessBuilder(split("\\s(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*$)".toRegex()))
             .directory(workingDir)
             .redirectOutput(ProcessBuilder.Redirect.PIPE)
             .redirectError(ProcessBuilder.Redirect.PIPE)
             .start()
         process.waitForProcessOutput(System.out, System.err)
-        return ""
     }
 
-    fun Process.waitForProcessOutput(
+    private fun Process.waitForProcessOutput(
         output: Appendable,
         error: Appendable
     ) {

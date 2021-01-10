@@ -29,7 +29,7 @@ open class ChangeLogUpdateTask : DefaultTask() {
     @TaskAction
     fun execute() {
         updateChangelog()
-        addCommitPush()
+//        addCommitPush()
     }
 
     private fun updateChangelog(){

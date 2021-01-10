@@ -25,7 +25,7 @@ open class ReadmeUpdateTask : DefaultTask() {
     fun execute() {
         val readme = File(readmePath)
         updateReadme(readme)
-        addCommitPush(readme)
+//        addCommitPush(readme)
     }
 
     private fun updateReadme(file: File) {

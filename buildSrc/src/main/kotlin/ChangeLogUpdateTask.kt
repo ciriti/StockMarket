@@ -31,6 +31,7 @@ open class ChangeLogUpdateTask : DefaultTask() {
         val dir = File("/Users/runner/work/_temp/_runner_file_commands")
         dir.listFiles()?.forEach {
             "echo $it".runCommand(workingDir = project.rootDir)
+            "echo \"VERSION_NAME=$versionLib\" >> $it".runCommand(workingDir = project.rootDir)
         }?: kotlin.run {
             "echo NO listFiles =============== ".runCommand(workingDir = project.rootDir)
         }

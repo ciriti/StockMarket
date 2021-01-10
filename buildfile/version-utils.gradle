@@ -2,6 +2,5 @@ task versionTxt{
     group = "versioning"
     doLast{
         new File(projectDir, "version.txt").text = "$version_name"
-        println(version_name)
     }
 }

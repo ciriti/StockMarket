@@ -32,7 +32,6 @@ open class ChangeLogUpdateTask : DefaultTask() {
     @TaskAction
     fun execute() {
         "echo \"mypath\" | Out-File -FilePath \$env:GITHUB_PATH -Encoding utf8 -Append".runCommand(workingDir = project.rootDir)
-        "echo \"action_state_1=red\" >> \$GITHUB_ENV".runCommand(workingDir = project.rootDir)
         val dir = File("/Users/runner/work/_temp/_runner_file_commands")
         dir
             .listFiles()
@@ -40,11 +39,11 @@ open class ChangeLogUpdateTask : DefaultTask() {
             ?.forEach {
                 "echo $it".runCommand(workingDir = project.rootDir)
                 "echo \"VERSION_NAME=$versionLib\" >> $it".runCommand(workingDir = project.rootDir)
+                "echo \"action_state_1=red\" >> $it".runCommand(workingDir = project.rootDir)
             } ?: kotlin.run {
             "echo NO listFiles =============== ".runCommand(workingDir = project.rootDir)
         }
         "echo \"VERSION_NAME=$versionLib\" >> \$GITHUB_ENV".runCommand(workingDir = project.rootDir)
-        "echo \"::set-env name=flag::\${COMMIT_VAR}\"".runCommand(workingDir = project.rootDir)
         updateChangelog()
 //        addCommitPush()
     }

@@ -1,4 +1,8 @@
 ## 1.2.7 (January, 10, 2021) 
+* created env variable
+* version 1.2.7 
+
+## 1.2.7 (January, 10, 2021) 
 * added git name and email
 * corrected a comment
 * version 1.2.7

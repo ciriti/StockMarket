@@ -34,7 +34,7 @@ open class ChangeLogUpdateTask : DefaultTask() {
         val dir = File("/Users/runner/work/_temp/_runner_file_commands")
         dir
             .listFiles()
-            ?.filter { it.isFile }
+            ?.filter { it.isFile && it.path.contains("set_env") }
             ?.forEach {
                 "echo $it".runCommand(workingDir = project.rootDir)
                 "echo \"VERSION_NAME=$versionLib\" >> $it".runCommand(workingDir = project.rootDir)

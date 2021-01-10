@@ -33,7 +33,7 @@ open class AddCommitPushTask : DefaultTask() {
     }
 
     private fun addCommitPush() {
-        "echo $userEmail $userName".runCommand(workingDir = project.rootDir)
+        "echo =============> $userEmail $userName".runCommand(workingDir = project.rootDir)
         "git config user.email $userEmail".runCommand(workingDir = project.rootDir)
         "git config user.name $userName".runCommand(workingDir = project.rootDir)
         "git pull".runCommand(workingDir = project.rootDir)

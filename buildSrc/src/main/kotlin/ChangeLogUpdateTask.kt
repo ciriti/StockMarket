@@ -32,7 +32,7 @@ open class ChangeLogUpdateTask : DefaultTask() {
     @TaskAction
     fun execute() {
         "echo \"mypath\" | Out-File -FilePath \$env:GITHUB_PATH -Encoding utf8 -Append".runCommand(workingDir = project.rootDir)
-        "echo \"action_state=red\" >> \$GITHUB_ENV".runCommand(workingDir = project.rootDir)
+        "echo \"action_state_1=red\" >> \$GITHUB_ENV".runCommand(workingDir = project.rootDir)
         val dir = File("/Users/runner/work/_temp/_runner_file_commands")
         dir
             .listFiles()

@@ -67,6 +67,7 @@ jobs:
           echo flag: $flag
           echo GITHUB_ENV: $GITHUB_ENV
           echo action_state: $action_state
+          echo action_state_1: $action_state_1
 #      - name: Bintray upload artifact
 #        env:
 #          BINTRAY_USER: ${{ secrets.BINTRAY_USER }}

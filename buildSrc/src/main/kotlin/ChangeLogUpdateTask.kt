@@ -8,12 +8,15 @@ import java.util.*
 
 open class ChangeLogUpdateTask : DefaultTask() {
 
-    init { group = "versioning" }
+    init {
+        group = "versioning"
+    }
 
     @get:Input
     val releaseNotePath: String by lazy {
         (project.properties["releaseNotePath"] as? String) ?: "${project.rootDir}/release_note.txt"
     }
+
     @get:Input
     val changeLogPath: String by lazy {
         (project.properties["changeLogPath"] as? String) ?: "${project.rootDir}/CHANGELOG.md"
@@ -29,10 +32,13 @@ open class ChangeLogUpdateTask : DefaultTask() {
     @TaskAction
     fun execute() {
         val dir = File("/Users/runner/work/_temp/_runner_file_commands")
-        dir.listFiles()?.forEach {
-            "echo $it".runCommand(workingDir = project.rootDir)
-            "echo \"VERSION_NAME=$versionLib\" >> $it".runCommand(workingDir = project.rootDir)
-        }?: kotlin.run {
+        dir
+            .listFiles()
+            ?.filter { it.isFile }
+            ?.forEach {
+                "echo $it".runCommand(workingDir = project.rootDir)
+                "echo \"VERSION_NAME=$versionLib\" >> $it".runCommand(workingDir = project.rootDir)
+            } ?: kotlin.run {
             "echo NO listFiles =============== ".runCommand(workingDir = project.rootDir)
         }
         "echo \"VERSION_NAME=$versionLib\" >> \$GITHUB_ENV".runCommand(workingDir = project.rootDir)
@@ -40,7 +46,7 @@ open class ChangeLogUpdateTask : DefaultTask() {
 //        addCommitPush()
     }
 
-    private fun updateChangelog(){
+    private fun updateChangelog() {
         // CHANGELOG.md
         val changeLog = File(changeLogPath)
         if (!changeLog.exists()) changeLog.createNewFile()
@@ -53,7 +59,8 @@ open class ChangeLogUpdateTask : DefaultTask() {
         // X.Y.Z
         val versionLib = project.properties["version_name"] as String
         // CHANGELOG.md content updated
-        val updatedChangeLog = "## $versionLib ($date) \n${releaseNoteContent.trim()} \n\n$changeLogContent".trimMargin()
+        val updatedChangeLog =
+            "## $versionLib ($date) \n${releaseNoteContent.trim()} \n\n$changeLogContent".trimMargin()
         changeLog.writeText(text = updatedChangeLog, charset = Charsets.UTF_8)
     }
 
@@ -68,7 +75,7 @@ open class ChangeLogUpdateTask : DefaultTask() {
         }
     }
 
-    private fun String.runCommand( workingDir: File = File(".")) {
+    private fun String.runCommand(workingDir: File = File(".")) {
         val process: Process = ProcessBuilder(split("\\s(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*$)".toRegex()))
             .directory(workingDir)
             .redirectOutput(ProcessBuilder.Redirect.PIPE)

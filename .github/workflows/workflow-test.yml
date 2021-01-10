@@ -2,7 +2,7 @@ name: TEST - GitHub Tag and Release
 
 on:
   push:
-    branches: [ add-commit-push-1 ] #[ release/* ]
+    branches: [ disabled ] #[ release/* ]
 
 jobs:
   build:
@@ -17,7 +17,7 @@ jobs:
         with:
           format: (MMMM, DD, YYYY)
       - name: Set version lib into VERSION_NAME variable
-        run: ./gradlew versionTxt | echo "VERSION_NAME=$(cat app/version.txt)" >> $GITHUB_ENV
+        run: ./gradlew app:versionTxt | echo "VERSION_NAME=$(cat app/version.txt)" >> $GITHUB_ENV
       - name: Update CHANGELOG.md
         env:
           CHANGELOG_PATH: "CHANGELOG.md"

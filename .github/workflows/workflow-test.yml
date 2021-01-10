@@ -62,6 +62,8 @@ jobs:
           GET_VERSION: "${{ steps.get_version.outputs.content }}"
         run: |
           echo "## $GET_VERSION $CURRENT_TIME"
+          echo "VERSION_NAME=TEST" >> $GITHUB_ENV
+          echo VERSION_NAME: $VERSION_NAME
 #      - name: Bintray upload artifact
 #        env:
 #          BINTRAY_USER: ${{ secrets.BINTRAY_USER }}

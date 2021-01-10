@@ -28,6 +28,7 @@ jobs:
           RELEASE_NOTE_PATH: "release_note.txt"
         id: changelog
         run: |
+          echo VERSION_NAME: $VERSION_NAME
           ./gradlew app:readmeUpdate
           ./gradlew app:changeLogUpdate -P releaseNotePath=$RELEASE_NOTE_PATH -P changeLogPath=$CHANGELOG_PATH
           ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH
@@ -47,10 +48,10 @@ jobs:
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
         with:
-          tag_name: v$VERSION_NAME
-          release_name: v${ VERSION_NAME }
+          tag_name: v"$VERSION_NAME"
+          release_name: v${ "$VERSION_NAME" }
           body: |
-            ## $VERSION_NAME ${{ steps.current-time.outputs.formattedTime }}
+            ## "$VERSION_NAME" ${{ steps.current-time.outputs.formattedTime }}
             ${{ steps.release_note.outputs.content }}
           draft: false
           prerelease: false

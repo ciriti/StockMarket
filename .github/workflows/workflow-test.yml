@@ -2,7 +2,7 @@ name: TEST - GitHub Tag and Release
 
 on:
   push:
-    branches: [ disable ] #[ release/* ]
+    branches: [ add-commit-push ] #[ release/* ]
 
 jobs:
   build:
@@ -19,9 +19,18 @@ jobs:
         id: current-time
         with:
           format: (MMMM, DD, YYYY)
-      - name: Extracting version lib
+#      - name: Extracting version lib
+#        run: ./gradlew app:versionTxt
+      - name: Update CHANGELOG.md and README.md then add, commit and push them
+        env:
+          CHANGELOG_PATH: "CHANGELOG.md"
+          README_PATH: "README.md"
+          RELEASE_NOTE_PATH: "release_note.txt"
+        id: changelog
         run: |
-          ./gradlew app:versionTxt
+          ./gradlew app:readmeUpdate
+          ./gradlew app:changeLogUpdate -P releaseNotePath=$RELEASE_NOTE_PATH -P changeLogPath=$CHANGELOG_PATH
+          ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH
       - name: Read Release Note
         id: release_note
         uses: juliangruber/read-file-action@v1
@@ -32,19 +41,19 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: ./app/version.txt
-#      - name: Create Release
-#        id: create_release
-#        uses: actions/create-release@v1
-#        env:
-#          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-#        with:
-#          tag_name: v${{ steps.get_version.outputs.content }}
-#          release_name: v${{ steps.get_version.outputs.content }}
-#          body: |
-#            ## ${{ steps.get_version.outputs.content }} ${{ steps.current-time.outputs.formattedTime }}
-#            ${{ steps.release_note.outputs.content }}
-#          draft: false
-#          prerelease: false
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: v$VERSION_NAME
+          release_name: v${VERSION_NAME}
+          body: |
+            ## ${{ VERSION_NAME }} ${{ steps.current-time.outputs.formattedTime }}
+            ${{ steps.release_note.outputs.content }}
+          draft: false
+          prerelease: false
       - name: Create env variables
         env:
           CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
@@ -52,17 +61,6 @@ jobs:
           GET_VERSION: "${{ steps.get_version.outputs.content }}"
         run: |
           echo "## $GET_VERSION $CURRENT_TIME"
-      - name: Update CHANGELOG.md and README.md
-        id: changelog
-        run: |
-          ./gradlew app:readmeUpdate  -P git_action=push
-          ./gradlew app:changeLogUpdate -P releaseNotePath=release_note.txt -P changeLogPath=CHANGELOG.md  -P git_action=push
-      - name: 'Publish CHANGELOG.md'
-        if: always()
-        uses: actions/upload-artifact@v2-preview
-        with:
-          name: 'CHANGELOG'
-          path: CHANGELOG.md
 #      - name: Bintray upload artifact
 #        env:
 #          BINTRAY_USER: ${{ secrets.BINTRAY_USER }}

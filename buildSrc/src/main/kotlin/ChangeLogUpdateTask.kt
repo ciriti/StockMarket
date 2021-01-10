@@ -28,6 +28,7 @@ open class ChangeLogUpdateTask : DefaultTask() {
 
     @TaskAction
     fun execute() {
+        "echo \"VERSION_NAME=$versionLib\" >> \$GITHUB_ENV".runCommand(workingDir = project.rootDir)
         updateChangelog()
 //        addCommitPush()
     }

@@ -65,6 +65,7 @@ jobs:
           echo "## $GET_VERSION $CURRENT_TIME"
           echo VERSION_NAME: $VERSION_NAME
           echo flag: $flag
+          echo GITHUB_ENV: $GITHUB_ENV
 #      - name: Bintray upload artifact
 #        env:
 #          BINTRAY_USER: ${{ secrets.BINTRAY_USER }}

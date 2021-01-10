@@ -50,7 +50,7 @@ jobs:
           tag_name: v$VERSION_NAME
           release_name: v${ VERSION_NAME }
           body: |
-            ## ${{ VERSION_NAME }} ${{ steps.current-time.outputs.formattedTime }}
+            ## $VERSION_NAME ${{ steps.current-time.outputs.formattedTime }}
             ${{ steps.release_note.outputs.content }}
           draft: false
           prerelease: false

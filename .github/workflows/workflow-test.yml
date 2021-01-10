@@ -32,6 +32,7 @@ jobs:
           ./gradlew app:readmeUpdate
           ./gradlew app:changeLogUpdate -P releaseNotePath=$RELEASE_NOTE_PATH -P changeLogPath=$CHANGELOG_PATH
           ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH
+          echo "::set-env name=flag::workflow"
       - name: Read Release Note
         id: release_note
         uses: juliangruber/read-file-action@v1
@@ -71,3 +72,18 @@ jobs:
 #          BINTRAY_APIKEY: ${{ secrets.BINTRAY_APIKEY }}
 #        run: |
 #          ./gradlew okhttp-socket-ext:bintrayUpload
+      - name: "Set flag from Commit"
+        env:
+          COMMIT_VAR: ${{ contains(github.event.head_commit.message, '[commit var]') }}
+        run: |
+          if ${COMMIT_VAR} == true; then
+            echo "::set-env name=flag::true"
+            echo "flag set to true"
+          else
+            echo "::set-env name=flag::false"
+            echo "flag set to false"
+          fi
+
+      - name: "Use flag if true"
+        if: env.flag
+        run: echo "Flag is available and true"

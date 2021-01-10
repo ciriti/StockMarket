@@ -36,11 +36,11 @@ jobs:
         uses: juliangruber/read-file-action@v1
         with:
           path: ./release_note.txt
-      - name: Get the version
-        id: get_version
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./app/version.txt
+#      - name: Get the version
+#        id: get_version
+#        uses: juliangruber/read-file-action@v1
+#        with:
+#          path: ./app/version.txt
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1

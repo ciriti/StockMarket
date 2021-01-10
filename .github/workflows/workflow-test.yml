@@ -36,27 +36,12 @@ jobs:
           ./gradlew versionTxt | echo "VERSION_NAME=$(cat app/version.txt)" >> $GITHUB_ENV
       - name: Read Release Note
         id: release_note
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./release_note.txt
+        run: echo "RELEASE_NOTE=$(cat $RELEASE_NOTE_PATH)" >> $GITHUB_ENV
 #      - name: Get the version
 #        id: get_version
 #        uses: juliangruber/read-file-action@v1
 #        with:
 #          path: ./app/version.txt
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
-        env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: v${{ env.VERSION_NAME }}
-          release_name: v${{ env.VERSION_NAME }}
-          body: |
-            ## ${{ env.VERSION_NAME }} ${{ steps.current-time.outputs.formattedTime }}
-            ${{ steps.release_note.outputs.content }}
-          draft: false
-          prerelease: false
       - name: Create env variables
         env:
           CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
@@ -67,7 +52,20 @@ jobs:
           echo VERSION_NAME: $VERSION_NAME
           echo GITHUB_ENV: $GITHUB_ENV
           echo action_state: $action_state
-          echo action_state_1: ${{ action_state_1 }}
+          echo action_state_1: ${{ env.action_state_1 }}
+      - name: Create Release
+        id: create_release
+        uses: actions/create-release@v1
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+        with:
+          tag_name: v${{ env.VERSION_NAME }}
+          release_name: v${{ env.VERSION_NAME }}
+          body: |
+            ## ${{ env.VERSION_NAME }} ${{ steps.current-time.outputs.formattedTime }}
+            ${{ env.RELEASE_NOTE }}
+          draft: false
+          prerelease: false
 #      - name: Bintray upload artifact
 #        env:
 #          BINTRAY_USER: ${{ secrets.BINTRAY_USER }}

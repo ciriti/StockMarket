@@ -1,4 +1,2 @@
-* added git name and email
-* corrected a comment
+* created env variable
 * version 1.2.7
-* test

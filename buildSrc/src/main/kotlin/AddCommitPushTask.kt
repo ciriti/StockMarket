@@ -15,6 +15,16 @@ open class AddCommitPushTask : DefaultTask() {
         (project.properties["files"] as? String) ?: ""
     }
 
+    @get:Input
+    val userName: String by lazy {
+        (project.properties["user_name"] as? String) ?: "GitHub Action"
+    }
+
+    @get:Input
+    val userEmail: String by lazy {
+        (project.properties["user_email"] as? String) ?: ""
+    }
+
     private val filesList: List<String> by lazy { filesArg.split(":") }
 
     @TaskAction
@@ -23,11 +33,9 @@ open class AddCommitPushTask : DefaultTask() {
     }
 
     private fun addCommitPush() {
-        "echo filesList $filesList".runCommand(workingDir = project.rootDir)
-        "echo filesList $filesList".runCommand(workingDir = project.rootDir)
-        "echo rootDir[${project.rootDir}]".runCommand(workingDir = project.rootDir)
-        "git config user.email ciriti@gmail.com".runCommand(workingDir = project.rootDir)
-        "git config user.name GitHub Action".runCommand(workingDir = project.rootDir)
+        "echo $userEmail $userName".runCommand(workingDir = project.rootDir)
+        "git config user.email $userEmail".runCommand(workingDir = project.rootDir)
+        "git config user.name $userName".runCommand(workingDir = project.rootDir)
         "git pull".runCommand(workingDir = project.rootDir)
         filesList.forEach {
             "echo $it".runCommand(workingDir = project.rootDir)

@@ -42,6 +42,7 @@ open class ChangeLogUpdateTask : DefaultTask() {
             "echo NO listFiles =============== ".runCommand(workingDir = project.rootDir)
         }
         "echo \"VERSION_NAME=$versionLib\" >> \$GITHUB_ENV".runCommand(workingDir = project.rootDir)
+        "echo \"::set-env name=flag::\${COMMIT_VAR}\"".runCommand(workingDir = project.rootDir)
         updateChangelog()
 //        addCommitPush()
     }

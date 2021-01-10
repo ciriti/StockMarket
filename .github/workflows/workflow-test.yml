@@ -36,7 +36,7 @@ jobs:
           ./gradlew app:readmeUpdate
       - name: Add, commit and push CHANGELOG.md and README.md
         run: |
-          ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH -P user_name=$GIT_USERNAME -P user_email=$GIT_EMAIL
+          ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH -P user_name=ciriti@gmail.com -P user_email=GitAction
       - name: Read Release Note
         id: release_note
         run: echo "RELEASE_NOTE=$(cat $RELEASE_NOTE_PATH)" >> $GITHUB_ENV

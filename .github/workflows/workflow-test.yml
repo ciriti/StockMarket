@@ -2,7 +2,7 @@ name: TEST - GitHub Tag and Release
 
 on:
   push:
-    branches: [ add-commit-push-1 ] #[ release/* ]
+    branches: [ add-commit-push-1_disabled ] #[ release/* ]
 
 jobs:
   build:

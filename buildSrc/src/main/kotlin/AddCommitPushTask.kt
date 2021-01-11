@@ -33,9 +33,9 @@ open class AddCommitPushTask : DefaultTask() {
 
     private fun addCommitPush() {
         val error = ErrorAppend()
-        "echo =============> $userEmail $userName".runCommand(error = error)
-//        "git config user.email $userEmail".runCommand(error = error)
-//        "git config user.name $userName".runCommand(error = error)
+        "echo =============> userEmail: $userEmail userName: $userName".runCommand(error = error)
+        "git config user.email $userEmail".runCommand(error = error)
+        "git config user.name $userName".runCommand(error = error)
         "git pull".runCommand(error = error)
         val filesList= filesArg.split(":")
         filesList.forEach {

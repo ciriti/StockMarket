@@ -1,3 +1,7 @@
+## 1.3.0 (January, 11, 2021) 
+* added BumpVersionCodeTask
+* version 1.2.9 
+
 ## 1.2.8 (January, 11, 2021) 
 * created ReadmeUpdateTask
 * created AddCommitPushTask

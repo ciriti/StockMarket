@@ -17,6 +17,8 @@ jobs:
       STORE_PASSWORD: ${{ secrets.STORE_PASSWORD }}
       GOOGLE_PLAY_KEY_PUBLISH: ${{ secrets.GOOGLE_PLAY_KEY_PUBLISH }}
       ROLL_OUT_PERCENTAGE: ${{ secrets.ROLL_OUT_PERCENTAGE }}
+      GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+      GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
     steps:
       - uses: actions/checkout@v2
       - name: set up JDK 1.8

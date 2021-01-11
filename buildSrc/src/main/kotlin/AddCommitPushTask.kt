@@ -44,7 +44,10 @@ open class AddCommitPushTask : DefaultTask() {
         }
         "git commit -m \"committed files $filesList\"".runCommand(error = error)
         "git push".runCommand(error = error)
-        println(error.sb.toString())
+
+        "echo ======= ERROR ========".runCommand(error = error)
+        "echo ${error.sb}".runCommand(error = error)
+        "echo ======================".runCommand(error = error)
     }
 
     private fun String.runCommand(workingDir: File = project.rootDir, error: Appendable) {

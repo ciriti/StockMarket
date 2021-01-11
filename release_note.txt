@@ -1,13 +1,4 @@
-* added git name and email
-* corrected a comment
+* created ReadmeUpdateTask
+* created AddCommitPushTask
+* created ChangeLogUpdateTask
 * version 1.2.7
-
-
-
-
-
-
-
-
-
-

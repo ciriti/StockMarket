@@ -3,8 +3,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import java.io.File
-import java.io.IOException
-import java.util.concurrent.TimeUnit
+import java.lang.StringBuilder
 
 open class AddCommitPushTask : DefaultTask() {
 
@@ -13,8 +12,18 @@ open class AddCommitPushTask : DefaultTask() {
     }
 
     @get:Input
-    val gitAction: String by lazy {
-        (project.properties["git_action"] as? String) ?: ""
+    val filesArg: String by lazy {
+        (project.properties["files"] as? String) ?: ""
+    }
+
+    @get:Input
+    val userName: String by lazy {
+        (project.properties["user_name"] as? String) ?: "GitHub Action"
+    }
+
+    @get:Input
+    val userEmail: String by lazy {
+        (project.properties["user_email"] as? String) ?: ""
     }
 
     @TaskAction
@@ -23,28 +32,35 @@ open class AddCommitPushTask : DefaultTask() {
     }
 
     private fun addCommitPush() {
-        if (gitAction == "push") {
-            // git fetch
-            "git fetch".runCommand(workingDir = project.rootDir)
-            "git add ${project.rootDir}/test.txt".runCommand(workingDir = project.rootDir)
-            "git commit -m \"test.txt done\"".runCommand(workingDir = project.rootDir)
-            "git push".runCommand(workingDir = project.rootDir)
+        val error = ErrorAppend()
+        "echo =============> userEmail: $userEmail userName: $userName".runCommand(error = error)
+        "git config user.email $userEmail".runCommand(error = error)
+        "git config user.name $userName".runCommand(error = error)
+        "git pull".runCommand(error = error)
+        val filesList= filesArg.split(":")
+        filesList.forEach {
+            "echo ============= > $it".runCommand(error = error)
+            "git add $it".runCommand(error = error)
         }
+        "git commit -m \"committed files $filesList\"".runCommand(error = error)
+        "git push".runCommand(error = error)
+
+        "echo ======= ERROR ========".runCommand(error = error)
+        "echo ${error.sb}".runCommand(error = error)
+        "echo ======================".runCommand(error = error)
     }
 
-    fun String.runCommand(
-        workingDir: File = File(".")
-    ): String {
+    private fun String.runCommand(workingDir: File = project.rootDir, error: Appendable) {
         val process: Process = ProcessBuilder(split("\\s(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*$)".toRegex()))
             .directory(workingDir)
             .redirectOutput(ProcessBuilder.Redirect.PIPE)
             .redirectError(ProcessBuilder.Redirect.PIPE)
             .start()
-        process.waitForProcessOutput(System.out, System.err)
-        return ""
+        process.waitForProcessOutput(System.out, error)
+
     }
 
-    fun Process.waitForProcessOutput(
+    private fun Process.waitForProcessOutput(
         output: Appendable,
         error: Appendable
     ) {
@@ -54,5 +70,23 @@ open class AddCommitPushTask : DefaultTask() {
         terr.join()
         this.waitFor()
         ProcessGroovyMethods.closeStreams(this)
+    }
+
+    class ErrorAppend : Appendable{
+        val sb by lazy { StringBuilder() }
+        override fun append(csq: CharSequence?): java.lang.Appendable {
+            sb.append(csq)
+            return System.err
+        }
+
+        override fun append(csq: CharSequence?, start: Int, end: Int): java.lang.Appendable {
+            sb.append(csq)
+            return System.err
+        }
+
+        override fun append(c: Char): java.lang.Appendable {
+            sb.append(c)
+            return System.err
+        }
     }
 }

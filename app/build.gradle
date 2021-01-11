@@ -118,6 +118,7 @@ dependencies {
 // kotlin -> tasks.register<ChangeLogUpdateTask>("changeLogUpdate")
 task changeLogUpdate(type: ChangeLogUpdateTask)
 task readmeUpdate(type: ReadmeUpdateTask)
+task addCommitPush(type: AddCommitPushTask)
 
 //task addCommitPush(type: AddCommitPushTask)
 //task pd{

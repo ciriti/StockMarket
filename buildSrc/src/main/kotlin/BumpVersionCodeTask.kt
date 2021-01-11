@@ -1,39 +1,43 @@
 import org.gradle.api.DefaultTask
-import org.gradle.api.tasks.Input
+import org.gradle.api.GradleException
 import org.gradle.api.tasks.TaskAction
 import java.io.File
+import java.util.*
 
-open class ReadmeUpdateTask : DefaultTask() {
+open class BumpVersionCodeTask : DefaultTask() {
 
     init {
         group = "versioning"
     }
 
-    @get:Input
-    val readmePath: String by lazy { "${project.rootDir}/README.md" }
-
-    private val mavenRegexDep by lazy { """(\d)+\.(\d)+\.(\d)+""".toRegex() }
-    private val versionLib by lazy { project.properties["version_name"] as String }
-
     @TaskAction
     fun execute() {
-        val readme = File(readmePath)
-        updateReadme(readme)
+        val file = File("${project.projectDir}/gradle.properties")
+        if(!file.exists()) throw GradleException("""
+            gradle.properties doesn't exist!!!
+            Create a gradle.properties file into the following dir [${project.projectDir}]
+        """.trimIndent())
+        updateVersionCode(file)
     }
 
-    private fun updateReadme(file: File) {
-        // README.md
-        if (!file.exists()) return
-        val readmeContent = file.readText(charset = Charsets.UTF_8)
-        val updateReadme = readmeContent.replace(mavenRegexDep, versionLib)
-        // README.md content updated
-        file.writeText(text = updateReadme, charset = Charsets.UTF_8)
-    }
+    private fun updateVersionCode(file: File) {
 
-    private fun String.updateMavenDependency(version: String): String {
-        val list = this.split(":").toMutableList()
-        if (list.size < 3) return this
-        list[2] = version
-        return list.joinToString(separator = ":")
+        val versionProps = Properties()
+        versionProps.load(file.inputStream())
+
+        if(!versionProps.containsKey("VERSION_CODE"))throw GradleException("""
+            Property VERSION_CODE doesn't exist!!!
+            Insert a property VERSION_CODE file into the gradle.properties file. Ex:
+            VERSION_CODE=10
+        """.trimIndent())
+
+        versionProps.getProperty("VERSION_CODE").toIntOrNull() ?: throw GradleException("""
+            VERSION_CODE doesn't contain a number!!!
+            Replace the VERSION_CODE value with a number
+        """.trimIndent())
+
+        val bumpedVersionCode = versionProps.getProperty("VERSION_CODE").toLong().inc()
+        versionProps.setProperty("VERSION_CODE", "$bumpedVersionCode")
+        versionProps.store(file.writer(), null)
     }
 }

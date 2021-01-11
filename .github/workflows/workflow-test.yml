@@ -17,11 +17,13 @@ jobs:
       - name: Add, commit and push CHANGELOG.md and README.md
         env:
           GRADLE_PROPERTIES: "app/gradle.properties"
-          GIT_USERNAME: "${{ secrets.GIT_USERNAME }}"
-          GIT_EMAIL: "${{ secrets.GIT_EMAIL }}"
+          GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
+          GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
+          CHANGELOG_PATH: "CHANGELOG.md"
+          RELEASE_NOTE_PATH: "release_note.txt"
         run: |
-          echo GIT_USERNAME $GIT_USERNAME GIT_EMAIL $GIT_EMAIL
-          ./gradlew app:paramTask -P files=$GRADLE_PROPERTIES -P user_name=GIT_USERNAME -P user_email=GIT_EMAIL
+          ./gradlew app:changeLogUpdate -P releaseNotePath=$RELEASE_NOTE_PATH -P changeLogPath=$CHANGELOG_PATH
+          ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH
 #      - name: Get current time
 #        uses: 1466587594/get-current-time@v2
 #        id: current-time

@@ -20,7 +20,7 @@ jobs:
           GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
           GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
         run: |
-          ./gradlew app:paramTask -P files=$GRADLE_PROPERTIES -P user_name=${{ secrets.GIT_USERNAME }} -P user_email=${{ secrets.GIT_EMAIL }}
+          ./gradlew app:paramTask -P files=$GRADLE_PROPERTIES -P user_name=pd -P user_email=pd
 #      - name: Get current time
 #        uses: 1466587594/get-current-time@v2
 #        id: current-time

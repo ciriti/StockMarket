@@ -17,14 +17,10 @@ open class AddCommitPushTask : DefaultTask() {
     }
 
     @get:Input
-    val userName: String by lazy {
-        (project.properties["user_name"] as? String) ?: "GitHub Action"
-    }
+    val userName: String by lazy { System.getenv("GIT_USERNAME") }
 
     @get:Input
-    val userEmail: String by lazy {
-        (project.properties["user_email"] as? String) ?: ""
-    }
+    val userEmail: String by lazy { System.getenv("GIT_EMAIL") }
 
     @TaskAction
     fun execute() {

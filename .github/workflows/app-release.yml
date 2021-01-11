@@ -25,10 +25,7 @@ jobs:
           java-version: 1.8
       - name: Bump versionCode
         id: bump
-        run: |
-          git config user.email "ciriti@gmail.com"
-          git config user.name "GitHub Action"
-          ./gradlew app:bumpVersionCode '-Pgit_action=push'
+        run: ./gradlew app:bumpVersionCode
       - name: Assemble release
         run: |
           echo '${{ secrets.SERVICE_ACCOUNT }}' > service_account.json
@@ -56,3 +53,8 @@ jobs:
           packageName: com.ciriti.stockmarket
           releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
           track: production
+      - name: Add, commit and push CHANGELOG.md and README.md
+        env:
+          GRADLE_PROPERTIES: "app/gradle.properties"
+        run: |
+          ./gradlew app:addCommitPush -P files=$GRADLE_PROPERTIES

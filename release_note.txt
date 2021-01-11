@@ -1,4 +1,2 @@
-* created ReadmeUpdateTask
-* created AddCommitPushTask
-* created ChangeLogUpdateTask
-* version 1.2.7
+* added BumpVersionCodeTask
+* version 1.2.9

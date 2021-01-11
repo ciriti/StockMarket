@@ -59,4 +59,4 @@ jobs:
           README_PATH: "README.md"
           CHANGELOG_PATH: "CHANGELOG.md"
         run: |
-          ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH -P user_name=ciriti@gmail.com -P user_email=GitAction
+          ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH

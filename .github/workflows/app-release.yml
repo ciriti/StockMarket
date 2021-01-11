@@ -57,4 +57,4 @@ jobs:
         env:
           GRADLE_PROPERTIES: "app/gradle.properties"
         run: |
-          ./gradlew app:addCommitPush -P files=$GRADLE_PROPERTIES -P user_name=ciriti@gmail.com -P user_email=GitAction
+          ./gradlew app:addCommitPush -P files=$GRADLE_PROPERTIES

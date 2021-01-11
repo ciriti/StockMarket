@@ -115,12 +115,4 @@ task changeLogUpdate(type: ChangeLogUpdateTask)
 task readmeUpdate(type: ReadmeUpdateTask)
 task addCommitPush(type: AddCommitPushTask)
 task bumpVersionCode(type: BumpVersionCodeTask)
-task paramTask(type: ParamTask)
 
-//task addCommitPush(type: AddCommitPushTask)
-//task pd{
-//    doLast {
-//        Process fetchChanges = ['git', 'fetch'].execute(null, project.rootDir)
-//        fetchChanges.waitForProcessOutput(System.out, System.err)
-//    }
-//}

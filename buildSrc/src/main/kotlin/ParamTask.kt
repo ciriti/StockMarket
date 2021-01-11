@@ -21,5 +21,7 @@ open class ParamTask : DefaultTask() {
     @TaskAction
     fun execute() {
         "echo =============> userEmail: $userEmail userName: $userName".runCommand(workingDir = project.rootDir)
+        "echo =============> env userName: ${System.getenv("GIT_USERNAME")}".runCommand(workingDir = project.rootDir)
+        "echo =============> env userEmail: ${System.getenv("GIT_EMAIL")}".runCommand(workingDir = project.rootDir)
     }
 }

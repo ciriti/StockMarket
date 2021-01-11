@@ -6,6 +6,10 @@
 * created env variable
 * version 1.2.7 
 
+## 1.2.7 (January, 11, 2021) 
+* created env variable
+* version 1.2.7 
+
 ## 1.2.7 (January, 10, 2021) 
 * created env variable
 * version 1.2.7 

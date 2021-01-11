@@ -2,8 +2,6 @@
 * corrected a comment
 * version 1.2.7
 
-sdfasdfasvasv
-
 
 
 

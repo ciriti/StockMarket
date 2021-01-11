@@ -3,6 +3,7 @@ import org.gradle.api.DefaultTask
 import org.gradle.api.tasks.Input
 import org.gradle.api.tasks.TaskAction
 import java.io.File
+import java.lang.StringBuilder
 
 open class AddCommitPushTask : DefaultTask() {
 
@@ -31,26 +32,29 @@ open class AddCommitPushTask : DefaultTask() {
     }
 
     private fun addCommitPush() {
-        "echo =============> $userEmail $userName".runCommand(workingDir = project.rootDir)
-        "git config user.email $userEmail".runCommand(workingDir = project.rootDir)
-        "git config user.name $userName".runCommand(workingDir = project.rootDir)
-        "git pull".runCommand(workingDir = project.rootDir)
+        val error = ErrorAppend()
+        "echo =============> $userEmail $userName".runCommand(error = error)
+//        "git config user.email $userEmail".runCommand(error = error)
+//        "git config user.name $userName".runCommand(error = error)
+        "git pull".runCommand(error = error)
         val filesList= filesArg.split(":")
         filesList.forEach {
-            "echo ============= > $it".runCommand(workingDir = project.rootDir)
-            "git add $it".runCommand(workingDir = project.rootDir)
+            "echo ============= > $it".runCommand(error = error)
+            "git add $it".runCommand(error = error)
         }
-        "git commit -m \"committed files $filesList\"".runCommand(workingDir = project.rootDir)
-        "git push".runCommand(workingDir = project.rootDir)
+        "git commit -m \"committed files $filesList\"".runCommand(error = error)
+        "git push".runCommand(error = error)
+        println(error.sb.toString())
     }
 
-    private fun String.runCommand(workingDir: File = File(".")) {
+    private fun String.runCommand(workingDir: File = project.rootDir, error: Appendable) {
         val process: Process = ProcessBuilder(split("\\s(?=(?:[^'\"`]*(['\"`])[^'\"`]*\\1)*[^'\"`]*$)".toRegex()))
             .directory(workingDir)
             .redirectOutput(ProcessBuilder.Redirect.PIPE)
             .redirectError(ProcessBuilder.Redirect.PIPE)
             .start()
-        process.waitForProcessOutput(System.out, System.err)
+        process.waitForProcessOutput(System.out, error)
+
     }
 
     private fun Process.waitForProcessOutput(
@@ -63,5 +67,23 @@ open class AddCommitPushTask : DefaultTask() {
         terr.join()
         this.waitFor()
         ProcessGroovyMethods.closeStreams(this)
+    }
+
+    class ErrorAppend : Appendable{
+        val sb by lazy { StringBuilder() }
+        override fun append(csq: CharSequence?): java.lang.Appendable {
+            sb.append(csq)
+            return System.err
+        }
+
+        override fun append(csq: CharSequence?, start: Int, end: Int): java.lang.Appendable {
+            sb.append(csq)
+            return System.err
+        }
+
+        override fun append(c: Char): java.lang.Appendable {
+            sb.append(c)
+            return System.err
+        }
     }
 }

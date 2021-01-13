@@ -3,8 +3,8 @@ package com.ciriti.stockmarket.ui.stockprice
 import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.ciriti.stockmarket.* // ktlint-disable
 import com.ciriti.stockmarket.data.StockInfo
-import com.ciriti.stockmarket.utils.Logger
-import com.ciriti.stockmarket.utils.debugLogger
+import com.ciriti.stockmarket.data.utils.Logger
+import com.ciriti.stockmarket.data.utils.debugLogger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.ExperimentalCoroutinesApi
 import kotlinx.coroutines.channels.Channel

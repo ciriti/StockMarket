@@ -1,8 +1,6 @@
-package com.ciriti.stockmarket.data // ktlint-disable
+package com.ciriti.stockmarket.data
 
 import com.ciriti.okhttpext.newWebSocket
-import com.ciriti.stockmarket.BuildConfig
-import com.ciriti.stockmarket.ui.stockprice.check
 import com.google.gson.Gson
 import kotlinx.coroutines.CancellationException
 import kotlinx.coroutines.cancel
@@ -12,10 +10,10 @@ import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.callbackFlow
 import okhttp3.* // ktlint-disable
 
-fun WebSocketService.Companion.creteGdax(client: OkHttpClient): WebSocketService =
-    WebSocketServiceOkHttpGDAXImpl(client)
+fun WebSocketService.Companion.crete(client: OkHttpClient): WebSocketService =
+    WebSocketServiceOkHttpImpl(client)
 
-class WebSocketServiceOkHttpGDAXImpl(private val client: OkHttpClient) :
+class WebSocketServiceOkHttpImpl(private val client: OkHttpClient) :
     WebSocketService {
 
     private val converter by lazy { Gson() }
@@ -27,15 +25,10 @@ class WebSocketServiceOkHttpGDAXImpl(private val client: OkHttpClient) :
         val request = Request.Builder()
             .url(BuildConfig.SOCKET_URL)
             .build()
+
         webS = client.newWebSocket(request) {
             onOpen { webSocket, response -> subscribeAll(webSocket) }
-            onMessage { webSocket, text ->
-                check { text.toGDAXInfo().toStockInfo() }
-                    .fold(
-                        { e -> e.printStackTrace() },
-                        { stock -> sendBlocking(stock) }
-                    )
-            }
+            onMessage { webSocket, text -> sendBlocking(text.toStockInfo()) }
             onMessageByte { webSocket, bytes -> println("=> MESSAGE: " + bytes.hex()) }
             onClosing { webSocket, code, reason ->
                 unSubscribeAll(webSocket)
@@ -45,7 +38,6 @@ class WebSocketServiceOkHttpGDAXImpl(private val client: OkHttpClient) :
             }
             onClosed { webSocket, code, reason -> }
             onFailure { webSocket, t, response ->
-                t.printStackTrace()
                 println("Failure: ${t.printStackTrace()}")
                 cancel(CancellationException("API Error", t))
             }
@@ -65,19 +57,26 @@ class WebSocketServiceOkHttpGDAXImpl(private val client: OkHttpClient) :
     }
 
     private fun unSubscribeAll(webSocket: WebSocket) {
-        webSocket.send(UnSubscribeCommandGDAX().toString())
+        stockList.forEach {
+            webSocket.send(UnSubscribeCommand(it).toJson())
+        }
         webS?.close(1000, "Goodbye, World!")
     }
 
     override fun unSubscribeAll() {
-        webS?.send(UnSubscribeCommandGDAX().toString())
-        webS?.close(1000, "Goodbye, World!")
+        stockList.forEach {
+            webS?.send(UnSubscribeCommand(it).toJson())
+            webS?.close(1000, "Goodbye, World!")
+        }
     }
 
     private fun subscribeAll(webSocket: WebSocket) {
-        webSocket.send(SubscribeCommandGDAX(gdaxList).toString())
+        stockList.forEach {
+            webSocket.send(SubscribeCommand(it).toJson())
+        }
     }
 
-    private fun String.toGDAXInfo() = converter.fromJson<GDAXInfo>(this, GDAXInfo::class.java)
-    private fun GDAXInfo.toStockInfo() = StockInfo(isin = product_id, price = price)
+    private fun SubscribeCommand.toJson() = converter.toJson(this)
+    private fun UnSubscribeCommand.toJson() = converter.toJson(this)
+    private fun String.toStockInfo() = converter.fromJson<StockInfo>(this, StockInfo::class.java)
 }

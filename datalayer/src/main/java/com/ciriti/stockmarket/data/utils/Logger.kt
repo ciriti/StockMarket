@@ -1,4 +1,4 @@
-package com.ciriti.stockmarket.utils
+package com.ciriti.stockmarket.data.utils
 
 import android.util.Log
 

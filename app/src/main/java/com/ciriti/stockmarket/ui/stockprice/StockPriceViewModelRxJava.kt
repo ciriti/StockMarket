@@ -7,8 +7,8 @@ import com.ciriti.stockmarket.data.RxSocketService
 import com.ciriti.stockmarket.data.SubscribeCommand
 import com.ciriti.stockmarket.data.UnSubscribeCommand
 import com.ciriti.stockmarket.data.stockList
-import com.ciriti.stockmarket.utils.Logger
-import com.ciriti.stockmarket.utils.printThreadName
+import com.ciriti.stockmarket.data.utils.Logger
+import com.ciriti.stockmarket.data.utils.printThreadName
 import com.tinder.scarlet.WebSocket
 import io.reactivex.android.schedulers.AndroidSchedulers
 import io.reactivex.disposables.CompositeDisposable

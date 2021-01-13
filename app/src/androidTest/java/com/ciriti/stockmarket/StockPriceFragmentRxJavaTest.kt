@@ -7,11 +7,11 @@ import androidx.test.rule.ActivityTestRule
 import com.ciriti.stockmarket.data.RxSocketService
 import com.ciriti.stockmarket.data.StockInfo
 import com.ciriti.stockmarket.data.stockList
+import com.ciriti.stockmarket.data.utils.Logger
+import com.ciriti.stockmarket.data.utils.debugLogger
 import com.ciriti.stockmarket.ui.stockprice.StockInfoUi
 import com.ciriti.stockmarket.ui.stockprice.StockPriceViewModelRxJava
 import com.ciriti.stockmarket.ui.stockprice.uicomponent.GDAXAdapter
-import com.ciriti.stockmarket.utils.Logger
-import com.ciriti.stockmarket.utils.debugLogger
 import com.tinder.scarlet.WebSocket
 import io.mockk.MockKAnnotations
 import io.mockk.every

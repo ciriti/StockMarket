@@ -5,10 +5,10 @@ import androidx.test.ext.junit.runners.AndroidJUnit4
 import androidx.test.rule.ActivityTestRule
 import com.ciriti.stockmarket.data.StockInfo
 import com.ciriti.stockmarket.data.stockList
+import com.ciriti.stockmarket.data.utils.Logger
+import com.ciriti.stockmarket.data.utils.debugLogger
 import com.ciriti.stockmarket.ui.stockprice.StockPriceViewModel
 import com.ciriti.stockmarket.ui.stockprice.uicomponent.GDAXAdapter
-import com.ciriti.stockmarket.utils.Logger
-import com.ciriti.stockmarket.utils.debugLogger
 import kotlinx.coroutines.channels.Channel
 import kotlinx.coroutines.runBlocking
 import kotlinx.coroutines.withTimeout

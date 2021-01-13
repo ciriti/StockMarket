@@ -55,7 +55,7 @@ jobs:
           release_name: v${{ env.VERSION_NAME }}
           body: |
             ## ${{ env.VERSION_NAME }} ${{ env.CURRENT_TIME }}
-            "${{ cat $RELEASE_NOTE_PATH }}"
+            ${{ $(cat $RELEASE_NOTE_PATH) }}
           draft: false
           prerelease: false
 #      - name: Bintray upload artifact

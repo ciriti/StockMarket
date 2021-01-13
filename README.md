@@ -4,8 +4,8 @@
 ![Bintray](https://img.shields.io/bintray/v/ciriti/gdax/gdax-datalayer?label=gdax-datalayer)
 ![Bintray](https://img.shields.io/bintray/v/ciriti/gdax/okhttp-socket-ext?label=okhttp-socket-ext)
 
-\[!\[Get it on Google Play\](https://play.google.com/intl/en\_us/badges/static/images/badges/en\_badge\_web\_generic.eps)\](https://play.google.com/store/apps/details?id=com.ciriti.stockmarket&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
-# StockMarket
+# StockMarket 
+[![Get it on Google Play](art/gplay.png)](https://play.google.com/store/apps/details?id=com.ciriti.stockmarket&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
 
 ##### Table of Contents  
 - [Intro](#intro)  

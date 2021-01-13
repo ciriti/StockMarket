@@ -42,8 +42,6 @@ jobs:
       - name: Read Release Note
         id: release_note
         run: |
-          echo RELEASE_NOTE_PATH: $RELEASE_NOTE_PATH
-          echo "RELEASE_NOTE=$(cat $RELEASE_NOTE_PATH)" >> $GITHUB_ENV
           echo "::set-output name=content::$(cat $RELEASE_NOTE_PATH)"
       - name: Create Release
         id: create_release

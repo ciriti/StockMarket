@@ -56,7 +56,7 @@ jobs:
           BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
           BINTRAY_APIKEY: ${{ secrets.BINTRAY_APIKEY }}
         run: |
-          ./gradlew okhttp-socket-ext:bintrayUpload
+          ./gradlew okhttp-socket-ext:bintrayUpload datalayer:bintrayUpload
       - name: Add, commit and push CHANGELOG.md and README.md
         env:
           README_PATH: "README.md"

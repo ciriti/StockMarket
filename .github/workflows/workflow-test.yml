@@ -5,9 +5,9 @@ on:
     branches: [ fix-release-note ] #[ release/* ]
     paths:
       - '!README.md'
-      - '!*.yml'
       - '!art/**'
-      - '!build.gradle'
+#      - '!*.yml'
+#      - '!build.gradle'
 
 jobs:
   build:

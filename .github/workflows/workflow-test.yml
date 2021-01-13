@@ -39,11 +39,11 @@ jobs:
 #      - name: Update README.md
 #        run: |
 #          ./gradlew app:readmeUpdate
-      - name: Read Release Note
-        id: release_note
-        run: |
-          echo RELEASE_NOTE_PATH: $RELEASE_NOTE_PATH
-          echo "RELEASE_NOTE=$(cat $RELEASE_NOTE_PATH)" >> $GITHUB_ENV
+#      - name: Read Release Note
+#        id: release_note
+#        run: |
+#          echo RELEASE_NOTE_PATH: $RELEASE_NOTE_PATH
+#          echo "RELEASE_NOTE=$(cat $RELEASE_NOTE_PATH)" >> $GITHUB_ENV
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
@@ -55,7 +55,7 @@ jobs:
           release_name: v${{ env.VERSION_NAME }}
           body: |
             ## ${{ env.VERSION_NAME }} ${{ env.CURRENT_TIME }}
-            ${{ env.RELEASE_NOTE }}
+            ${{ cat $RELEASE_NOTE_PATH }}
           draft: false
           prerelease: false
 #      - name: Bintray upload artifact

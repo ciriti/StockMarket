@@ -2,7 +2,7 @@ name: TEST - GitHub Tag and Release
 
 on:
   push:
-    branches: [ fix-release-note ] #[ release/* ]
+    branches: [ fix-release-note-disabled ] #[ release/* ]
 #    paths:
 #      - '!README.md'
 #      - '!art/**'
@@ -33,12 +33,12 @@ jobs:
         run: |
           ./gradlew app:versionTxt
           echo "VERSION_NAME=$(cat app/version.txt)" >> $GITHUB_ENV
-#      - name: Update CHANGELOG.md
-#        run: |
-#          ./gradlew app:changeLogUpdate -P releaseNotePath=$RELEASE_NOTE_PATH -P changeLogPath=$CHANGELOG_PATH
-#      - name: Update README.md
-#        run: |
-#          ./gradlew app:readmeUpdate
+      - name: Update CHANGELOG.md
+        run: |
+          ./gradlew app:changeLogUpdate -P releaseNotePath=$RELEASE_NOTE_PATH -P changeLogPath=$CHANGELOG_PATH
+      - name: Update README.md
+        run: |
+          ./gradlew app:readmeUpdate
       - name: Read Release Note
         id: release_note
         uses: juliangruber/read-file-action@v1
@@ -59,9 +59,9 @@ jobs:
             ${{ env.RELEASE_NOTE }}
           draft: false
           prerelease: false
-#      - name: Bintray upload artifact
-#        run: |
-#          ./gradlew okhttp-socket-ext:bintrayUpload datalayer:bintrayUpload
-#      - name: Add, commit and push CHANGELOG.md and README.md
-#        run: |
-#          ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH
+      - name: Bintray upload artifact
+        run: |
+          ./gradlew okhttp-socket-ext:bintrayUpload datalayer:bintrayUpload
+      - name: Add, commit and push CHANGELOG.md and README.md
+        run: |
+          ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH

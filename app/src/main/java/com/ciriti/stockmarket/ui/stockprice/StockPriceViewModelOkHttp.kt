@@ -5,7 +5,7 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import androidx.lifecycle.viewModelScope
 import com.ciriti.stockmarket.data.WebSocketService
-import com.ciriti.stockmarket.utils.Logger
+import com.ciriti.stockmarket.data.utils.Logger
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.collect
 import kotlinx.coroutines.launch

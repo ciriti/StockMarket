@@ -1,6 +1,6 @@
 package com.ciriti.stockmarket.data
 
-import com.ciriti.stockmarket.utils.Logger
+import com.ciriti.stockmarket.data.utils.Logger
 import kotlinx.coroutines.channels.awaitClose
 import kotlinx.coroutines.channels.sendBlocking
 import kotlinx.coroutines.flow.Flow

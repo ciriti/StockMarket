@@ -9,7 +9,7 @@ import com.ciriti.stockmarket.data.StockService
 import com.ciriti.stockmarket.data.SubscribeCommand
 import com.ciriti.stockmarket.data.UnSubscribeCommand
 import com.ciriti.stockmarket.data.stockList
-import com.ciriti.stockmarket.utils.Logger
+import com.ciriti.stockmarket.data.utils.Logger
 import com.tinder.scarlet.WebSocket
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch

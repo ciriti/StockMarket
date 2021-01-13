@@ -1,12 +1,12 @@
-![https://github.com/ciriti/StockMarket/workflows/Test/badge.svg](https://github.com/ciriti/StockMarket/workflows/Test/badge.svg)
-![https://github.com/ciriti/StockMarket/workflows/GitHub%20Tag%20and%20Release/badge.svg](https://github.com/ciriti/StockMarket/workflows/GitHub%20Tag%20and%20Release/badge.svg)
-![https://github.com/ciriti/StockMarket/workflows/App%20Release/badge.svg](https://github.com/ciriti/StockMarket/workflows/App%20Release/badge.svg)
-![Bintray](https://img.shields.io/bintray/v/ciriti/gdax/gdax-datalayer?label=gdax-datalayer)
-![Bintray](https://img.shields.io/bintray/v/ciriti/gdax/okhttp-socket-ext?label=okhttp-socket-ext)
+[![https://github.com/ciriti/StockMarket/workflows/Test/badge.svg](https://github.com/ciriti/StockMarket/workflows/Test/badge.svg)](https://github.com/ciriti/StockMarket/actions?query=workflow%3A%22UI+and+Unit+Tests%22)
+[![https://github.com/ciriti/StockMarket/workflows/GitHub%20Tag%20and%20Release/badge.svg](https://github.com/ciriti/StockMarket/workflows/GitHub%20Tag%20and%20Release/badge.svg)](https://github.com/ciriti/StockMarket/actions?query=workflow%3A%22GitHub+Tag+and+Release%22)
+[![https://github.com/ciriti/StockMarket/workflows/App%20Release/badge.svg](https://github.com/ciriti/StockMarket/workflows/App%20Release/badge.svg)](https://github.com/ciriti/StockMarket/actions?query=workflow%3A%22App+Release%22)
 
+[![Bintray](https://img.shields.io/bintray/v/ciriti/gdax/gdax-datalayer?label=gdax-datalayer)](https://bintray.com/ciriti/gdax/gdax-datalayer)
+[![Bintray](https://img.shields.io/bintray/v/ciriti/gdax/okhttp-socket-ext?label=okhttp-socket-ext)](https://bintray.com/ciriti/gdax/okhttp-socket-ext)
 
-![](art/gplay.png "App")
-# [StockMarket](https://play.google.com/store/apps/details?id=com.ciriti.stockmarket)
+# StockMarket 
+[![Get it on Google Play](art/gplay.png)](https://play.google.com/store/apps/details?id=com.ciriti.stockmarket&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
 
 ##### Table of Contents  
 - [Intro](#intro)  
@@ -100,10 +100,6 @@ repositories {
 ```
 
 ### Dependencies
-
-Pick one of your Koin dependency:
-
-#### Gradle Plugin
 
 ```gradle
 dependencies {

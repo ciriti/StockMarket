@@ -7,7 +7,6 @@ on:
       - '!README.md'
       - '!*.yml'
       - '!art/**'
-      - '!build.gradle'
       - '!art/*'
 
 jobs:

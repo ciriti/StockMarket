@@ -1,9 +1,12 @@
 ![https://github.com/ciriti/StockMarket/workflows/Test/badge.svg](https://github.com/ciriti/StockMarket/workflows/Test/badge.svg)
 ![https://github.com/ciriti/StockMarket/workflows/GitHub%20Tag%20and%20Release/badge.svg](https://github.com/ciriti/StockMarket/workflows/GitHub%20Tag%20and%20Release/badge.svg)
 ![https://github.com/ciriti/StockMarket/workflows/App%20Release/badge.svg](https://github.com/ciriti/StockMarket/workflows/App%20Release/badge.svg)
-![https://api.bintray.com/packages/ciriti/gdax/okhttp-socket-ext/images/download.svg](https://api.bintray.com/packages/ciriti/gdax/okhttp-socket-ext/images/download.svg)
+![Bintray](https://img.shields.io/bintray/v/ciriti/gdax/gdax-datalayer?label=gdax-datalayer)
+![Bintray](https://img.shields.io/bintray/v/ciriti/gdax/okhttp-socket-ext?label=okhttp-socket-ext)
 
-# StockMarket
+
+![](art/gplay.png "App")
+# [StockMarket](https://play.google.com/store/apps/details?id=com.ciriti.stockmarket)
 
 ##### Table of Contents  
 - [Intro](#intro)  

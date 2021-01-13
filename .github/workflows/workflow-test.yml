@@ -3,7 +3,11 @@ name: TEST - GitHub Tag and Release
 on:
   push:
     branches: [ add-commit-push-1_disabled ] #[ release/* ]
-
+    paths:
+      - '!README.md'
+      - '!*.yml'
+      - '!art/**'
+      - '!build.gradle'
 jobs:
   build:
     name: Create Release and tag

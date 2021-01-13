@@ -3,6 +3,12 @@ name: GitHub Tag and Release
 on:
   push:
     branches:  [ master ] #[ release/* ]
+    paths:
+      - '!README.md'
+      - '!*.yml'
+      - '!art/**'
+      - '!build.gradle'
+      - '!art/*'
 
 jobs:
   build:

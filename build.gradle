@@ -21,7 +21,7 @@ buildscript {
 }
 
 plugins {
-    id 'de.nanogiants.android-versioning' version '2.4.0'
+    id 'digital.wup.android-maven-publish' version '3.6.2'
 }
 
 allprojects {

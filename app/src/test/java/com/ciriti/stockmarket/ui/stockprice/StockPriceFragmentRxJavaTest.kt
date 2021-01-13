@@ -4,13 +4,12 @@ import androidx.arch.core.executor.testing.InstantTaskExecutorRule
 import com.ciriti.stockmarket.* // ktlint-disable
 import com.ciriti.stockmarket.data.RxSocketService
 import com.ciriti.stockmarket.data.StockInfo
-import com.ciriti.stockmarket.utils.Logger
-import com.ciriti.stockmarket.utils.debugLogger
+import com.ciriti.stockmarket.data.utils.Logger
+import com.ciriti.stockmarket.data.utils.debugLogger
 import com.tinder.scarlet.WebSocket.Event.OnConnectionOpened
 import io.mockk.* // ktlint-disable
 import io.mockk.impl.annotations.MockK
 import io.reactivex.Flowable
-import org.junit.Assert.* // ktlint-disable
 import org.junit.Before
 import org.junit.Rule
 import org.junit.Test

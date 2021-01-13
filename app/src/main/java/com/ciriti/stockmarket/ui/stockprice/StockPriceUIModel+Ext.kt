@@ -2,9 +2,8 @@ package com.ciriti.stockmarket.ui.stockprice
 
 import androidx.annotation.StringRes
 import arrow.core.Either
-import arrow.core.Left
-import arrow.core.Right
 import com.ciriti.stockmarket.data.StockInfo
+import com.ciriti.stockmarket.data.utils.check
 import java.math.RoundingMode
 
 fun StockInfo.toUiModel(): Either<Throwable, StockInfoUi> = check {
@@ -18,12 +17,6 @@ data class StockInfoUi(
     val isin: String,
     var price: String
 )
-
-fun <R> check(block: () -> R) = try {
-    Right(block())
-} catch (t: Throwable) {
-    Left(t)
-}
 
 sealed class BaseState {
     data class StateSuccess(val uiStockModel: StockInfoUi) : BaseState()

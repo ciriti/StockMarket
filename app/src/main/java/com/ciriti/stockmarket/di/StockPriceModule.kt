@@ -3,12 +3,12 @@ package com.ciriti.stockmarket.di
 import com.ciriti.stockmarket.BuildConfig
 import com.ciriti.stockmarket.R
 import com.ciriti.stockmarket.data.* // ktlint-disable
+import com.ciriti.stockmarket.data.utils.Logger
+import com.ciriti.stockmarket.data.utils.debugLogger
 import com.ciriti.stockmarket.ui.stockprice.StockPriceViewModel
 import com.ciriti.stockmarket.ui.stockprice.StockPriceViewModelOkHttp
 import com.ciriti.stockmarket.ui.stockprice.StockPriceViewModelRxJava
 import com.ciriti.stockmarket.ui.stockprice.uicomponent.GDAXAdapter
-import com.ciriti.stockmarket.utils.Logger
-import com.ciriti.stockmarket.utils.debugLogger
 import com.tinder.scarlet.Scarlet
 import com.tinder.scarlet.lifecycle.android.AndroidLifecycle
 import com.tinder.scarlet.messageadapter.moshi.MoshiMessageAdapter

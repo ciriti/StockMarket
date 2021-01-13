@@ -1,8 +1,9 @@
 ![https://github.com/ciriti/StockMarket/workflows/Test/badge.svg](https://github.com/ciriti/StockMarket/workflows/Test/badge.svg)
 ![https://github.com/ciriti/StockMarket/workflows/GitHub%20Tag%20and%20Release/badge.svg](https://github.com/ciriti/StockMarket/workflows/GitHub%20Tag%20and%20Release/badge.svg)
 ![https://github.com/ciriti/StockMarket/workflows/App%20Release/badge.svg](https://github.com/ciriti/StockMarket/workflows/App%20Release/badge.svg)
-![Bintray](https://img.shields.io/bintray/v/ciriti/gdax/gdax-datalayer?label=gdax-datalayer)
-![Bintray](https://img.shields.io/bintray/v/ciriti/gdax/okhttp-socket-ext?label=okhttp-socket-ext)
+
+[![Bintray](https://img.shields.io/bintray/v/ciriti/gdax/gdax-datalayer?label=gdax-datalayer)](https://bintray.com/ciriti/gdax/gdax-datalayer)
+[![Bintray](https://img.shields.io/bintray/v/ciriti/gdax/okhttp-socket-ext?label=okhttp-socket-ext)](https://bintray.com/ciriti/gdax/okhttp-socket-ext)
 
 # StockMarket 
 [![Get it on Google Play](art/gplay.png)](https://play.google.com/store/apps/details?id=com.ciriti.stockmarket&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)

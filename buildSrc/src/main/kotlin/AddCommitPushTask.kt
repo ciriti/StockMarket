@@ -71,12 +71,12 @@ open class AddCommitPushTask : DefaultTask() {
     class ErrorAppend : Appendable{
         val sb by lazy { StringBuilder() }
         override fun append(csq: CharSequence?): java.lang.Appendable {
-            sb.append(csq)
+            sb.append("$csq\n")
             return System.err
         }
 
         override fun append(csq: CharSequence?, start: Int, end: Int): java.lang.Appendable {
-            sb.append(csq)
+            sb.append("$csq\n")
             return System.err
         }
 

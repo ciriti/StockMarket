@@ -1,3 +1,7 @@
+## 1.3.5 (January, 14, 2021) 
+* Formatted the output of ErrorAppendable
+* version 1.3.5 
+
 ## 1.3.4 (January, 14, 2021) 
 * added BumpVersionCodeTask
 * version 1.3.4 

@@ -1,3 +1,7 @@
+## 1.3.4 (January, 14, 2021) 
+* added BumpVersionCodeTask
+* version 1.3.4 
+
 ## 1.3.2 (January, 13, 2021) 
 * added BumpVersionCodeTask
 * version 1.2.9 

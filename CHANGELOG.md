@@ -1,3 +1,7 @@
+## 1.3.7 (January, 15, 2021)
+* added custom plugin for updating the changelog file
+* version 1.3.7
+
 ## 1.3.6 (January, 14, 2021) 
 * added custom plugin for bumping the version code
 * version 1.3.6 

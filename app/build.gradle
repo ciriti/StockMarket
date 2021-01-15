@@ -3,6 +3,7 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.github.bump-versioncode'
+apply plugin: 'io.github.update-changelog'
 
 /**
  * This task will create a file version.txt that contains
@@ -111,11 +112,17 @@ dependencies {
 }
 
 // kotlin -> tasks.register<ChangeLogUpdateTask>("changeLogUpdate")
-task changeLogUpdate(type: ChangeLogUpdateTask)
+//task changeLogUpdate(type: ChangeLogUpdateTask)
 task readmeUpdate(type: ReadmeUpdateTask)
 task addCommitPush(type: AddCommitPushTask)
 
 versionCodePropPath{
-    path "gradle.properties"
+    path = "gradle.properties"
+}
+
+changeLogConfig{
+    changeLogPath = rootDir.path + "/CHANGELOG.md"
+    content = file(rootDir.path + "/release_note.txt").text
+    version = "$version_name"
 }
 

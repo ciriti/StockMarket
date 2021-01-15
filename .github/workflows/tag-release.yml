@@ -12,7 +12,6 @@ jobs:
       GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
       GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
       CHANGELOG_PATH: "CHANGELOG.md"
-      RELEASE_NOTE_PATH: "release_note.txt"
       README_PATH: "README.md"
       BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
       BINTRAY_APIKEY: ${{ secrets.BINTRAY_APIKEY }}
@@ -30,7 +29,7 @@ jobs:
           echo "VERSION_NAME=$(cat app/version.txt)" >> $GITHUB_ENV
       - name: Update CHANGELOG.md
         run: |
-          ./gradlew app:changeLogUpdate -P releaseNotePath=$RELEASE_NOTE_PATH -P changeLogPath=$CHANGELOG_PATH
+          ./gradlew app:changeLogUpdate
       - name: Update README.md
         run: |
           ./gradlew app:readmeUpdate

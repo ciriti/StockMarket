@@ -1,3 +1,7 @@
+## 1.3.6 (January, 14, 2021) 
+* added custom plugin for bumping the version code
+* version 1.3.6 
+
 ## 1.3.5 (January, 14, 2021) 
 * Formatted the output of ErrorAppendable
 * version 1.3.5 

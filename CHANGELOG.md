@@ -1,3 +1,7 @@
+## 1.3.9 (January, 16, 2021)
+* added --no-commit option
+* version 1.3.9
+
 ## 1.3.8 (January, 16, 2021)
 * added custom plugin for updating the changelog file
 * version 1.3.7

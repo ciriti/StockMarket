@@ -32,7 +32,7 @@ open class AddCommitPushTask : DefaultTask() {
         "echo =============> userEmail: $userEmail userName: $userName".runCommand(error = error)
         "git config user.email $userEmail".runCommand(error = error)
         "git config user.name $userName".runCommand(error = error)
-        "git pull --no-commit".runCommand(error = error)
+        "git pull --ff-only".runCommand(error = error)
         val filesList= filesArg.split(":")
         filesList.forEach {
             "echo ============= > $it".runCommand(error = error)

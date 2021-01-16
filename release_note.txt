@@ -1,2 +1,2 @@
-* added --no-commit option
-* version 1.3.9
+* added --ff-only option
+* version 1.3.10

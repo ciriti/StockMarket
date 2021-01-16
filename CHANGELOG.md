@@ -1,3 +1,7 @@
+## 1.3.10 (January, 16, 2021)
+* added --ff-only option
+* version 1.3.10
+
 ## 1.3.9 (January, 16, 2021)
 * added --no-commit option
 * version 1.3.9

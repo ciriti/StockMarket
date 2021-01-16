@@ -4,6 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("com.android.library")
     id("maven-publish")
+    id("io.github.replace-in-file")
     kotlin("android")
 }
 // second option
@@ -110,10 +111,17 @@ dependencies {
 
 }
 
-//  kotlin -> tasks.register<ChangeLogUpdateTask>("changeLogUpdate")
-//  java -> task changeLogUpdate(type: ChangeLogUpdateTask)
-
-
-//tasks.register<AddCommitPushTask>("addCommitPush") {
-//    group = "versioning"
-//}
+replaceInFile{
+    docs{
+        create("doc"){
+            path = rootDir.path + "/README.md"
+            find = "io.github.ciriti:okhttp-socket-ext:(\\d)+\\.(\\d)+\\.(\\d)+"
+            replaceWith = "io.github.ciriti:okhttp-socket-ext:$version"
+        }
+        create("doc1"){
+            path = rootDir.path + "/README.md"
+            find = "io.github.ciriti:gdax-data:1.3.7"
+            replaceWith = "io.github.ciriti:gdax-data:$version"
+        }
+    }
+}

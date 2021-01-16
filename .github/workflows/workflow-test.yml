@@ -38,7 +38,7 @@ jobs:
           ./gradlew app:changeLogUpdate -P releaseNotePath=$RELEASE_NOTE_PATH -P changeLogPath=$CHANGELOG_PATH
       - name: Update README.md
         run: |
-          ./gradlew app:readmeUpdate
+          ./gradlew app:replaceInFile
       - name: Read Release Note
         id: release_note
         uses: juliangruber/read-file-action@v1

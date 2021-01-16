@@ -32,7 +32,7 @@ jobs:
           ./gradlew app:changeLogUpdate
       - name: Update README.md
         run: |
-          ./gradlew app:readmeUpdate
+          ./gradlew app:replaceInFile
       - name: Read Release Note
         id: release_note
         uses: juliangruber/read-file-action@v1

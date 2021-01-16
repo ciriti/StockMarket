@@ -4,6 +4,7 @@ apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.github.bump-versioncode'
 apply plugin: 'io.github.update-changelog'
+apply plugin: "io.github.replace-in-file"
 
 /**
  * This task will create a file version.txt that contains
@@ -113,7 +114,7 @@ dependencies {
 
 // kotlin -> tasks.register<ChangeLogUpdateTask>("changeLogUpdate")
 //task changeLogUpdate(type: ChangeLogUpdateTask)
-task readmeUpdate(type: ReadmeUpdateTask)
+//task readmeUpdate(type: ReadmeUpdateTask)
 task addCommitPush(type: AddCommitPushTask)
 
 versionCodePropPath{
@@ -124,5 +125,20 @@ changeLogConfig{
     changeLogPath = rootDir.path + "/CHANGELOG.md"
     content = file(rootDir.path + "/release_note.txt").text
     version = "$version_name"
+}
+
+replaceInFile{
+    docs{
+        doc{
+            path = rootDir.path + "/README.md"
+            find = "io.github.ciriti:okhttp-socket-ext:(\\d)+\\.(\\d)+\\.(\\d)+"
+            replaceWith = "io.github.ciriti:okhttp-socket-ext:$version_name"
+        }
+        doc1{
+            path = rootDir.path + "/README.md"
+            find = "io.github.ciriti:gdax-data:1.3.7"
+            replaceWith = "io.github.ciriti:gdax-data:$version_name"
+        }
+    }
 }
 

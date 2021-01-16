@@ -5,6 +5,7 @@ apply plugin: 'kotlin-kapt'
 apply plugin: 'io.github.bump-versioncode'
 apply plugin: 'io.github.update-changelog'
 apply plugin: "io.github.replace-in-file"
+apply plugin: "io.github.git-utils"
 
 /**
  * This task will create a file version.txt that contains
@@ -115,7 +116,7 @@ dependencies {
 // kotlin -> tasks.register<ChangeLogUpdateTask>("changeLogUpdate")
 //task changeLogUpdate(type: ChangeLogUpdateTask)
 //task readmeUpdate(type: ReadmeUpdateTask)
-task addCommitPush(type: AddCommitPushTask)
+//task addCommitPush(type: AddCommitPushTask)
 
 versionCodePropPath{
     path = "gradle.properties"
@@ -140,5 +141,19 @@ replaceInFile{
             replaceWith = "io.github.ciriti:gdax-data:$version_name"
         }
     }
+}
+
+addCommitPushConfig{
+//    fileList = [
+//            rootDir.path+'/filetest1.txt',
+//            rootDir.path+'/filetest2.txt'
+//    ]
+}
+
+addCommitPushConfig{
+    fileList = [
+            "$rootDir.path/filetest1.txt".toString(),
+            "$rootDir.path/filetest2.txt".toString()
+    ]
 }
 

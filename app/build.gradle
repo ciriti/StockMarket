@@ -118,24 +118,24 @@ dependencies {
 //task readmeUpdate(type: ReadmeUpdateTask)
 //task addCommitPush(type: AddCommitPushTask)
 
-versionCodePropPath{
+versionCodePropPath {
     path = "gradle.properties"
 }
 
-changeLogConfig{
+changeLogConfig {
     changeLogPath = rootDir.path + "/CHANGELOG.md"
     content = file(rootDir.path + "/release_note.txt").text
     version = "$version_name"
 }
 
-replaceInFile{
-    docs{
-        doc{
+replaceInFile {
+    docs {
+        doc {
             path = rootDir.path + "/README.md"
             find = "io.github.ciriti:okhttp-socket-ext:(\\d)+\\.(\\d)+\\.(\\d)+"
             replaceWith = "io.github.ciriti:okhttp-socket-ext:$version_name"
         }
-        doc1{
+        doc1 {
             path = rootDir.path + "/README.md"
             find = "io.github.ciriti:gdax-data:(\\d)+\\.(\\d)+\\.(\\d)+"
             replaceWith = "io.github.ciriti:gdax-data:$version_name"
@@ -143,17 +143,11 @@ replaceInFile{
     }
 }
 
-addCommitPushConfig{
-//    fileList = [
-//            rootDir.path+'/filetest1.txt',
-//            rootDir.path+'/filetest2.txt'
-//    ]
-}
-
-addCommitPushConfig{
+addCommitPushConfig {
     fileList = [
-            "$rootDir.path/filetest1.txt".toString(),
-            "$rootDir.path/filetest2.txt".toString()
+            rootDir.path + '/CHANGELOG.md', //"$rootDir.path/filetest1.txt".toString(),
+            rootDir.path + '/README.md', // "$rootDir.path/filetest2.txt".toString()
+            rootDir.path + '/app/gradle.properties'
     ]
 }
 

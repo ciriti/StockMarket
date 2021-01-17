@@ -39,17 +39,14 @@ jobs:
       - name: Update README.md
         run: |
           ./gradlew app:replaceInFile
-      - name: Example test output
-        id: test_output
-        run: |
-          echo "::set-output name=content::strawberry"
       - name: Read Release Note
         id: release_note
         run: |
           echo =====================================
-          cat release_note.txt
+          echo 'RELEASE_NOTE<<EOF' >> $GITHUB_ENV
+          cat release_note.txt >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
           echo =====================================
-          echo "::set-output name=content::$(cat release_note.txt)"
       - name: Set the value
         id: step_one
         run: |

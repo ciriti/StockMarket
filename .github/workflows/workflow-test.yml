@@ -50,12 +50,12 @@ jobs:
           cat release_note.txt
           echo =====================================
           echo "::set-output name=content::$(cat release_note.txt)"
-    - name: Set the value
-      id: step_one
-      run: |
-        echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
-        curl https://httpbin.org/json >> $GITHUB_ENV
-        echo 'EOF' >> $GITHUB_ENV
+      - name: Set the value
+        id: step_one
+        run: |
+          echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
+          curl https://httpbin.org/json >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
       - name: Create Release
         id: create_release
         run: |

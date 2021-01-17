@@ -2,7 +2,7 @@ name: TEST - GitHub Tag and Release
 
 on:
   push:
-    branches: [ fix-release-note-disabled ] #[ release/* ]
+    branches: [ disabled ] #[ release/* ]
 #    paths:
 #      - '!README.md'
 #      - '!art/**'
@@ -35,33 +35,32 @@ jobs:
           echo "VERSION_NAME=$(cat app/version.txt)" >> $GITHUB_ENV
       - name: Update CHANGELOG.md
         run: |
-          ./gradlew app:changeLogUpdate -P releaseNotePath=$RELEASE_NOTE_PATH -P changeLogPath=$CHANGELOG_PATH
+          ./gradlew app:changeLogUpdate
       - name: Update README.md
         run: |
           ./gradlew app:replaceInFile
       - name: Read Release Note
         id: release_note
-        uses: juliangruber/read-file-action@v1
-        with:
-          path: ./release_note.txt
+        run: |
+          echo 'RELEASE_NOTE<<EOF' >> $GITHUB_ENV
+          cat release_note.txt >> $GITHUB_ENV
+          echo 'EOF' >> $GITHUB_ENV
+      - name: Create release BODY
+        id: body
+        env:
+          CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+        run: |
+          echo 'BODY<<EOF' >> $GITHUB_ENV
+          echo ## ${{ env.VERSION_NAME }} ${{ env.CURRENT_TIME }} \n${{ env.RELEASE_NOTE }}
+          echo 'EOF' >> $GITHUB_ENV
       - name: Create Release
         id: create_release
         uses: actions/create-release@v1
         env:
-          CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-          RELEASE_NOTE: "${{ steps.release_note.outputs.content }}"
         with:
           tag_name: v${{ env.VERSION_NAME }}
           release_name: v${{ env.VERSION_NAME }}
-          body: |
-            ## ${{ env.VERSION_NAME }} ${{ env.CURRENT_TIME }}
-            ${{ env.RELEASE_NOTE }}
+          body: ${{ env.BODY }}
           draft: false
           prerelease: false
-      - name: Bintray upload artifact
-        run: |
-          ./gradlew okhttp-socket-ext:bintrayUpload datalayer:bintrayUpload
-      - name: Add, commit and push CHANGELOG.md and README.md
-        run: |
-          ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH

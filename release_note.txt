@@ -1,2 +1,2 @@
-* added git utils plugin
-* version 1.3.11
+* replaced github actions for reading the release_note.txt
+* version 1.3.12

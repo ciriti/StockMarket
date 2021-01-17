@@ -2,7 +2,7 @@ name: TEST - GitHub Tag and Release
 
 on:
   push:
-    branches: [ disabled ] #[ release/* ]
+    branches: [ release_note_output ] #[ release/* ]
 #    paths:
 #      - '!README.md'
 #      - '!art/**'

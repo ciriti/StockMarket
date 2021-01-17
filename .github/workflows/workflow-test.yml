@@ -45,7 +45,7 @@ jobs:
           echo =====================================
           cat release_note.txt
           echo =====================================
-          echo "::set-output ::$(cat release_note.txt)"
+          echo "::set-output name=content::$(cat release_note.txt)"
       - name: Create Release
         id: create_release
         run: |

@@ -42,8 +42,11 @@ jobs:
       - name: Read Release Note
         id: release_note
         run: |
-          echo "::set-output name=content::$(cat release_note.txt)"
+          echo =====================================
+          cat release_note.txt
+          echo =====================================
+          echo "::set-output ::$(cat release_note.txt)"
       - name: Create Release
         id: create_release
         run: |
-          echo ${{ steps.release_note.outputs.content }}
+          echo ${{ steps.release_note.outputs }}

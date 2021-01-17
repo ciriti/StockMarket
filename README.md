@@ -107,3 +107,8 @@ dependencies {
     implementation "io.github.ciriti:gdax-data:1.3.11"
 }
 ```
+
+### Version in env
+```
+export VERSION_NAME=$(./gradlew versionTxt -q)
+```

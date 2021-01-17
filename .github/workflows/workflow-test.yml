@@ -47,16 +47,9 @@ jobs:
           cat release_note.txt >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
           echo =====================================
-      - name: Set the value
-        id: step_one
-        run: |
-          echo 'JSON_RESPONSE<<EOF' >> $GITHUB_ENV
-          curl https://httpbin.org/json >> $GITHUB_ENV
-          echo 'EOF' >> $GITHUB_ENV
       - name: Create Release
         id: create_release
         run: |
           echo ${{ steps.release_note.outputs.content }}
           echo ${{ steps.test_output.outputs.content }}
-          echo ${{ env.JSON_RESPONSE }}
           echo ${{ env.RELEASE_NOTE }}

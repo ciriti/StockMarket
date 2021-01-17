@@ -59,3 +59,4 @@ jobs:
           echo ${{ steps.release_note.outputs.content }}
           echo ${{ steps.test_output.outputs.content }}
           echo ${{ env.JSON_RESPONSE }}
+          echo ${{ env.RELEASE_NOTE }}

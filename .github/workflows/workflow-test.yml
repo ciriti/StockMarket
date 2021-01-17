@@ -51,8 +51,7 @@ jobs:
           CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
         run: |
           echo 'BODY<<EOF' >> $GITHUB_ENV
-          echo ## ${{ env.VERSION_NAME }} ${{ env.CURRENT_TIME }}
-          echo ${{ env.RELEASE_NOTE }}
+          echo ## ${{ env.VERSION_NAME }} ${{ env.CURRENT_TIME }} \n${{ env.RELEASE_NOTE }}
           echo 'EOF' >> $GITHUB_ENV
       - name: Create Release
         id: create_release

@@ -45,25 +45,5 @@ jobs:
           echo "##[set-output name=content;]$(cat ./release_note.txt)"
       - name: Create Release
         id: create_release
-#        uses: actions/create-release@v1
-        env:
-          CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-          RELEASE_NOTE: "${{ steps.release_note.outputs.content }}"
         run: |
           echo ${{ steps.release_note.outputs.content }}
-#        with:
-#          tag_name: v${{ env.VERSION_NAME }}
-#          release_name: v${{ env.VERSION_NAME }}
-#          body: |
-#            ## ${{ env.VERSION_NAME }} ${{ env.CURRENT_TIME }}
-#            ${{ env.RELEASE_NOTE }}
-#          draft: false
-#          prerelease: false
-#      - name: Bintray upload artifact
-#        run: |
-#          ./gradlew okhttp-socket-ext:bintrayUpload datalayer:bintrayUpload
-#      - name: Add, commit and push CHANGELOG.md and README.md
-#        run: |
-#          ./gradlew app:addCommitPush
-    #          ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH

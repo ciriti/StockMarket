@@ -59,4 +59,5 @@ jobs:
         env:
           GRADLE_PROPERTIES: "app/gradle.properties"
         run: |
-          ./gradlew app:addCommitPush -P files=$GRADLE_PROPERTIES
+          ./gradlew app:addCommitPush
+#          ./gradlew app:addCommitPush -P files=$GRADLE_PROPERTIES

@@ -1,3 +1,7 @@
+## 1.3.12 (January, 17, 2021)
+* replaced github actions for reading the release_note.txt
+* version 1.3.12
+
 ## 1.3.11 (January, 17, 2021)
 * added git utils plugin
 * version 1.3.11

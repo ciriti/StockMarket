@@ -1,3 +1,7 @@
+## 1.3.11 (January, 17, 2021)
+* added git utils plugin
+* version 1.3.11
+
 ## 1.3.10 (January, 16, 2021)
 * added --ff-only option
 * version 1.3.10

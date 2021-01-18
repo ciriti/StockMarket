@@ -28,18 +28,15 @@ jobs:
           ./gradlew app:versionTxt
           echo "VERSION_NAME=$(cat app/version.txt)" >> $GITHUB_ENV
       - name: Update CHANGELOG.md
-        run: |
-          ./gradlew app:changeLogUpdate
+        run: ./gradlew app:changeLogUpdate
       - name: Update README.md
-        run: |
-          ./gradlew app:replaceInFile
+        run: ./gradlew app:replaceInFile
       - name: Read Release Note
         run: |
           echo 'RELEASE_NOTE<<EOF' >> $GITHUB_ENV
           cat release_note.txt >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
       - name: Create Release
-        id: create_release
         uses: actions/create-release@v1
         env:
           CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
@@ -53,9 +50,6 @@ jobs:
           draft: false
           prerelease: false
       - name: Bintray upload artifact
-        run: |
-          ./gradlew okhttp-socket-ext:bintrayUpload datalayer:bintrayUpload
+        run: ./gradlew okhttp-socket-ext:bintrayUpload datalayer:bintrayUpload
       - name: Add, commit and push CHANGELOG.md and README.md
-        run: |
-          ./gradlew app:addCommitPush
-#          ./gradlew app:addCommitPush -P files=$CHANGELOG_PATH:$README_PATH
+        run: ./gradlew app:addCommitPush

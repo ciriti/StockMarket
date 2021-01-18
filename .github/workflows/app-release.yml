@@ -56,8 +56,5 @@ jobs:
           releaseFiles: ${{steps.sign_app.outputs.signedReleaseFile}}
           track: production
       - name: Add, commit and push CHANGELOG.md and README.md
-        env:
-          GRADLE_PROPERTIES: "app/gradle.properties"
-        run: |
-          ./gradlew app:addCommitPush
+        run: ./gradlew app:addCommitPush
 #          ./gradlew app:addCommitPush -P files=$GRADLE_PROPERTIES

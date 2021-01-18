@@ -1,2 +1,2 @@
-* replaced github actions for reading the release_note.txt
 * version 1.3.12
+* updated suite c-delivery version

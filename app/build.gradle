@@ -152,7 +152,8 @@ addCommitPushConfig {
     fileList = [
             rootDir.path + '/CHANGELOG.md', //"$rootDir.path/filetest1.txt".toString(),
             rootDir.path + '/README.md', // "$rootDir.path/filetest2.txt".toString()
-            rootDir.path + '/app/gradle.properties'
+            rootDir.path + '/app/gradle.properties',
+            rootDir.path + '/release_note.txt'
     ]
 }
 

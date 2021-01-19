@@ -141,8 +141,8 @@ replaceInFile {
             replaceWith = "io.github.ciriti:gdax-data:$version_name"
         }
         release_note{
-            path = rootDir.path + "/README.md"
-            find = "version \"(\\d)+\\.(\\d)+\\.(\\d)+\""
+            path = rootDir.path + "/release_note.txt"
+            find = "version (\\d)+\\.(\\d)+\\.(\\d)+"
             replaceWith = "version $version_name"
         }
     }

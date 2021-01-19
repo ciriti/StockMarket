@@ -1,3 +1,7 @@
+## 1.4.1 (January, 19, 2021)
+* version 1.3.12
+* updated suite c-delivery version
+
 ## 1.4.0 (January, 18, 2021)
 * version 1.3.12
 * updated suite c-delivery version

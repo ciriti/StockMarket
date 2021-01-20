@@ -3,9 +3,9 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'io.github.bump-versioncode'
-apply plugin: 'io.github.update-changelog'
-apply plugin: "io.github.replace-in-file"
-apply plugin: "io.github.git-utils"
+apply plugin: 'io.github.dryrum.update-changelog'
+apply plugin: "io.github.dryrum.replace-in-file"
+apply plugin: "io.github.dryrum.git-utils"
 
 /**
  * This task will create a file version.txt that contains
@@ -55,7 +55,7 @@ dependencies {
     implementation fileTree(dir: 'libs', include: ['*.jar'])
 
     implementation project(":datalayer")
-//    implementation "io.github.ciriti:okhttp-socket-ext:1.0.1"
+//    implementation "io.github.dryrum:okhttp-socket-ext:1.0.1"
 
     implementation Libs.kotlin_stdlib_jdk7
     implementation Libs.kotlin_reflect

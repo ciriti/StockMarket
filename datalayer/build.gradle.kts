@@ -4,7 +4,7 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 plugins {
     id("com.android.library")
     id("maven-publish")
-    id("io.github.replace-in-file")
+    id("io.github.dryrum.replace-in-file")
     kotlin("android")
 }
 // second option

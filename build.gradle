@@ -21,9 +21,9 @@ buildscript {
         // in the individual module build.gradle files
         def cdVersion = "0.6.0"
         classpath "io.github.dryrum:git-utils:$cdVersion"
-        classpath "io.github.ciriti:bump-version-code:0.5.3"
         classpath "io.github.dryrum:update-changelog:$cdVersion"
         classpath "io.github.dryrum:replace-in-file:$cdVersion"
+        classpath "io.github.dryrum:bump-version-code:$cdVersion"
     }
 }
 

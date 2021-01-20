@@ -1,2 +1,2 @@
 * version 1.4.1
-* updated suite c-delivery version
+* updated suite c-delivery version 0.6.1

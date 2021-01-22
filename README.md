@@ -103,8 +103,8 @@ repositories {
 
 ```gradle
 dependencies {
-    implementation "io.github.ciriti:okhttp-socket-ext:1.4.4"
-    implementation "io.github.ciriti:gdax-data:1.4.4"
+    implementation "io.github.ciriti:okhttp-socket-ext:1.4.5"
+    implementation "io.github.ciriti:gdax-data:1.4.5"
 }
 ```
 

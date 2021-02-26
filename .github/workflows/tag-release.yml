@@ -49,7 +49,7 @@ jobs:
             ${{ env.RELEASE_NOTE }}
           draft: false
           prerelease: false
-      - name: Bintray upload artifact
-        run: ./gradlew okhttp-socket-ext:bintrayUpload datalayer:bintrayUpload
+      - name: Maven Central upload artifact
+        run: ./gradlew okhttp-socket-ext:publish datalayer:publish
       - name: Add, commit and push CHANGELOG.md and README.md
         run: ./gradlew app:addCommitPush

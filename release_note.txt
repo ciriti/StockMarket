@@ -1,2 +1,2 @@
-* version 1.4.5
-* updated suite c-delivery ver 0.6.3
+* version 1.4.9
+* publication on Maven Central

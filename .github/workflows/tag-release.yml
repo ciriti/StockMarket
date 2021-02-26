@@ -15,6 +15,11 @@ jobs:
       README_PATH: "README.md"
       BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
       BINTRAY_APIKEY: ${{ secrets.BINTRAY_APIKEY }}
+      OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+      OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+      SIGNING_KEYID: ${{ secrets.SIGNING_KEYID }}
+      SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+      SIGNING_SECRETKEYRINGFILE: ${{ secrets.SIGNING_SECRETKEYRINGFILE }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -23,6 +28,9 @@ jobs:
         id: current-time
         with:
           format: (MMMM, DD, YYYY)
+      - name: Create file for signin the artifact
+        run: |
+          echo '${{ secrets.GPG_ENCODED }}' | base64 --decode > 0FE2A3FE.gpg
       - name: Set version lib into VERSION_NAME variable
         run: |
           ./gradlew app:versionTxt

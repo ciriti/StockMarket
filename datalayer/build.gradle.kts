@@ -5,13 +5,14 @@ plugins {
     id("com.android.library")
     id("maven-publish")
     id("io.github.dryrum.replace-in-file")
+    id("org.jetbrains.dokka")
     kotlin("android")
 }
 // second option
 apply(plugin = "kotlin-android-extensions")
 apply(plugin = "com.jfrog.bintray")
 apply(from = rootDir.path + "/buildfile/ktlint_utils.gradle")
-apply(from = rootDir.path + "/buildfile/publish-android.gradle")
+apply(from = rootDir.path + "/buildfile/publish-mavencentral.gradle")
 
 group = project.property("GROUP_ID") as String
 version = rootProject.extra.get("version_name") as String
@@ -51,7 +52,6 @@ android {
 }
 
 dependencies {
-    implementation(fileTree(mapOf("dir" to "libs", "include" to "*.jar")))
 
     api(project(":okhttp-socket-ext"))
 

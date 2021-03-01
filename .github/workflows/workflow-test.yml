@@ -2,7 +2,7 @@ name: TEST - GitHub Tag and Release
 
 on:
   push:
-    branches: [ publish_porcodio_1 ] #[ release/* ]
+    branches: [ publish_nexus ] #[ release/* ]
 #    paths:
 #      - '!README.md'
 #      - '!art/**'

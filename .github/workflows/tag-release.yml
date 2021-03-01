@@ -15,11 +15,6 @@ jobs:
       README_PATH: "README.md"
       BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
       BINTRAY_APIKEY: ${{ secrets.BINTRAY_APIKEY }}
-      OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
-      OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
-      SIGNING_KEYID: ${{ secrets.SIGNING_KEYID }}
-      SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-      SIGNING_SECRETKEYRINGFILE: ${{ secrets.SIGNING_SECRETKEYRINGFILE }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -57,7 +52,22 @@ jobs:
             ${{ env.RELEASE_NOTE }}
           draft: false
           prerelease: false
-      - name: Maven Central upload artifact
-        run: ./gradlew okhttp-socket-ext:publish datalayer:publish
+      - name: Prepare environment
+        env:
+          SIGNING_SECRET_FILE_CONTENT: ${{ secrets.SIGNING_SECRET_FILE_CONTENT }}
+          SIGNING_SECRET_FILE_PATH: ${{ secrets.SIGNING_SECRET_FILE_PATH }}
+        run: |
+          git fetch --unshallow
+          sudo bash -c "echo '$SIGNING_SECRET_FILE_CONTENT' | base64 -d > '$SIGNING_SECRET_FILE_PATH'"
+      - name: Release build
+        run: ./gradlew assembleRelease
+      - name: Publish to MavenCentral
+        run: ./gradlew publishReleasePublicationToSonatypeRepository --max-workers 1 closeAndReleaseRepository
+        env:
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+          SIGNING_SECRET_FILE: ${{ secrets.SIGNING_SECRET_FILE }}
       - name: Add, commit and push CHANGELOG.md and README.md
         run: ./gradlew app:addCommitPush

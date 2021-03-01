@@ -32,16 +32,16 @@ buildscript {
         // dokka
 //        classpath "org.jetbrains.dokka:dokka-gradle-plugin:"
         // gradle plugin providing tasks to close and promote/release staged repositories
-//        classpath 'io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.30.0'
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.30.0"
     }
 }
 
 plugins {
     id 'digital.wup.android-maven-publish' version '3.6.2'
     // gradle plugin providing tasks to close and promote/release staged repositories
-    id 'io.codearte.nexus-staging' version '0.30.0'
     id 'org.jetbrains.dokka' version '1.4.0-rc'
 }
+apply plugin: "io.codearte.nexus-staging"
 
 allprojects {
     repositories {

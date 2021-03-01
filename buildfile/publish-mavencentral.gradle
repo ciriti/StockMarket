@@ -26,7 +26,6 @@ artifacts {
 
 ext["signing.keyId"] = ''
 ext["signing.password"] = ''
-ext["signing.secretKeyRingFile"] = ''
 ext["signing.signingSecretFile"] = ''
 ext["ossrhUsername"] = ''
 ext["ossrhPassword"] = ''
@@ -42,8 +41,7 @@ if (secretPropsFile.exists()) {
 } else {
     ext["signing.keyId"] = System.getenv('SIGNING_KEY_ID')
     ext["signing.password"] = System.getenv('SIGNING_PASSWORD')
-    ext["signing.secretKeyRingFile"] = System.getenv('SIGNING_SECRET_KEY_RING_FILE')
-    ext["signing.signingSecretFile"] = System.getenv('SIGNING_SECRET_FILE')
+    ext["signing.signingSecretFile"] = System.getenv('SIGNING_SECRET_FILE_PATH')
     ext["ossrhUsername"] = System.getenv('OSSRH_USERNAME')
     ext["ossrhPassword"] = System.getenv('OSSRH_PASSWORD')
     ext["sonatypeStagingProfileId"] = System.getenv('SONATYPE_STAGING_PROFILE_ID')

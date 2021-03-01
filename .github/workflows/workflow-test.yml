@@ -73,6 +73,6 @@ jobs:
           OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
           SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
           SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
-          SIGNING_SECRET_FILE: ${{ secrets.SIGNING_SECRET_FILE }}
+          SIGNING_SECRET_FILE_PATH: ${{ secrets.SIGNING_SECRET_FILE_PATH }}
 #      - name: Add, commit and push CHANGELOG.md and README.md
 #        run: ./gradlew app:addCommitPush

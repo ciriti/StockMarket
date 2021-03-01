@@ -2,7 +2,7 @@ name: TEST - GitHub Tag and Release
 
 on:
   push:
-    branches: [ publish_nexus ] #[ release/* ]
+    branches: [ publish_nexus ] #[ release/*asdf ]
 #    paths:
 #      - '!README.md'
 #      - '!art/**'

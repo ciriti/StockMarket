@@ -21,7 +21,7 @@ buildscript {
         classpath 'com.android.tools.build:gradle:4.0.1'
         classpath "org.jetbrains.kotlin:kotlin-gradle-plugin:$kotlin_version"
         // Bintray
-        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintray_version"
+//        classpath "com.jfrog.bintray.gradle:gradle-bintray-plugin:$bintray_version"
         // NOTE: Do not place your application dependencies here; they belong
         // in the individual module build.gradle files
         def cdVersion = "0.6.3"
@@ -30,7 +30,7 @@ buildscript {
         classpath "io.github.dryrum:replace-in-file:$cdVersion"
         classpath "io.github.dryrum:bump-version-code:$cdVersion"
         // dokka
-        classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.4.0-rc"
+//        classpath "org.jetbrains.dokka:dokka-gradle-plugin:"
         // gradle plugin providing tasks to close and promote/release staged repositories
 //        classpath 'io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.30.0'
     }
@@ -40,6 +40,7 @@ plugins {
     id 'digital.wup.android-maven-publish' version '3.6.2'
     // gradle plugin providing tasks to close and promote/release staged repositories
     id 'io.codearte.nexus-staging' version '0.30.0'
+    id 'org.jetbrains.dokka' version '1.4.0-rc'
 }
 
 allprojects {

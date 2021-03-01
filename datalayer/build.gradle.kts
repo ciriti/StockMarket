@@ -3,14 +3,13 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 // first option
 plugins {
     id("com.android.library")
-    id("maven-publish")
     id("io.github.dryrum.replace-in-file")
-    id("org.jetbrains.dokka")
     kotlin("android")
 }
+
 // second option
 apply(plugin = "kotlin-android-extensions")
-apply(plugin = "com.jfrog.bintray")
+//apply(plugin = "com.jfrog.bintray")
 apply(from = rootDir.path + "/buildfile/ktlint_utils.gradle")
 apply(from = rootDir.path + "/buildfile/publish-mavencentral.gradle")
 
@@ -111,14 +110,14 @@ dependencies {
 
 }
 
-replaceInFile{
-    docs{
-        create("doc"){
+replaceInFile {
+    docs {
+        create("doc") {
             path = rootDir.path + "/README.md"
             find = "io.github.ciriti:okhttp-socket-ext:(\\d)+\\.(\\d)+\\.(\\d)+"
             replaceWith = "io.github.ciriti:okhttp-socket-ext:$version"
         }
-        create("doc1"){
+        create("doc1") {
             path = rootDir.path + "/README.md"
             find = "io.github.ciriti:gdax-data:1.3.7"
             replaceWith = "io.github.ciriti:gdax-data:$version"

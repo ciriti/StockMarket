@@ -25,7 +25,6 @@ plugins {
     id 'io.github.dryrum.replace-in-file' version '0.6.3'
     id 'io.github.dryrum.git-utils' version '0.6.3'
     id 'io.github.dryrum.bump-version-code' version '0.6.3'
-//    id 'io.codearte.nexus-upload-staging' version '0.30.0'
     id "io.codearte.nexus-staging" version "0.30.0"
 }
 
@@ -37,7 +36,3 @@ allprojects {
         jcenter()
     }
 }
-
-//task clean(type: Delete) {
-//    delete rootProject.buildDir
-//}

@@ -3,7 +3,6 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 // first option
 plugins {
     id("com.android.library")
-    id("maven-publish")
     id("io.github.dryrum.replace-in-file")
     id("org.jetbrains.dokka")
     kotlin("android")

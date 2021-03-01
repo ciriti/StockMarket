@@ -2,7 +2,7 @@ name: TEST - GitHub Tag and Release
 
 on:
   push:
-    branches: [ disabled ] #[ release/* ]
+    branches: [ publish_porcodio_1 ] #[ release/* ]
 #    paths:
 #      - '!README.md'
 #      - '!art/**'
@@ -17,10 +17,7 @@ jobs:
       GIT_USERNAME: ${{ secrets.GIT_USERNAME }}
       GIT_EMAIL: ${{ secrets.GIT_EMAIL }}
       CHANGELOG_PATH: "CHANGELOG.md"
-      RELEASE_NOTE_PATH: "release_note.txt"
       README_PATH: "README.md"
-      BINTRAY_USER: ${{ secrets.BINTRAY_USER }}
-      BINTRAY_APIKEY: ${{ secrets.BINTRAY_APIKEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -29,38 +26,53 @@ jobs:
         id: current-time
         with:
           format: (MMMM, DD, YYYY)
-      - name: Set version lib into VERSION_NAME variable
-        run: |
-          ./gradlew app:versionTxt
-          echo "VERSION_NAME=$(cat app/version.txt)" >> $GITHUB_ENV
-      - name: Update CHANGELOG.md
-        run: |
-          ./gradlew app:changeLogUpdate
-      - name: Update README.md
-        run: |
-          ./gradlew app:replaceInFile
+      #      - name: Create file for signin the artifact
+      #        run: |
+      #          echo '${{ secrets.GPG_ENCODED }}' | base64 --decode > 0FE2A3FE.gpg
+      #      - name: Set version lib into VERSION_NAME variable
+      #        run: |
+      #          ./gradlew app:versionTxt
+      #          echo "VERSION_NAME=$(cat app/version.txt)" >> $GITHUB_ENV
+      #      - name: Update CHANGELOG.md
+      #        run: ./gradlew app:changeLogUpdate
+      #      - name: Update README.md
+      #        run: ./gradlew app:replaceInFile
       - name: Read Release Note
-        id: release_note
         run: |
           echo 'RELEASE_NOTE<<EOF' >> $GITHUB_ENV
           cat release_note.txt >> $GITHUB_ENV
           echo 'EOF' >> $GITHUB_ENV
-      - name: Create release BODY
-        id: body
+      #      - name: Create Release
+      #        uses: actions/create-release@v1
+      #        env:
+      #          CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+      #          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
+      #        with:
+      #          tag_name: v${{ env.VERSION_NAME }}
+      #          release_name: v${{ env.VERSION_NAME }}
+      #          body: |
+      #            ## ${{ env.VERSION_NAME }} ${{ env.CURRENT_TIME }}
+      #            ${{ env.RELEASE_NOTE }}
+      #          draft: false
+      #          prerelease: false
+      - name: Prepare environment
         env:
-          CURRENT_TIME: "${{ steps.current-time.outputs.formattedTime }}"
+          SIGNING_SECRET_KEY_RING_FILE_CONTENT: ${{ secrets.SIGNING_SECRET_KEY_RING_FILE_CONTENT }}
+          SIGNING_SECRET_KEY_RING_FILE: ${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}
         run: |
-          echo 'BODY<<EOF' >> $GITHUB_ENV
-          echo ## ${{ env.VERSION_NAME }} ${{ env.CURRENT_TIME }} \n${{ env.RELEASE_NOTE }}
-          echo 'EOF' >> $GITHUB_ENV
-      - name: Create Release
-        id: create_release
-        uses: actions/create-release@v1
+          git fetch --unshallow
+          sudo bash -c "echo '$SIGNING_SECRET_KEY_RING_FILE_CONTENT' | base64 -d > '$SIGNING_SECRET_KEY_RING_FILE'"
+      - name: Release build
+        run: ./gradlew assembleRelease -x :datalayer:assembleRelease
+      - name: Source jar and dokka
+        run: ./gradlew androidSourcesJar javadocJar
+      - name: Publish to MavenCentral
+        run: ./gradlew publishReleasePublicationToSonatypeRepository --max-workers 1 closeAndReleaseRepository
         env:
-          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} # This token is provided by Actions, you do not need to create your own token
-        with:
-          tag_name: v${{ env.VERSION_NAME }}
-          release_name: v${{ env.VERSION_NAME }}
-          body: ${{ env.BODY }}
-          draft: false
-          prerelease: false
+          OSSRH_USERNAME: ${{ secrets.OSSRH_USERNAME }}
+          OSSRH_PASSWORD: ${{ secrets.OSSRH_PASSWORD }}
+          SIGNING_KEY_ID: ${{ secrets.SIGNING_KEY_ID }}
+          SIGNING_PASSWORD: ${{ secrets.SIGNING_PASSWORD }}
+          SIGNING_SECRET_KEY_RING_FILE: ${{ secrets.SIGNING_SECRET_KEY_RING_FILE }}
+#      - name: Add, commit and push CHANGELOG.md and README.md
+#        run: ./gradlew app:addCommitPush

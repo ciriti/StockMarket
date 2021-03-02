@@ -32,7 +32,7 @@ ext["ossrhUsername"] = ''
 ext["ossrhPassword"] = ''
 ext["sonatypeStagingProfileId"] = ''
 
-File secretPropsFile = project.rootProject.file('local.properties__')
+File secretPropsFile = project.rootProject.file('local.properties')
 if (secretPropsFile.exists()) {
     Properties p = new Properties()
     p.load(new FileInputStream(secretPropsFile))

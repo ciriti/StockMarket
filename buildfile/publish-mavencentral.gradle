@@ -105,7 +105,7 @@ publishing {
 
 //            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
 //            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-//            def releasesRepoUrl = "https://s01.oss.sonatype.org/content/repositories/releases"
+            def releasesRepoUrl = "https://s01.oss.sonatype.org/content/repositories/releases"
             def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots"
             url = version_name.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
             println(url)

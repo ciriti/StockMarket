@@ -103,9 +103,9 @@ publishing {
         maven {
             name = "sonatype"
 
-//            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/staging/deploy/maven2/"
+            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
 //            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-            def releasesRepoUrl = "https://s01.oss.sonatype.org/content/repositories/releases"
+//            def releasesRepoUrl = "https://s01.oss.sonatype.org/content/repositories/releases"
             def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots"
             url = version_name.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
             println(url)
@@ -123,14 +123,17 @@ signing {
 }
 
 nexusPublishing {
-    packageGroup = GROUP_ID  //defaults to 'project.group'
-
-    clientTimeout = Duration.ofSeconds(300)
-    connectTimeout = Duration.ofSeconds(60)
-
-    transitionCheckOptions {
-        maxRetries.set(40)
-        delayBetween.set(java.time.Duration.ofMillis(3000))
+    packageGroup = GROUP_ID
+    repositories {
+        if(repositories.findByName("sonatype") == null) {
+            sonatype {  //only for users registered in Sonatype after 24 Feb 2021
+                nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"))
+                snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
+                stagingProfileId = sonatypeStagingProfileId
+                username = ossrhUsername
+                password = ossrhPassword
+            }
+        }
     }
 }
 

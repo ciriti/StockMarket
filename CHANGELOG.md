@@ -1,3 +1,7 @@
+## 1.6.0 (March, 62, 2021)
+* version 1.6.0
+* publication on Nexus Repository
+
 ## 1.4.5 (January, 22, 2021)
 * version 1.4.4
 * updated suite c-delivery ver 0.6.3

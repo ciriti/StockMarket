@@ -14,7 +14,7 @@ import com.tinder.scarlet.lifecycle.android.AndroidLifecycle
 import com.tinder.scarlet.messageadapter.moshi.MoshiMessageAdapter
 import com.tinder.scarlet.retry.ExponentialWithJitterBackoffStrategy
 import com.tinder.scarlet.streamadapter.rxjava2.RxJava2StreamAdapterFactory
-import com.tinder.scarlet.websocket.okhttp.newWebSocketFactory
+//import com.tinder.scarlet.websocket.okhttp.newWebSocketFactory
 import com.tinder.streamadapter.coroutines.CoroutinesStreamAdapterFactory
 import okhttp3.OkHttpClient
 import org.koin.android.ext.koin.androidApplication
@@ -59,39 +59,39 @@ val stockPriceModule = module {
 
     single<Logger> { Logger.debugLogger() }
 
-    single<RxSocketService>(qualifier = named(Constants.WEB_SOCKET_SERVICE_RXJAVA)) {
+//    single<RxSocketService>(qualifier = named(Constants.WEB_SOCKET_SERVICE_RXJAVA)) {
+//
+//        val lifecycle = AndroidLifecycle.ofApplicationForeground(androidApplication())
+//
+//        val okHttpClient = get<OkHttpClient>()
+//
+//        Scarlet.Builder()
+//            .webSocketFactory(okHttpClient.newWebSocketFactory(BuildConfig.SOCKET_URL))
+//            .addMessageAdapterFactory(MoshiMessageAdapter.Factory())
+//            .addStreamAdapterFactory(CoroutinesStreamAdapterFactory())
+//            .addStreamAdapterFactory(RxJava2StreamAdapterFactory())
+//            .backoffStrategy(ExponentialWithJitterBackoffStrategy(5000, 5000))
+//            .lifecycle(lifecycle)
+//            .build()
+//            .create()
+//    }
 
-        val lifecycle = AndroidLifecycle.ofApplicationForeground(androidApplication())
-
-        val okHttpClient = get<OkHttpClient>()
-
-        Scarlet.Builder()
-            .webSocketFactory(okHttpClient.newWebSocketFactory(BuildConfig.SOCKET_URL))
-            .addMessageAdapterFactory(MoshiMessageAdapter.Factory())
-            .addStreamAdapterFactory(CoroutinesStreamAdapterFactory())
-            .addStreamAdapterFactory(RxJava2StreamAdapterFactory())
-            .backoffStrategy(ExponentialWithJitterBackoffStrategy(5000, 5000))
-            .lifecycle(lifecycle)
-            .build()
-            .create()
-    }
-
-    single<StockService> {
-
-        val lifecycle = AndroidLifecycle.ofApplicationForeground(androidApplication())
-
-        val okHttpClient = get<OkHttpClient>()
-
-        Scarlet.Builder()
-            .webSocketFactory(okHttpClient.newWebSocketFactory(BuildConfig.SOCKET_URL))
-            .addMessageAdapterFactory(MoshiMessageAdapter.Factory())
-            .addStreamAdapterFactory(CoroutinesStreamAdapterFactory())
-            .addStreamAdapterFactory(RxJava2StreamAdapterFactory())
-            .backoffStrategy(ExponentialWithJitterBackoffStrategy(5000, 5000))
-            .lifecycle(lifecycle)
-            .build()
-            .create()
-    }
+//    single<StockService> {
+//
+//        val lifecycle = AndroidLifecycle.ofApplicationForeground(androidApplication())
+//
+//        val okHttpClient = get<OkHttpClient>()
+//
+//        Scarlet.Builder()
+//            .webSocketFactory(okHttpClient.newWebSocketFactory(BuildConfig.SOCKET_URL))
+//            .addMessageAdapterFactory(MoshiMessageAdapter.Factory())
+//            .addStreamAdapterFactory(CoroutinesStreamAdapterFactory())
+//            .addStreamAdapterFactory(RxJava2StreamAdapterFactory())
+//            .backoffStrategy(ExponentialWithJitterBackoffStrategy(5000, 5000))
+//            .lifecycle(lifecycle)
+//            .build()
+//            .create()
+//    }
 
     single<OkHttpClient> {
         OkHttpClient.Builder()

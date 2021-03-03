@@ -76,7 +76,7 @@ dependencies {
     implementation(Libs.scarlet_lifecycle_android)
 
     implementation(Libs.converter_gson)
-    implementation(Libs.okhttp)
+    api(Libs.okhttp)
 
     implementation(Libs.lifecycle_viewmodel)
     implementation(Libs.lifecycle_runtime_ktx)

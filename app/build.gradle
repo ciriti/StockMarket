@@ -12,8 +12,6 @@ apply plugin: "io.github.dryrum.git-utils"
  * the version name used to create tag and release on github
  */
 apply from: '../buildfile/version-utils.gradle'
-//apply from: rootDir.path + '/buildfile/changelog_utils.gradle'
-//apply from: rootDir.path + '/buildfile/ktlint_utils.gradle'
 
 android {
     compileSdkVersion 29
@@ -80,7 +78,6 @@ dependencies {
     implementation Libs.scarlet_lifecycle_android
 
     implementation Libs.converter_gson
-//    implementation Libs.okhttp
 
     implementation Libs.lifecycle_viewmodel
     implementation Libs.lifecycle_runtime_ktx

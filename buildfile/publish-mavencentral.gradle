@@ -2,7 +2,6 @@ apply plugin: 'maven-publish'
 apply plugin: 'signing'
 apply plugin: 'org.jetbrains.dokka'
 
-
 task androidSourcesJar(type: Jar) {
     archiveClassifier.set('sources')
     if (project.plugins.findPlugin("com.android.library")) {
@@ -23,7 +22,6 @@ artifacts {
     archives androidSourcesJar
     archives javadocJar
 }
-
 
 ext["signing.keyId"] = ''
 ext["signing.password"] = ''
@@ -57,7 +55,7 @@ publishing {
             if (project.plugins.findPlugin("com.android.library")) {
                 artifact("$buildDir/outputs/aar/${project.getName()}-release.aar")
             } else {
-                artifact("$buildDir/libs/${project.getName()}-${version_name}.jar")
+                artifact("$buildDir/libs/${project.getName()}-${version}.jar")
             }
 
             artifact androidSourcesJar
@@ -101,10 +99,12 @@ publishing {
     repositories {
         maven {
             name = "sonatype"
-            def releasesRepoUrl = "https://s01.oss.sonatype.org/content/repositories/releases"
-            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots"
-            url = version_name.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+
+            def releasesRepoUrl = "https://oss.sonatype.org/service/local/staging/deploy/maven2/"
+            def snapshotsRepoUrl = "https://oss.sonatype.org/content/repositories/snapshots/"
+            url = version.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
             println(url)
+
             credentials {
                 username ossrhUsername
                 password ossrhPassword
@@ -113,7 +113,13 @@ publishing {
     }
 }
 
+nexusStaging {
+    packageGroup = GROUP_ID
+    stagingProfileId = sonatypeStagingProfileId
+    username = ossrhUsername
+    password = ossrhPassword
+}
+
 signing {
     sign publishing.publications
 }
-

@@ -3,14 +3,12 @@ import org.jetbrains.kotlin.gradle.tasks.KotlinCompile
 // first option
 plugins {
     id("com.android.library")
-    id("maven-publish")
     id("io.github.dryrum.replace-in-file")
     id("org.jetbrains.dokka")
     kotlin("android")
 }
 // second option
 apply(plugin = "kotlin-android-extensions")
-apply(plugin = "com.jfrog.bintray")
 apply(from = rootDir.path + "/buildfile/ktlint_utils.gradle")
 apply(from = rootDir.path + "/buildfile/publish-mavencentral.gradle")
 
@@ -78,7 +76,7 @@ dependencies {
     implementation(Libs.scarlet_lifecycle_android)
 
     implementation(Libs.converter_gson)
-    implementation(Libs.okhttp)
+    api(Libs.okhttp)
 
     implementation(Libs.lifecycle_viewmodel)
     implementation(Libs.lifecycle_runtime_ktx)

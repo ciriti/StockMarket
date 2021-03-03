@@ -16,7 +16,7 @@ buildscript {
         // in the individual module build.gradle files
 
         classpath "org.jetbrains.dokka:dokka-gradle-plugin:1.4.0-rc"
-        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.22.0"
+        classpath "io.codearte.gradle.nexus:gradle-nexus-staging-plugin:0.22.0" // original
     }
 }
 
@@ -25,10 +25,9 @@ plugins {
     id 'io.github.dryrum.replace-in-file' version '0.6.3'
     id 'io.github.dryrum.git-utils' version '0.6.3'
     id 'io.github.dryrum.bump-version-code' version '0.6.3'
-//    id "io.github.gradle-nexus.publish-plugin" version "1.0.0"
 }
 
-apply plugin: 'io.codearte.nexus-staging'
+apply plugin: 'io.codearte.nexus-staging' // original
 
 allprojects {
     repositories {

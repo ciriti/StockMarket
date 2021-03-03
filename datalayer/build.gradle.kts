@@ -10,6 +10,7 @@ plugins {
 // second option
 apply(plugin = "kotlin-android-extensions")
 apply(from = rootDir.path + "/buildfile/ktlint_utils.gradle")
+//apply(from = rootDir.path + "/buildfile/publish-mavencentral.gradle")
 apply(from = rootDir.path + "/buildfile/publish-mavencentral-original.gradle")
 
 group = project.property("GROUP_ID") as String

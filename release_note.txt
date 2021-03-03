@@ -1,2 +1,2 @@
-* version 1.4.42
-* publication on Maven Central
+* version 1.6.0
+* publication on Nexus Repository

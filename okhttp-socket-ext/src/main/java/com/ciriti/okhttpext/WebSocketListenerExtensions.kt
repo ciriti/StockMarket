@@ -1,8 +1,7 @@
 package com.ciriti.okhttpext
 
-import okhttp3.*
+import okhttp3.* // ktlint-disable
 import okio.ByteString
-
 
 fun OkHttpClient.newWebSocket(request: Request, block: WebSocketListenerExt.() -> Unit): WebSocket {
     val listener = WebSocketListenerImpl().apply(block)

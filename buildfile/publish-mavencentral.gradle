@@ -99,23 +99,23 @@ publishing {
             }
         }
     }
-    repositories {
-        maven {
-            name = "sonatype"
-
-//            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
-//            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
-            def releasesRepoUrl = "https://s01.oss.sonatype.org/content/repositories/releases"
-            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots"
-            url = version_name.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
-            println(url)
-
-            credentials {
-                username ossrhUsername
-                password ossrhPassword
-            }
-        }
-    }
+//    repositories {
+//        maven {
+//            name = "sonatype"
+//
+////            def releasesRepoUrl = "https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"
+////            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots/"
+//            def releasesRepoUrl = "https://s01.oss.sonatype.org/content/repositories/releases"
+//            def snapshotsRepoUrl = "https://s01.oss.sonatype.org/content/repositories/snapshots"
+//            url = version_name.endsWith('SNAPSHOT') ? snapshotsRepoUrl : releasesRepoUrl
+//            println(url)
+//
+//            credentials {
+//                username ossrhUsername
+//                password ossrhPassword
+//            }
+//        }
+//    }
 }
 
 signing {
@@ -126,13 +126,17 @@ nexusPublishing {
     packageGroup = GROUP_ID
     repositories {
         if(repositories.findByName("sonatype") == null) {
+            println("dio porco")
             sonatype {  //only for users registered in Sonatype after 24 Feb 2021
-                nexusUrl.set(uri("https://s01.oss.sonatype.org/service/local/staging/deploy/maven2/"))
+                nexusUrl.set(uri("https://s01.oss.sonatype.org/content/groups/staging/"))
                 snapshotRepositoryUrl.set(uri("https://s01.oss.sonatype.org/content/repositories/snapshots/"))
                 stagingProfileId = "58097e20b0bc9"//sonatypeStagingProfileId
                 username = ossrhUsername
                 password = ossrhPassword
             }
+        }
+        else{
+            println("dio cane")
         }
     }
 }

@@ -36,7 +36,7 @@ object Versions {
     const val arrow_core: String =
         "0.10.4" // No update information. Is this dependency available on jcenter or mavenCentral?
 
-    const val io_mockk: String = "1.10.0" //available: "1.9.3"
+    const val io_mockk: String = "1.10.6" //available: "1.9.3"
 
     const val jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin: String = "0.2.6"
 

@@ -38,7 +38,7 @@
 The endpoint used in this example is below 
 
 ```
-wss://ws-feed.gdax.com
+wss://ws-feed.pro.coinbase.com // deprecated -> wss://ws-feed.pro.coinbase.com
 ```
 
 You can test it using the following utility 

@@ -1,4 +1,4 @@
-* version 1.6.0
+* version 1.7.0
 * new SOCKET_URL "wss://ws-feed.pro.coinbase.com" the old one "wss://ws-feed.gdax.com" is now deprecated
 * upgraded koin to 2.2.3
 * removed bintray ref

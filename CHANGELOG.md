@@ -1,3 +1,11 @@
+## 1.7.0 (May, 142, 2021)
+* version 1.6.0
+* new SOCKET_URL "wss://ws-feed.pro.coinbase.com" the old one "wss://ws-feed.gdax.com" is now deprecated
+* upgraded koin to 2.2.3
+* removed bintray ref
+* upgraded gradle to v6.5.1
+* upgraded the android build tool plugin to v4.1.3
+
 ## 1.6.0 (March, 62, 2021)
 * version 1.6.0
 * publication on Nexus Repository

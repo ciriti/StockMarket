@@ -28,12 +28,12 @@ android {
 
     buildTypes {
         getByName("debug") {
-            buildConfigField("String", "SOCKET_URL", "\"wss://ws-feed.gdax.com\"")
+            buildConfigField("String", "SOCKET_URL", "\"wss://ws-feed.pro.coinbase.com\"")
             buildConfigField("String", "URL_PRODUCTS", "\"https://api.gdax.com/products\"")
         }
         getByName("release") {
             isMinifyEnabled = false
-            buildConfigField("String", "SOCKET_URL", "\"wss://ws-feed.gdax.com\"")
+            buildConfigField("String", "SOCKET_URL", "\"wss://ws-feed.pro.coinbase.com\"")
             buildConfigField("String", "URL_PRODUCTS", "\"https://api.gdax.com/products\"")
             proguardFiles(getDefaultProguardFile("proguard-android-optimize.txt"), "proguard-rules.pro")
         }

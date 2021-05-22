@@ -135,12 +135,15 @@ object Libs {
     const val kotlinx_coroutines_android: String =
             "org.jetbrains.kotlinx:kotlinx-coroutines-android:" + Versions.kotlinx_coroutines_android
 
+    const val koin_android: String =
+            "org.koin:koin-android:" + Versions.org_koin
+
     const val koin_android_viewmodel: String =
-            "org.koin:koin-android-viewmodel:" + Versions.org_koin
+            "io.insert-koin:koin-androidx-viewmodel:" + Versions.org_koin
 
-    const val koin_core: String = "org.koin:koin-core:" + Versions.org_koin
+    const val koin_core: String = "io.insert-koin:koin-core:" + Versions.org_koin
 
-    const val koin_test: String = "org.koin:koin-test:" + Versions.org_koin
+    const val koin_test: String = "io.insert-koin:koin-test:" + Versions.org_koin
 
     const val scarlet: String = "com.tinder.scarlet:scarlet:" + Versions.scarlet
 

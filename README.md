@@ -2,8 +2,9 @@
 [![https://github.com/ciriti/StockMarket/workflows/GitHub%20Tag%20and%20Release/badge.svg](https://github.com/ciriti/StockMarket/workflows/GitHub%20Tag%20and%20Release/badge.svg)](https://github.com/ciriti/StockMarket/actions?query=workflow%3A%22GitHub+Tag+and+Release%22)
 [![https://github.com/ciriti/StockMarket/workflows/App%20Release/badge.svg](https://github.com/ciriti/StockMarket/workflows/App%20Release/badge.svg)](https://github.com/ciriti/StockMarket/actions?query=workflow%3A%22App+Release%22)
 
-[![Bintray](https://img.shields.io/bintray/v/ciriti/gdax/gdax-datalayer?label=gdax-datalayer)](https://bintray.com/ciriti/gdax/gdax-datalayer)
-[![Bintray](https://img.shields.io/bintray/v/ciriti/gdax/okhttp-socket-ext?label=okhttp-socket-ext)](https://bintray.com/ciriti/gdax/okhttp-socket-ext)
+## gdax-datalayer [![Bintray](https://img.shields.io/maven-central/v/io.github.ciriti/gdax-datalayer)](https://search.maven.org/search?q=a:gdax-datalayer)
+
+## okhttp-socket-ext [![Bintray](https://img.shields.io/maven-central/v/io.github.ciriti/okhttp-socket-ext)](https://search.maven.org/search?q=a:okhttp-socket-ext)
 
 # StockMarket 
 [![Get it on Google Play](art/gplay.png)](https://play.google.com/store/apps/details?id=com.ciriti.stockmarket&pcampaignid=pcampaignidMKT-Other-global-all-co-prtnr-py-PartBadge-Mar2515-1)
@@ -38,7 +39,7 @@
 The endpoint used in this example is below 
 
 ```
-wss://ws-feed.gdax.com
+wss://ws-feed.pro.coinbase.com // deprecated -> wss://ws-feed.pro.coinbase.com
 ```
 
 You can test it using the following utility 

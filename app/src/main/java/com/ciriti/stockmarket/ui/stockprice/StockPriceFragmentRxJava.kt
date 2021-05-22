@@ -12,7 +12,7 @@ import com.ciriti.stockmarket.R
 import com.ciriti.stockmarket.ui.stockprice.uicomponent.GDAXAdapter
 import kotlinx.android.synthetic.main.fragment_stock_price.* // ktlint-disable
 import org.koin.android.ext.android.inject
-import org.koin.android.viewmodel.ext.android.viewModel
+import org.koin.androidx.viewmodel.ext.android.viewModel
 
 class StockPriceFragmentRxJava : Fragment() {
 

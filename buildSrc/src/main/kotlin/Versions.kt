@@ -36,7 +36,7 @@ object Versions {
     const val arrow_core: String =
         "0.10.4" // No update information. Is this dependency available on jcenter or mavenCentral?
 
-    const val io_mockk: String = "1.10.6" //available: "1.9.3"
+    const val io_mockk: String = "1.11.0" //available: "1.9.3"
 
     const val jmfayard_github_io_gradle_kotlin_dsl_libs_gradle_plugin: String = "0.2.6"
 
@@ -54,7 +54,7 @@ object Versions {
 
     const val kotlinx_coroutines_android: String = "1.3.8" //available: "1.3.3-1.3.70-eap-42"
 
-    const val org_koin: String = "2.0.1"
+    const val org_koin: String = "2.2.3"
 
     const val scarlet: String = "0.1.10"
 

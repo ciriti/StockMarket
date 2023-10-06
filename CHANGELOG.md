@@ -1,3 +1,6 @@
+## 1.7.1 (October, 279, 2023)
+* version 1.7.1
+
 ## 1.7.0 (May, 142, 2021)
 * version 1.6.0
 * new SOCKET_URL "wss://ws-feed.pro.coinbase.com" the old one "wss://ws-feed.gdax.com" is now deprecated

@@ -89,14 +89,11 @@ https://www.websocket.org/echo.html
 
 ## Config 
 
-### Bintray 
-
-Check that you have the `bintray` repository. 
+### Maven Central 
 
 ```gradle
-// Add Bintray to your repositories
 repositories {
-    maven { url  "https://dl.bintray.com/ciriti/gdax" }
+    mavenCentral()
 }
 ```
 
